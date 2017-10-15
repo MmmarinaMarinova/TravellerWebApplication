@@ -16,7 +16,7 @@ public class Post {
     date_time TIMESTAMP
     location_id INT(11)*/
 
-    private int id;
+    private long id;
     private User user;
     private String description;
     private int likesCount;
@@ -25,7 +25,8 @@ public class Post {
     private Location location;
     private HashSet<Category> categories;
 
-    public Post(User userId, String description, Timestamp dateTime, Location location, HashSet<Category> categories) {
+    //constructor to be used when putting object in database
+    public Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories) {
         this.user = user;
         this.description = description;
         this.dateTime = dateTime;
@@ -33,14 +34,11 @@ public class Post {
         this.categories = categories;
     }
 
-    public Post(int id, User user, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, HashSet<Category> categories) {
+    //constructor to be used when fetching from database
+    public Post(long id, User user, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, HashSet<Category> categories) {
+        this(user, description, dateTime,location,categories);
         this.id = id;
-        this.user = user;
-        this.description = description;
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
-        this.dateTime = dateTime;
-        this.location = location;
-        this.categories = categories;
     }
 }
