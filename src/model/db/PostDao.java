@@ -15,7 +15,7 @@ public class PostDao {
     private PostDao() {}
 
     public static synchronized PostDao getInstance(){
-        if(instance!=null){
+        if(instance==null){
             instance=new PostDao();
         }
         return instance;

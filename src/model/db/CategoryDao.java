@@ -13,7 +13,7 @@ public class CategoryDao {
     private CategoryDao(){}
 
     public static synchronized CategoryDao getInstance() {
-        if(instance!=null){
+        if(instance==null){
             instance=new CategoryDao();
         }
         return instance;
