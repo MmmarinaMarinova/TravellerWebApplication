@@ -12,7 +12,7 @@ import model.VisitedLocation;
 import model.exceptions.UserException;
 import model.exceptions.VisitedLocationException;
 
-public class UserDao { //used to operate with the following tables: 'users', 'users_followers'
+public class UserDao { //used to operate with the following tables: 'users', 'users_followers', 'wishlists'
 	private static UserDao instance;
 
 	private UserDao() {
@@ -147,6 +147,24 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 			following.add(this.getUserById(rs.getLong("followed_id")));
 		}
 		return following;
+	}
+	
+	public void addToWishlist(User u, Location l) throws SQLException {
+		Connection con = DBManager.getInstance().getConnection();
+		PreparedStatement ps = con.prepareStatement(
+				"insert into wishlists (user_id, location_id) value (?, ?);");
+		ps.setLong(1,u.getUserId()); 
+		ps.setLong(2, l.getLocationId());
+		ps.executeUpdate();
+	}
+	
+	public void removeFromWishlist(User u, Location l) throws SQLException {
+		Connection con = DBManager.getInstance().getConnection();
+		PreparedStatement ps = con.prepareStatement(
+				"delete from wishlists (user_id, location_id) value (?, ?);");
+		ps.setLong(1,u.getUserId()); 
+		ps.setLong(2, l.getLocationId());
+		ps.executeUpdate();
 	}
 	
 }
