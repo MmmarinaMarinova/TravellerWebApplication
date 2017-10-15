@@ -12,7 +12,7 @@ import model.VisitedLocation;
 import model.exceptions.UserException;
 import model.exceptions.VisitedLocationException;
 
-public class UserDao { //used to operate with the following tables: 'users', 'users_followers'
+public class UserDao { //used to operate with the following tables: 'users', 'users_followers', 'wishlists'
 	private static UserDao instance;
 
 	private UserDao() {
@@ -82,6 +82,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"update users set password = ? where user_id = ?");
 		ps.setString(1, newPassword); //hashing required
 		ps.setLong(2, u.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void changeProfilePicId(User u, long profilePicId) throws SQLException {
@@ -90,6 +91,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"update users set profile_pic_id = ? where user_id = ?");
 		ps.setLong(1, profilePicId); 
 		ps.setLong(2, u.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void changeDescription(User u, String description) throws SQLException {
@@ -98,6 +100,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"update users set description = ? where user_id = ?");
 		ps.setString(1, description); 
 		ps.setLong(2, u.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void follow(User follower, User followed) throws SQLException {
@@ -106,6 +109,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"insert into users_followers (follower_id, followed_id) value (?, ?);");
 		ps.setLong(1,follower.getUserId()); 
 		ps.setLong(2, followed.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void unfollow(User follower, User followed) throws SQLException {
@@ -114,6 +118,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"delete from users_followers where follower_id = ? and followed_id = ?");
 		ps.setLong(1,follower.getUserId()); 
 		ps.setLong(2, followed.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public HashSet<User> getFollowers(long followed_id) throws SQLException, UserException, VisitedLocationException {
@@ -140,6 +145,24 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 			following.add(this.getUserById(rs.getLong("followed_id")));
 		}
 		return following;
+	}
+	
+	public void addToWishlist(User u, Location l) throws SQLException {
+		Connection con = DBManager.getInstance().getConnection();
+		PreparedStatement ps = con.prepareStatement(
+				"insert into wishlists (user_id, location_id) value (?, ?);");
+		ps.setLong(1,u.getUserId()); 
+		ps.setLong(2, l.getLocationId());
+		ps.executeUpdate();
+	}
+	
+	public void removeFromWishlist(User u, Location l) throws SQLException {
+		Connection con = DBManager.getInstance().getConnection();
+		PreparedStatement ps = con.prepareStatement(
+				"delete from wishlists (user_id, location_id) value (?, ?);");
+		ps.setLong(1,u.getUserId()); 
+		ps.setLong(2, l.getLocationId());
+		ps.executeUpdate();
 	}
 	
 }
