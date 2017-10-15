@@ -23,22 +23,34 @@ public class Post {
     private Timestamp dateTime;
     private Location location;
     private HashSet<Category> categories;
+    private HashSet<Multimedia> multimedia;
+    private HashSet<User> taggedPeople;
 
     //constructor to be used when putting object in database
-    public Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories) {
+    public Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) {
         this.user = user;
         this.description = description;
         this.dateTime = dateTime;
         this.location = location;
         this.categories = categories;
+        this.multimedia=multimedia;
+        this.taggedPeople=taggedPeople;
     }
 
     //constructor to be used when fetching from database
-    public Post(long id, User user, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, HashSet<Category> categories) {
-        this(user, description, dateTime,location,categories);
+    public Post(long id, User user, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, HashSet<Category> categories,HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) {
+        this(user, description, dateTime,location,categories, multimedia,taggedPeople);
         this.id = id;
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
+    }
+
+    public Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) {
+        this.id = id;
+        this.description = description;
+        this.likesCount = likesCount;
+        this.dislikesCount = dislikesCount;
+        this.dateTime = dateTime;
     }
 
     public long getId() {
@@ -103,5 +115,21 @@ public class Post {
 
     public void setCategories(HashSet<Category> categories) {
         this.categories = categories;
+    }
+
+    public HashSet<Multimedia> getMultimedia() {
+        return this.multimedia;
+    }
+
+    public void setMultimedia(HashSet<Multimedia> multimedia) {
+        this.multimedia = multimedia;
+    }
+
+    public HashSet<User> getTaggedPeople() {
+        return this.taggedPeople;
+    }
+
+    public void setTaggedPeople(HashSet<User> taggedPeople) {
+        this.taggedPeople = taggedPeople;
     }
 }

@@ -31,4 +31,15 @@ public class CategoryDao {
         category.setId(rs.getLong(1));
     }
 
+    public Category getCategory(String categoryName) throws SQLException {
+        Connection con = DBManager.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement(
+                "select category_id from categories where category_name= ? ;");
+        ps.setString(1, categoryName);
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        rs.next();
+        Category category=new Category(rs.getLong("category_id"), categoryName);
+        return category;
+    }
 }

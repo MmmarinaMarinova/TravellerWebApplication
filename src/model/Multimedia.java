@@ -27,4 +27,36 @@ post_id INT(11)*/
         this.isVideo = isVideo;
         this.post = post;
     }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public boolean isVideo() {
+        return this.isVideo;
+    }
+
+    public void setVideo(boolean video) {
+        isVideo = video;
+    }
+
+    public Post getPost() {
+        return this.post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }

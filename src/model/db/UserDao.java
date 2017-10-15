@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 
+import model.Location;
 import model.User;
 import model.VisitedLocation;
 import model.exceptions.UserException;
@@ -15,8 +16,7 @@ import model.exceptions.VisitedLocationException;
 public class UserDao { //used to operate with the following tables: 'users', 'users_followers', 'wishlists'
 	private static UserDao instance;
 
-	private UserDao() {
-	}
+	private UserDao() {}
 
 	public static synchronized UserDao getInstance() {
 		if (instance == null) {
@@ -62,7 +62,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				rs.getString("description"), followers, following, visitedLocations);
 	}
 	
-	public User getUserById(long user_id) throws SQLException, UserException, VisitedLocationException {
+	public static User getUserById(long user_id) throws SQLException, UserException, VisitedLocationException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con
 				.prepareStatement("select username, password, profile_pic_id, description from users where id = ?");
@@ -154,7 +154,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 		PreparedStatement ps = con.prepareStatement(
 				"insert into wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1,u.getUserId()); 
-		ps.setLong(2, l.getLocationId());
+		ps.setLong(2, l.getId());
 		ps.executeUpdate();
 	}
 	
@@ -163,8 +163,10 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 		PreparedStatement ps = con.prepareStatement(
 				"delete from wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1,u.getUserId()); 
-		ps.setLong(2, l.getLocationId());
+		ps.setLong(2, l.getId());
 		ps.executeUpdate();
 	}
+
+
 	
 }
