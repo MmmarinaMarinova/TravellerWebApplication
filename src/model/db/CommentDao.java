@@ -78,6 +78,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 				"update comments set likes_counter = ? where id = ?;");
 		ps.setInt(1, c.getLikesCount()+1);
 		ps.setLong(2, c.getId());
+		ps.executeUpdate();
 	}
 
 	public void incrementDislikes(Comment c) throws SQLException {
@@ -86,6 +87,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 				"update comments set dislikes_counter = ? where id = ?;");
 		ps.setInt(1, c.getDislikesCount()+1);
 		ps.setLong(2, c.getId());
+		ps.executeUpdate();
 	}
 	
 	public TreeSet<Comment> getCommentsForPost(long postId) throws SQLException, CommentException {

@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * Created by Marina on 15.10.2017 г..
@@ -30,5 +30,43 @@ location_name VARCHAR(45)*/
         this.id = id;
     }
 
+    public long getId() {
+        return this.id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongtitute() {
+        return this.longtitute;
+    }
+
+    public void setLongtitute(String longtitute) {
+        this.longtitute = longtitute;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLocationName() {
+        return this.locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
 }

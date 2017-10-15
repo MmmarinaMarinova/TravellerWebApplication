@@ -82,6 +82,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"update users set password = ? where user_id = ?");
 		ps.setString(1, newPassword); //hashing required
 		ps.setLong(2, u.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void changeProfilePicId(User u, long profilePicId) throws SQLException {
@@ -90,6 +91,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"update users set profile_pic_id = ? where user_id = ?");
 		ps.setLong(1, profilePicId); 
 		ps.setLong(2, u.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void changeDescription(User u, String description) throws SQLException {
@@ -98,6 +100,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"update users set description = ? where user_id = ?");
 		ps.setString(1, description); 
 		ps.setLong(2, u.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void follow(User follower, User followed) throws SQLException {
@@ -106,6 +109,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"insert into users_followers (follower_id, followed_id) value (?, ?);");
 		ps.setLong(1,follower.getUserId()); 
 		ps.setLong(2, followed.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public void unfollow(User follower, User followed) throws SQLException {
@@ -114,6 +118,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 				"delete from users_followers where follower_id = ? and followed_id = ?");
 		ps.setLong(1,follower.getUserId()); 
 		ps.setLong(2, followed.getUserId());
+		ps.executeUpdate();
 	}
 	
 	public HashSet<User> getFollowers(long followed_id) throws SQLException, UserException, VisitedLocationException {
@@ -122,6 +127,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 		PreparedStatement ps = con.prepareStatement(
 				"select follower_id from users_followers where followed_id = ?");
 		ps.setLong(1, followed_id);
+		ps.executeUpdate();
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 			followers.add(this.getUserById(rs.getLong("follower_id")));
@@ -135,6 +141,7 @@ public class UserDao { //used to operate with the following tables: 'users', 'us
 		PreparedStatement ps = con.prepareStatement(
 				"select followed_id from users_followers where follower_id = ?");
 		ps.setLong(1, follower_id);
+		ps.executeUpdate();
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 			following.add(this.getUserById(rs.getLong("followed_id")));
