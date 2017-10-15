@@ -23,9 +23,9 @@ post_id INT(11)*/
 
     //constructor to be used when putting object in database
     public Multimedia(String url, boolean isVideo, long postId) {
-        this.url = url;
-        this.isVideo = isVideo;
-        this.id = postId;
+        this.setUrl(url);
+        this.setVideo(isVideo);
+        this.setPostId(postId);
     }
 
     public long getId() {
@@ -41,6 +41,7 @@ post_id INT(11)*/
     }
 
     public void setUrl(String url) {
+        //TODO regex for url
         this.url = url;
     }
 

@@ -25,7 +25,7 @@ public class LocationDao {
                 "insert into locations( latitude,longtitude, description, location_name) value (?,?,?,?);",
                 Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, location.getLatitude());
-        ps.setString(2,location.getLongtitute());
+        ps.setString(2,location.getLongtitude());
         ps.setString(3,location.getDescription());
         ps.setString(4,location.getLocationName());
         ps.executeUpdate();

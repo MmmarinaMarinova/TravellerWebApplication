@@ -1,13 +1,17 @@
 package model;
 
+import model.exceptions.PostException;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
+
 
 /**
  * Created by Marina on 15.10.2017 г..
  */
 public class Post {
+    private static final int MIN_LENGTH = 5;
+    private static final int MAX_LENGTH = 255;
    /* post_id INT(11)
     user_id INT(11)
     description VARCHAR(1000)
@@ -28,9 +32,9 @@ public class Post {
     private ArrayList<Long> taggedPeopleIds;
 
     //constructor to be used when putting object in database
-    public Post(long userId, String description, Timestamp dateTime, Location location, ArrayList<Long> categoriesIds, ArrayList<Long> multimediaIds,ArrayList<Long> taggedPeopleIds) {
+    public Post(long userId, String description, Timestamp dateTime, Location location, ArrayList<Long> categoriesIds, ArrayList<Long> multimediaIds,ArrayList<Long> taggedPeopleIds) throws PostException {
         this.userId = userId;
-        this.description = description;
+        this.setDescription(description);
         this.dateTime = dateTime;
         this.location = location;
         this.categoriesIds = categoriesIds;
@@ -39,16 +43,16 @@ public class Post {
     }
 
     //constructor to be used when fetching from database
-    public Post(long id, long userId, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, ArrayList<Long> categories,ArrayList<Long> multimedia, ArrayList<Long> taggedPeople) {
+    public Post(long id, long userId, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, ArrayList<Long> categories,ArrayList<Long> multimedia, ArrayList<Long> taggedPeople) throws PostException {
         this(userId, description, dateTime,location,categories, multimedia,taggedPeople);
         this.id = id;
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
     }
 
-    public Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) {
+    public Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
         this.id = id;
-        this.description = description;
+        this.setDescription(description);
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
         this.dateTime = dateTime;
@@ -74,7 +78,16 @@ public class Post {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws PostException {
+        if(!description.isEmpty()){
+            if(description.length()<MIN_LENGTH){
+                throw new PostException("Name of the category is too short. It should be more than "+MIN_LENGTH+" symbols.");
+            }else if(description.length()>MAX_LENGTH){
+                throw new PostException("Name of the category is too long. It should be less than"+MAX_LENGTH+" symbols");
+            }
+        }else{
+            throw new PostException("Name of the category should not be empty!");
+        }
         this.description = description;
     }
 
