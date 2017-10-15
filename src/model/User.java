@@ -1,6 +1,6 @@
 package model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import model.exceptions.UserException;
 
@@ -11,12 +11,11 @@ public final class User {
 	private String password = null;
 	private long profilePicId = 0; // default profile pic id must be 0
 	private String description = "";
-	private HashSet<User> followers = null;
-	private HashSet<User> following = null;
-	private HashSet<VisitedLocation> visitedLocations = null;
-	private HashSet<Location> wishlist = null;
-	private HashSet<Post> posts = null;
-	
+	private ArrayList<Long> followersIds = null;
+	private ArrayList<Long> followingIds = null;
+	private ArrayList<Long> visitedLocationsIds = null;
+	private ArrayList<Long> locationsFromWishlistIds = null;
+	private ArrayList<Long> postsIds = null;
 	// constants
 	private static final int MIN_USERNAME_LENGTH = 5;
 	private static final int MAX_USERNAME_LENGTH = 45;
@@ -30,17 +29,21 @@ public final class User {
 	}
 
 	// constructor to be used when loading an existing user from db
-	public User(long userId, String username, String password, long profilePicId, String description, HashSet<User> followers, HashSet<User> following, HashSet<VisitedLocation> visitedLocations) throws UserException {
+	public User(long userId, String username, String password, long profilePicId, String description,
+			ArrayList<Long> followersIds, ArrayList<Long> followingIds, ArrayList<Long> visitedLocationsIds,
+			ArrayList<Long> locationsFromWishlistIds, ArrayList<Long> postsIds) throws UserException {
 		this(username, password);
 		this.userId = userId;
 		this.setProfilePicId(profilePicId);
 		this.setDescription(description);
-		this.followers = followers;
-		this.following = following;
-		this.visitedLocations = visitedLocations;
+		this.followersIds = followersIds;
+		this.followingIds = followingIds;
+		this.visitedLocationsIds = visitedLocationsIds;
+		this.locationsFromWishlistIds = locationsFromWishlistIds;
+		this.postsIds = postsIds;
 	}
 
-	//accessors
+	// accessors
 	public long getUserId() {
 		return this.userId;
 	}
@@ -60,24 +63,32 @@ public final class User {
 	public String getDescription() {
 		return this.description;
 	}
+
+	public ArrayList<Long> getFollowersIds() {
+		return this.followersIds;
+	}
+
+	public ArrayList<Long> getFollowingIds() {
+		return this.followingIds;
+	}
+
+	public ArrayList<Long> getVisitedLocationsIds() {
+		return this.visitedLocationsIds;
+	}
 	
-	public HashSet<User> getFollowers() {
-		return this.followers;
+	public ArrayList<Long> getLocationsFromWishlistIds() {
+		return this.locationsFromWishlistIds;
 	}
 
-	public HashSet<User> getFollowing() {
-		return this.following;
+	public ArrayList<Long> getPostsIds() {
+		return this.postsIds;
 	}
 
-	public HashSet<VisitedLocation> getVisitedLocations() {
-		return this.visitedLocations;
-	}
-
-	//mutators
+	// mutators
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-	
+
 	public void setUsername(String username) throws UserException {
 		if (username.length() >= MIN_USERNAME_LENGTH && username.matches("^(?=\\S+$)$")) {
 			if (this.username.length() <= MAX_USERNAME_LENGTH) {
@@ -91,7 +102,7 @@ public final class User {
 		}
 	}
 
-	/**
+	/*
 	 * public void setPassword(String password) throws UserException { if
 	 * (password.length() >= MIN_PASWORD_LENGTH) { if
 	 * (password.matches("^(?=.*[a-z])(?=.*[A-Z])$")) { if
@@ -102,7 +113,7 @@ public final class User {
 	 * "Password must contain at least one uppercase and at least one lowercase character!"
 	 * ); } } else { throw new UserException("Password must be at least " +
 	 * MIN_PASWORD_LENGTH + " characters long!"); } }
-	 **/
+	 */
 	public void setPassword(String password) throws UserException {
 		if (password.length() >= MIN_PASSWORD_LENGTH && (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$")
 				|| password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])$"))) {
@@ -125,16 +136,24 @@ public final class User {
 		this.description = description != null ? description : "";
 	}
 
-	public void setFollowers(HashSet<User> followers) {
-		this.followers = followers;
+	public void setFollowersIds(ArrayList<Long> followersIds) {
+		this.followersIds = followersIds;
 	}
 
-	public void setFollowing(HashSet<User> following) {
-		this.following = following;
+	public void setFollowingIds(ArrayList<Long> followingIds) {
+		this.followingIds = followingIds;
 	}
 
-	public void setVisitedLocations(HashSet<VisitedLocation> visitedLocations) {
-		this.visitedLocations = visitedLocations;
+	public void setVisitedLocationsIds(ArrayList<Long> visitedLocationsIds) {
+		this.visitedLocationsIds = visitedLocationsIds;
+	}
+
+	public void setLocationsFromWishlistIds(ArrayList<Long> locationsFromWishlistIds) {
+		this.locationsFromWishlistIds = locationsFromWishlistIds;
+	}
+
+	public void setPostsIds(ArrayList<Long> postsIds) {
+		this.postsIds = postsIds;
 	}
 
 	@Override
@@ -164,5 +183,5 @@ public final class User {
 			return false;
 		return true;
 	}
-	
+
 }
