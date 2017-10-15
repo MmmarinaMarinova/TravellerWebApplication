@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Marina on 15.10.2017 г..
  */
@@ -15,6 +17,7 @@ location_name VARCHAR(45)*/
     private String longtitute;
     private String description;
     private String locationName;
+    private ArrayList<Long> visitedLocationsIDs;
 
     //constructor to be used when putting object in database
     public Location(String latitude, String longtitute, String description, String locationName) {
@@ -22,6 +25,7 @@ location_name VARCHAR(45)*/
         this.longtitute = longtitute;
         this.description = description;
         this.locationName = locationName;
+        this.visitedLocationsIDs=new ArrayList<>();
     }
 
     //constructor to be used when fetching from database
@@ -68,5 +72,13 @@ location_name VARCHAR(45)*/
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public ArrayList<Long> getVisitedLocationsIDs() {
+        return this.visitedLocationsIDs;
+    }
+
+    public void setVisitedLocationsIDs(ArrayList<Long> visitedLocationsIDs) {
+        this.visitedLocationsIDs = visitedLocationsIDs;
     }
 }

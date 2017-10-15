@@ -4,6 +4,7 @@ import model.exceptions.UserException;
 import model.exceptions.VisitedLocationException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -26,7 +27,7 @@ public class PostDao {
         PreparedStatement ps = con.prepareStatement(
                 "insert into posts(user_id, description, date_time, location_id) value (?,?,?,?);",
                 Statement.RETURN_GENERATED_KEYS);
-        ps.setLong(1, post.getUser().getUserId());
+        ps.setLong(1, post.getUserId());
         ps.setString(2,post.getDescription());
         ps.setTimestamp(3,post.getDateTime());
         ps.setLong(4,post.getLocation().getId());
@@ -34,15 +35,15 @@ public class PostDao {
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         post.setId(rs.getLong(1));
-        for (Category cat:post.getCategories()) {
-            this.addCategoryToPost(post, cat);
+        /*for (Long id:post.getCategoriesIds()) {
+            this.addCategoryToPost(post.getId(), id);
         }
-        for (Multimedia m: post.getMultimedia()) {
-            this.addMultimediaToPost(post, m);
+        for (Multimedia: post.getMultimediaIds()) {
+            this.addMultimediaToPost(post, id);
         }
         for (User user:post.getTaggedPeople()) {
             this.tagUser(post,user);
-        }
+        }*/
     }
 
     private void tagUser(Post post, User user) throws SQLException {
@@ -54,25 +55,25 @@ public class PostDao {
         ps.executeUpdate();
     }
 
-    private void addMultimediaToPost(Post post, Multimedia m) throws SQLException {
+    private void addMultimediaToPost(long postId, Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "insert into multimedia(file_dir, is_video, post_id) values(?,?,?);",
                 Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1,m.getUrl());
-        ps.setBoolean(2,m.isVideo());
-        ps.setLong(3,post.getId());
+        ps.setString(1,multimedia.getUrl());
+        ps.setBoolean(2,multimedia.isVideo());
+        ps.setLong(3,postId);
         ps.executeUpdate();
         ResultSet rs=ps.getGeneratedKeys();
-        m.setId(rs.getLong(1));
+        multimedia.setId(rs.getLong(1));
     }
 
-    private void addCategoryToPost(Post post, Category cat) throws SQLException {
+    private void addCategoryToPost(long postId, long categoryId) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "insert into posts_categories(post_id, category_id) values(?,?);");
-        ps.setLong(1, post.getId());
-        ps.setLong(2,cat.getId());
+        ps.setLong(1, postId);
+        ps.setLong(2,categoryId);
         ps.executeUpdate();
     }
 
@@ -141,14 +142,14 @@ public class PostDao {
         }
     }
 
-    public HashSet<Category> getCategoriesForPost(Post post) throws SQLException {
+    public ArrayList<Long> getCategoriesIdsForPost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select cat.category_id,cat.category_name from categories as cat join posts_categories as pc on pc.category_id=cat.category_id where pc.post_id= ?;");
+        PreparedStatement ps = con.prepareStatement("select category_id from posts_categories where post_id= ?;");
         ps.setLong(1, post.getId());
         ResultSet rs=ps.executeQuery();
-        HashSet<Category> categories=new HashSet<>();
+        ArrayList<Long> categories=new ArrayList<>();
         while (rs.next()){
-            categories.add(new Category(rs.getLong("cat.category_id"), rs.getString("category_name")));
+            categories.add(rs.getLong("category_id"));
         }
         return categories;
     }
@@ -164,26 +165,25 @@ public class PostDao {
                     rs.getLong("post_id"), rs.getString("description"),
                     rs.getInt("likes_count"), rs.getInt("dislikes_count"),
                     rs.getTimestamp("date_time"));
-            post.setUser(UserDao.getUserById(userId));
-            post.setCategories(this.getCategoriesForPost(post));
+            post.setUserId(userId);
+            post.setCategoriesIds(this.getCategoriesIdsForPost(post));
             post.setLocation(this.getLocationByUserId(post.getId()));
-            post.setMultimedia(this.getMultimediaForPost(post));
+            post.setMultimediaIds(this.getMultimediaIdsForPost(post));
             posts.add(post);
 
         }
     }
 
-    private HashSet<Multimedia> getMultimediaForPost(Post post) throws SQLException {
+    private ArrayList<Long> getMultimediaIdsForPost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select * from multimedia where post_id= ?;");
+        PreparedStatement ps = con.prepareStatement("select multimedia_id from multimedia where post_id= ?;");
         ps.setLong(1, post.getId());
         ResultSet rs=ps.executeQuery();
-        HashSet<Multimedia> multimedia=new HashSet<>();
+        ArrayList<Long> multimediaIds=new ArrayList<>();
         while (rs.next()){
-            multimedia.add(new Multimedia(rs.getLong("multimedia_id"),
-                    rs.getString("file_dir"), rs.getBoolean("is_video"), post));
+            multimediaIds.add(rs.getLong("multimedia_id"));
         }
-        return multimedia;
+        return multimediaIds;
     }
 
     private Location getLocationByUserId(long postId) throws SQLException {

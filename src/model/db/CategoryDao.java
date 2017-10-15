@@ -31,15 +31,22 @@ public class CategoryDao {
         category.setId(rs.getLong(1));
     }
 
-    public Category getCategory(String categoryName) throws SQLException {
+    public Category getCategoryById(long categoryId) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "select category_id from categories where category_name= ? ;");
-        ps.setString(1, categoryName);
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
+                "select category_id from categories where category_id= ?  ;");
+        ps.setLong(1, categoryId);
+        ResultSet rs = ps.executeQuery();
         rs.next();
-        Category category=new Category(rs.getLong("category_id"), categoryName);
+        Category category=new Category(categoryId, rs.getString("category_name"));
         return category;
+    }
+
+    public void deleteCategoryById(long categoryId) throws SQLException {
+        Connection con = DBManager.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement(
+                "delete from categories where category_id= ? ;");
+        ps.setLong(1, categoryId);
+        ps.executeUpdate();
     }
 }

@@ -33,4 +33,16 @@ public class LocationDao {
         rs.next();
         location.setId(rs.getLong(1));
     }
+
+    public Location getLocation(long id) throws SQLException {
+        Connection con = DBManager.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT latitude, longtitude, description, location_name FROM locations where location_id=?;",
+                Statement.RETURN_GENERATED_KEYS);
+        ps.setLong(1, id);
+        ResultSet rs=ps.executeQuery();
+        Location location=new Location(id,rs.getString("latitude"),
+                rs.getString("longtitude"), rs.getString("description"), rs.getString("location_name"));
+        return location;
+    }
 }

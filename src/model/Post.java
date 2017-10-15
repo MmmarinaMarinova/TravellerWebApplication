@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -16,30 +17,30 @@ public class Post {
     location_id INT(11)*/
 
     private long id;
-    private User user;
+    private long userId;
     private String description;
     private int likesCount;
     private int dislikesCount;
     private Timestamp dateTime;
     private Location location;
-    private HashSet<Category> categories;
-    private HashSet<Multimedia> multimedia;
-    private HashSet<User> taggedPeople;
+    private ArrayList<Long> categoriesIds;
+    private ArrayList<Long> multimediaIds;
+    private ArrayList<Long> taggedPeopleIds;
 
     //constructor to be used when putting object in database
-    public Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) {
-        this.user = user;
+    public Post(long userId, String description, Timestamp dateTime, Location location, ArrayList<Long> categoriesIds, ArrayList<Long> multimediaIds,ArrayList<Long> taggedPeopleIds) {
+        this.userId = userId;
         this.description = description;
         this.dateTime = dateTime;
         this.location = location;
-        this.categories = categories;
-        this.multimedia=multimedia;
-        this.taggedPeople=taggedPeople;
+        this.categoriesIds = categoriesIds;
+        this.multimediaIds= multimediaIds;
+        this.taggedPeopleIds=taggedPeopleIds;
     }
 
     //constructor to be used when fetching from database
-    public Post(long id, User user, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, HashSet<Category> categories,HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) {
-        this(user, description, dateTime,location,categories, multimedia,taggedPeople);
+    public Post(long id, long userId, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, ArrayList<Long> categories,ArrayList<Long> multimedia, ArrayList<Long> taggedPeople) {
+        this(userId, description, dateTime,location,categories, multimedia,taggedPeople);
         this.id = id;
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
@@ -61,12 +62,12 @@ public class Post {
         this.id = id;
     }
 
-    public User getUser() {
-        return this.user;
+    public long getUserId() {
+        return this.userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getDescription() {
@@ -109,27 +110,27 @@ public class Post {
         this.location = location;
     }
 
-    public HashSet<Category> getCategories() {
-        return this.categories;
+    public ArrayList<Long> getCategoriesIds() {
+        return this.categoriesIds;
     }
 
-    public void setCategories(HashSet<Category> categories) {
-        this.categories = categories;
+    public void setCategoriesIds(ArrayList<Long> categoriesIds) {
+        this.categoriesIds = categoriesIds;
     }
 
-    public HashSet<Multimedia> getMultimedia() {
-        return this.multimedia;
+    public ArrayList<Long> getMultimediaIds() {
+        return this.multimediaIds;
     }
 
-    public void setMultimedia(HashSet<Multimedia> multimedia) {
-        this.multimedia = multimedia;
+    public void setMultimediaIds(ArrayList<Long> multimediaIds) {
+        this.multimediaIds = multimediaIds;
     }
 
-    public HashSet<User> getTaggedPeople() {
-        return this.taggedPeople;
+    public ArrayList<Long> getTaggedPeopleIds() {
+        return this.taggedPeopleIds;
     }
 
-    public void setTaggedPeople(HashSet<User> taggedPeople) {
-        this.taggedPeople = taggedPeople;
+    public void setTaggedPeopleIds(ArrayList<Long> taggedPeopleIds) {
+        this.taggedPeopleIds = taggedPeopleIds;
     }
 }

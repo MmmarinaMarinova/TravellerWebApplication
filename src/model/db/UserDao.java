@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import model.Location;
 import model.User;
-import model.VisitedLocation;
 import model.exceptions.UserException;
 import model.exceptions.VisitedLocationException;
 
@@ -93,7 +93,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		ArrayList<Long> visitedLocationsIds = this.getVisitedLocationsIds(rs.getLong("user_id"));
 		ArrayList<Long> locationsFromWishlistIds = this.getLocationsFromWishlistIds(rs.getLong("user_id"));
 		ArrayList<Long> postsIds = this.getPostsIds(rs.getLong("user_id"));
-		return new User(user_id, rs.getString("usernam"), rs.getString("password"), rs.getLong("profile_pic_id"),
+		return new User(user_id, rs.getString("username"), rs.getString("password"), rs.getLong("profile_pic_id"),
 				rs.getString("description"), followersIds, followingIds, visitedLocationsIds, locationsFromWishlistIds,
 				postsIds);
 	}
@@ -237,10 +237,10 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1, u.getUserId());
-		ps.setLong(2, l.getLocationId());
+		ps.setLong(2, l.getId());
 		ps.executeUpdate();
 		ArrayList<Long> locationsFromWishlistIds = u.getLocationsFromWishlistIds();
-		locationsFromWishlistIds.add(l.getLocationId());
+		locationsFromWishlistIds.add(l.getId());
 		u.setLocationsFromWishlistIds(locationsFromWishlistIds);
 	}
 
@@ -248,10 +248,10 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1, u.getUserId());
-		ps.setLong(2, l.getLocationId());
+		ps.setLong(2, l.getId());
 		ps.executeUpdate();
 		ArrayList<Long> locationsFromWishlistIds = u.getLocationsFromWishlistIds();
-		locationsFromWishlistIds.remove(l.getLocationId());
+		locationsFromWishlistIds.remove(l.getId());
 		u.setLocationsFromWishlistIds(locationsFromWishlistIds);
 	}
 
