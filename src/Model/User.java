@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 import java.util.HashSet;
 
@@ -14,8 +14,8 @@ public final class User {
 	private HashSet<User> followers = null;
 	private HashSet<User> following = null;
 	private HashSet<VisitedLocation> visitedLocations = null;
-	//private HashSet<Location> wishlist = null;
-	//private HashSet<Post> posts = null;
+	private HashSet<Location> wishlist = null;
+	private HashSet<Post> posts = null;
 	
 	// constants
 	private static final int MIN_USERNAME_LENGTH = 5;
@@ -91,7 +91,7 @@ public final class User {
 		}
 	}
 
-	/*
+	/**
 	 * public void setPassword(String password) throws UserException { if
 	 * (password.length() >= MIN_PASWORD_LENGTH) { if
 	 * (password.matches("^(?=.*[a-z])(?=.*[A-Z])$")) { if
@@ -102,7 +102,7 @@ public final class User {
 	 * "Password must contain at least one uppercase and at least one lowercase character!"
 	 * ); } } else { throw new UserException("Password must be at least " +
 	 * MIN_PASWORD_LENGTH + " characters long!"); } }
-	 */
+	 **/
 	public void setPassword(String password) throws UserException {
 		if (password.length() >= MIN_PASSWORD_LENGTH && (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$")
 				|| password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])$"))) {
