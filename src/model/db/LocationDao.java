@@ -1,6 +1,8 @@
 package model.db;
 
 import model.Location;
+import model.Post;
+import model.exceptions.LocationException;
 
 import java.sql.*;
 
@@ -28,13 +30,16 @@ public class LocationDao {
         ps.setString(2,location.getLongtitude());
         ps.setString(3,location.getDescription());
         ps.setString(4,location.getLocationName());
-        ps.executeUpdate();
+        int affectedRows=ps.executeUpdate();
+        if(affectedRows>0){
+            //TODO show popup info here
+        }
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         location.setId(rs.getLong(1));
     }
 
-    public Location getLocation(long id) throws SQLException {
+    public Location getLocationById(long id) throws SQLException, LocationException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "SELECT latitude, longtitude, description, location_name FROM locations where location_id=?;",
@@ -43,6 +48,18 @@ public class LocationDao {
         ResultSet rs=ps.executeQuery();
         Location location=new Location(id,rs.getString("latitude"),
                 rs.getString("longtitude"), rs.getString("description"), rs.getString("location_name"));
+        return location;
+    }
+
+    public Location getLocationByPost(Post post) throws SQLException, LocationException {
+        Connection con = DBManager.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement("select * from locations where post_id=?;");
+        ps.setLong(1,post.getId());
+        ResultSet rs=ps.executeQuery();
+        rs.next();
+        Location location=new Location(rs.getLong("location_id"),
+                rs.getString("latitude"), rs.getString("longtitude"),
+                rs.getString("description"), rs.getString("location_name"));
         return location;
     }
 }

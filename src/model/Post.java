@@ -4,6 +4,7 @@ import model.exceptions.PostException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 /**
@@ -21,42 +22,40 @@ public class Post {
     location_id INT(11)*/
 
     private long id;
-    private long userId;
+    private User user;
     private String description;
     private int likesCount;
     private int dislikesCount;
     private Timestamp dateTime;
     private Location location;
-    private ArrayList<Long> categoriesIds;
-    private ArrayList<Long> multimediaIds;
-    private ArrayList<Long> taggedPeopleIds;
+    private HashSet<Category> categories;
+    private HashSet<Multimedia> multimedia;
+    private HashSet<User> taggedPeople;
 
     //constructor to be used when putting object in database
-    public Post(long userId, String description, Timestamp dateTime, Location location, ArrayList<Long> categoriesIds, ArrayList<Long> multimediaIds,ArrayList<Long> taggedPeopleIds) throws PostException {
-        this.userId = userId;
+    public Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {
+        this.user = user;
         this.setDescription(description);
         this.dateTime = dateTime;
         this.location = location;
-        this.categoriesIds = categoriesIds;
-        this.multimediaIds= multimediaIds;
-        this.taggedPeopleIds=taggedPeopleIds;
+        this.categories = categories;
+        this.multimedia = multimedia;
+        this.taggedPeople = taggedPeople;
+        this.likesCount=0;
+        this.dislikesCount=0;
     }
 
     //constructor to be used when fetching from database
-    public Post(long id, long userId, String description, int likesCount, int dislikesCount, Timestamp dateTime, Location location, ArrayList<Long> categories,ArrayList<Long> multimedia, ArrayList<Long> taggedPeople) throws PostException {
-        this(userId, description, dateTime,location,categories, multimedia,taggedPeople);
-        this.id = id;
-        this.likesCount = likesCount;
-        this.dislikesCount = dislikesCount;
-    }
-
     public Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
         this.id = id;
-        this.setDescription(description);
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
-        this.dateTime = dateTime;
+        this.setDescription(description);
+        this.dateTime=dateTime;
+        //have to make methods in post dao for:
+        //HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople
     }
+
 
     public long getId() {
         return this.id;
@@ -66,12 +65,12 @@ public class Post {
         this.id = id;
     }
 
-    public long getUserId() {
-        return this.userId;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
@@ -79,13 +78,13 @@ public class Post {
     }
 
     public void setDescription(String description) throws PostException {
-        if(!description.isEmpty()){
-            if(description.length()<MIN_LENGTH){
-                throw new PostException("Name of the category is too short. It should be more than "+MIN_LENGTH+" symbols.");
-            }else if(description.length()>MAX_LENGTH){
-                throw new PostException("Name of the category is too long. It should be less than"+MAX_LENGTH+" symbols");
+        if (!description.isEmpty()) {
+            if (description.length() < MIN_LENGTH) {
+                throw new PostException("Name of the category is too short. It should be more than " + MIN_LENGTH + " symbols.");
+            } else if (description.length() > MAX_LENGTH) {
+                throw new PostException("Name of the category is too long. It should be less than" + MAX_LENGTH + " symbols");
             }
-        }else{
+        } else {
             throw new PostException("Name of the category should not be empty!");
         }
         this.description = description;
@@ -123,27 +122,28 @@ public class Post {
         this.location = location;
     }
 
-    public ArrayList<Long> getCategoriesIds() {
-        return this.categoriesIds;
+    public HashSet<Category> getCategories() {
+        return this.categories;
     }
 
-    public void setCategoriesIds(ArrayList<Long> categoriesIds) {
-        this.categoriesIds = categoriesIds;
+    public void setCategories(HashSet<Category> categories) {
+        this.categories = categories;
     }
 
-    public ArrayList<Long> getMultimediaIds() {
-        return this.multimediaIds;
+    public HashSet<Multimedia> getMultimedia() {
+        return this.multimedia;
     }
 
-    public void setMultimediaIds(ArrayList<Long> multimediaIds) {
-        this.multimediaIds = multimediaIds;
+    public void setMultimedia(HashSet<Multimedia> multimedia) {
+        this.multimedia = multimedia;
     }
 
-    public ArrayList<Long> getTaggedPeopleIds() {
-        return this.taggedPeopleIds;
+    public HashSet<User> getTaggedPeople() {
+        return this.taggedPeople;
     }
 
-    public void setTaggedPeopleIds(ArrayList<Long> taggedPeopleIds) {
-        this.taggedPeopleIds = taggedPeopleIds;
+    public void setTaggedPeople(HashSet<User> taggedPeople) {
+        this.taggedPeople = taggedPeople;
     }
 }
+

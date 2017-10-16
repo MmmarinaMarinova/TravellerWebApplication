@@ -2,7 +2,7 @@ package model;
 
 import model.exceptions.LocationException;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by Marina on 15.10.2017 г..
@@ -21,7 +21,7 @@ location_name VARCHAR(45)*/
     private String longtitude;
     private String description;
     private String locationName;
-    private ArrayList<Long> visitedLocationsIDs;
+    private HashSet<User> peopleVisited;
 
     //constructor to be used when putting object in database
     public Location(String latitude, String longtitute, String description, String locationName) throws LocationException {
@@ -29,7 +29,7 @@ location_name VARCHAR(45)*/
         this.setLongtitude(longtitute);
         this.setDescription(description);
         this.setLocationName(locationName);
-        this.visitedLocationsIDs=new ArrayList<>();
+        this.peopleVisited =new HashSet<>();
     }
 
     //constructor to be used when fetching from database
@@ -89,11 +89,11 @@ location_name VARCHAR(45)*/
         this.locationName = locationName;
     }
 
-    public ArrayList<Long> getVisitedLocationsIDs() {
-        return this.visitedLocationsIDs;
+    public HashSet<User> getPeopleVisited() {
+        return this.peopleVisited;
     }
 
-    public void setVisitedLocationsIDs(ArrayList<Long> visitedLocationsIDs) {
-        this.visitedLocationsIDs = visitedLocationsIDs;
+    public void setPeopleVisited(HashSet<User> peopleVisited) {
+        this.peopleVisited = peopleVisited;
     }
 }

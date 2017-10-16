@@ -13,19 +13,19 @@ post_id INT(11)*/
     private long id;
     private String url;
     private boolean isVideo;
-    private long postId;
+    private Post post;
 
     //constructor to be used when fetching from database
-    public Multimedia(long id, String url, boolean isVideo, long postId) {
-        this(url, isVideo, postId);
+    public Multimedia(long id, String url, boolean isVideo, long post) {
+        this(url, isVideo, post);
         this.id = id;
     }
 
     //constructor to be used when putting object in database
-    public Multimedia(String url, boolean isVideo, long postId) {
+    public Multimedia(String url, boolean isVideo, Post post) {
         this.setUrl(url);
         this.setVideo(isVideo);
-        this.setPostId(postId);
+        this.setPost(post);
     }
 
     public long getId() {
@@ -53,11 +53,11 @@ post_id INT(11)*/
         isVideo = video;
     }
 
-    public long getPostId() {
-        return this.postId;
+    public Post getPost() {
+        return this.post;
     }
 
-    public void setPostId(long postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
