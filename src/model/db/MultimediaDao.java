@@ -24,7 +24,8 @@ public class MultimediaDao {
         return instance;
     }
 
-    public void insertMultimedia(Post post, Multimedia multimedia) throws SQLException {
+    //tested
+    public Multimedia insertMultimedia(Post post, Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "insert into multimedia(file_url,is_video, post_id) value (?,?,?);",
@@ -36,8 +37,11 @@ public class MultimediaDao {
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         multimedia.setId(rs.getLong(1));
+        return multimedia;
     }
 
+
+    //TODO not working
     public void deleteMultimedia(Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
@@ -45,7 +49,7 @@ public class MultimediaDao {
         ps.setLong(1, multimedia.getId());
         int affectedRows=ps.executeUpdate();
         if(affectedRows>0){
-            //TODO show popup info here
+            System.out.println("multimedia deleted");
         }
     }
 

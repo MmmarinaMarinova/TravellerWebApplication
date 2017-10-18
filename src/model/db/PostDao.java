@@ -165,6 +165,7 @@ public class PostDao {
         }
     }
 
+    //tested
     public HashSet<Post> getPostsForUser(User user) throws SQLException, VisitedLocationException, UserException, PostException, CategoryException, MultimediaException, LocationException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select post_id, description, " +
@@ -186,6 +187,7 @@ public class PostDao {
     }
 
 
+    //tested
     public Post getPostById(long post_id) throws SQLException, PostException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select description, likes_count, " +

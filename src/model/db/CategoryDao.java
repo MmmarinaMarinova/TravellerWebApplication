@@ -58,6 +58,8 @@ public class CategoryDao {
         return affectedRows;
     }
 
+
+    //tested
     public HashSet<Category> getCategoriesForPost(Post post) throws SQLException, CategoryException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select category_id from posts_categories where post_id= ?;");
@@ -70,7 +72,9 @@ public class CategoryDao {
         return categories;
     }
 
+    //tested
     public void addAllCategoriesToPost(Post post,HashSet<Category> categories) throws SQLException {
+        //TODO IF ENTRY EXISTS- THROWS EXCEPTION!!!
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
         for (Category category : categories) {

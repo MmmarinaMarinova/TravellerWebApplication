@@ -54,7 +54,7 @@ public class LocationDao {
         return location;
     }
 
-
+    //tested
     public Location getLocationByPost(Post post) throws SQLException, LocationException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select l.location_id, l.latitude, l.longtitude, l.description, l.location_name" +

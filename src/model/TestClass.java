@@ -1,6 +1,4 @@
 package model;
-
-import com.sun.org.apache.xerces.internal.dom.events.MutationEventImpl;
 import model.db.*;
 import model.exceptions.*;
 
@@ -52,12 +50,23 @@ public class TestClass {
         //PostDao.getInstance().updateLocation(post2,loc );
         //PostDao.getInstance().decrementDislikes(post2);
         //PostDao.getInstance().updateDescription(post2,"This is a new description");
-        HashSet<Post> posts=PostDao.getInstance().getPostsForUser(user1);
-        for (Post post:posts) {
-            System.out.println(post.getId());
-            System.out.println(post.getDescription());
-            System.out.println(post.getDateTime());
-        }
+        //HashSet<Post> posts=PostDao.getInstance().getPostsForUser(user1);
+        //for (Post post:posts) {
+        //    System.out.println(post.getId());
+        //    System.out.println(post.getDescription());
+        //    System.out.println(post.getDateTime());
+        //}
+        //HashSet<Category> categories=new HashSet<>();
+        //categories.add(CategoryDao.getInstance().getCategoryById(7));
+        //categories.add(CategoryDao.getInstance().getCategoryById(6));
+        //CategoryDao.getInstance().addAllCategoriesToPost(post2, categories);
+        //Location location=LocationDao.getInstance().getLocationByPost(post2);
+        //System.out.println(location.getId());
+        //System.out.println(location.getLocationName());
+        //System.out.println(location.getDescription());
+        Multimedia multimedia=MultimediaDao.getInstance().insertMultimedia(post2,new Multimedia("fake_url",false));
+        MultimediaDao.getInstance().deleteMultimedia(multimedia);
+
 
     }
 }

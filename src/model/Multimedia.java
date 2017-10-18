@@ -30,6 +30,11 @@ post_id INT(11)*/
 
     }
 
+    public Multimedia(String url, boolean isVideo) {
+        this.url = url;
+        this.isVideo = isVideo;
+    }
+
     public long getId() {
         return this.id;
     }
