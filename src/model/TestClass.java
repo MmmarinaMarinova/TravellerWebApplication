@@ -2,10 +2,7 @@ package model;
 
 import com.sun.org.apache.xerces.internal.dom.events.MutationEventImpl;
 import model.db.*;
-import model.exceptions.CategoryException;
-import model.exceptions.LocationException;
-import model.exceptions.PostException;
-import model.exceptions.UserException;
+import model.exceptions.*;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -14,7 +11,7 @@ import java.util.HashSet;
  * Created by Marina on 18.10.2017 г..
  */
 public class TestClass {
-    public static void main(String[] args) throws UserException, SQLException, CategoryException, LocationException, PostException {
+    public static void main(String[] args) throws UserException, SQLException, CategoryException, LocationException, PostException, MultimediaException, VisitedLocationException {
         //User user=new User("pencho","pencho","pencho@pe.ncho");
         //if(UserDao.getInstance().existsUser(user.getUsername(),user.getPassword())){
         //    System.out.println("User exist");
@@ -35,16 +32,32 @@ public class TestClass {
         //System.out.println(location.getId());
         //Location updated=LocationDao.getInstance().insertLocation(location);
        // System.out.println(updated.getId());
-        //Location loc=LocationDao.getInstance().getLocationById(2);
+        Location loc=LocationDao.getInstance().getLocationById(2);
         //System.out.println(loc.getLocationName());
         //System.out.println(loc.getDescription());
        //Multimedia multimedia=new Multimedia("dfgsdf", false);
        //MultimediaDao.getInstance().insertMultimedia(post, multimedia);
-        HashSet<Category> categories=new HashSet<>();
-        categories.add(category1);
-        HashSet<User> taggedPeople=new HashSet<>();
-        taggedPeople.add(user1);
-        Post post=new Post(user1,categories,taggedPeople);
-        PostDao.getInstance().insertNewPost(post);
+        //HashSet<Category> categories=new HashSet<>();
+        //categories.add(category1);
+        //HashSet<User> taggedPeople=new HashSet<>();
+        //taggedPeople.add(user1);
+        //Post post=new Post(user1,categories,taggedPeople);
+       // PostDao.getInstance().insertNewPost(post);
+        //User user=UserDao.getInstance().getUserById(2);
+        //TODO if the id does not exist in database, line 51 throws exception: empty resultset
+        Post post2=PostDao.getInstance().getPostById(8);
+        //PostDao.getInstance().tagUser(post2,user);
+        //PostDao.getInstance().addCategoryToPost(post2, category1);
+        //PostDao.getInstance().deletePost(post2);
+        //PostDao.getInstance().updateLocation(post2,loc );
+        //PostDao.getInstance().decrementDislikes(post2);
+        //PostDao.getInstance().updateDescription(post2,"This is a new description");
+        HashSet<Post> posts=PostDao.getInstance().getPostsForUser(user1);
+        for (Post post:posts) {
+            System.out.println(post.getId());
+            System.out.println(post.getDescription());
+            System.out.println(post.getDateTime());
+        }
+
     }
 }

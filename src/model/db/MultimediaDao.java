@@ -49,7 +49,7 @@ public class MultimediaDao {
         }
     }
 
-   /* public HashSet<Multimedia> getAllMultimediaForPost(Post post) throws SQLException {
+    public HashSet<Multimedia> getAllMultimediaForPost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "select multimedia_id from multimedia where post_id= ?  ;");
@@ -60,7 +60,7 @@ public class MultimediaDao {
             multimedia.add(new Multimedia(rs.getLong("multimedia_id"), rs.getString("file_dir"), rs.getBoolean("is_video"),post));
         }
         return multimedia;
-    }*/
+    }
 
     /*public Multimedia getMultimediaById(long multimediaId) throws MultimediaException, SQLException, UserException, PostException {
         Connection con = DBManager.getInstance().getConnection();
@@ -75,17 +75,7 @@ public class MultimediaDao {
         return multimedia;
     }*/
 
-    /*public HashSet<Multimedia> getMultimediaForPost(Post post) throws SQLException, MultimediaException, PostException, UserException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select multimedia_id from multimedia where post_id= ?;");
-        ps.setLong(1, post.getId());
-        ResultSet rs=ps.executeQuery();
-        HashSet<Multimedia> multimedia=new HashSet<>();
-        while (rs.next()){
-            multimedia.add(MultimediaDao.getInstance().getMultimediaById(rs.getLong("multimedia_id")));
-        }
-        return multimedia;
-    }*/
+
 
     public void addMultimediaToPost(Post post, Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
@@ -103,14 +93,15 @@ public class MultimediaDao {
     public void addAllMultimediaToPost(Post post, HashSet<Multimedia> multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "insert into multimedia(file_dir,is_video, post_id) value (?,?,?);");
+                "insert into multimedia(file_dir,is_video, post_id) values (?,?,?);",Statement.RETURN_GENERATED_KEYS);
         for (Multimedia m : multimedia) {
+            //TODO SET IDS OF ALL  MULTIMEDIA
             ps.setString(1,m.getUrl());
             ps.setBoolean(2,m.isVideo());
             ps.setLong(3,post.getId());
-            ps.addBatch();
+            ps.executeUpdate();
+            ResultSet resultSet=ps.getGeneratedKeys();
+            m.setId(resultSet.getLong(1));
         }
-        ps.executeBatch();
-
     }
 }

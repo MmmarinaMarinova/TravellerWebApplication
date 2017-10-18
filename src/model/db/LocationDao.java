@@ -59,7 +59,7 @@ public class LocationDao {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select l.location_id, l.latitude, l.longtitude, l.description, l.location_name" +
                 " from locations as l join posts " +
-                "on posts.post_id=l.location_id" +
+                "on posts.location_id=l.location_id" +
                 " where post_id=?;");
         ps.setLong(1,post.getId());
         ResultSet rs=ps.executeQuery();

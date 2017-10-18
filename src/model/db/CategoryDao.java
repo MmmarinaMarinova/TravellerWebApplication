@@ -70,11 +70,12 @@ public class CategoryDao {
         return categories;
     }
 
-    public void addAllCategoriesToPost(HashSet<Category> categories) throws SQLException {
+    public void addAllCategoriesToPost(Post post,HashSet<Category> categories) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("insert into categories(category_name) values (?);");
+        PreparedStatement ps = con.prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
         for (Category category : categories) {
-            ps.setString(1,category.getName());
+            ps.setLong(1,post.getId());
+            ps.setLong(2,category.getId());
             ps.addBatch();
         }
         ps.executeBatch();

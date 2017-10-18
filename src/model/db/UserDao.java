@@ -99,7 +99,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		//return new User(user_id, rs.getString("username"), rs.getString("password"), rs.getLong("profile_pic_id"),
 		//		rs.getString("description"), followersIds, followingIds, visitedLocationsIds, locationsFromWishlistIds,
 		//		postsIds);
-		return new User(rs.getString("username"),rs.getString("password"),rs.getString("email"));
+		return new User(user_id,rs.getString("username"),rs.getString("password"),rs.getString("email"));
 	}
 
 	// getting visited locations ids

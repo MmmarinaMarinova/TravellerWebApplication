@@ -50,6 +50,14 @@ public final class User {
 		this.postsIds = postsIds;
 	}
 
+	public User(long user_id, String username, String password, String email) {
+		this.userId=user_id;
+		this.username=username;
+		this.password=password;
+		this.email=email;
+	}
+
+
 	// accessors
 	public long getUserId() {
 		return this.userId;
