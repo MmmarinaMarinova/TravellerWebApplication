@@ -16,9 +16,10 @@ post_id INT(11)*/
     private Post post;
 
     //constructor to be used when fetching from database
-    public Multimedia(long id, String url, boolean isVideo, long post) {
+    public Multimedia(long id, String url, boolean isVideo, Post post) {
         this(url, isVideo, post);
         this.id = id;
+        this.setPost(post);
     }
 
     //constructor to be used when putting object in database
@@ -26,6 +27,7 @@ post_id INT(11)*/
         this.setUrl(url);
         this.setVideo(isVideo);
         this.setPost(post);
+
     }
 
     public long getId() {

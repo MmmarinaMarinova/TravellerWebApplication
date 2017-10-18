@@ -18,11 +18,11 @@ public final class DBManager {
 		}
 		
 		//to be initialized with proper data:
-		final String DB_IP = "";
+		final String DB_IP = "127.0.0.1";
 		final String DB_PORT = "3306";
-		final String DB_DBNAME = "";
-		final String DB_USER = "";
-		final String DB_PASS = "";
+		final String DB_DBNAME = "traveller";
+		final String DB_USER = "root";
+		final String DB_PASS = "poncho";
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://" + DB_IP + ":" + DB_PORT + "/" + DB_DBNAME, DB_USER, DB_PASS);
 		} catch (SQLException e) {

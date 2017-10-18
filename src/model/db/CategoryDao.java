@@ -22,22 +22,25 @@ public class CategoryDao {
         return instance;
     }
 
-    public void insertNewCategory(Category category) throws SQLException, CategoryException {
+    //tested, setting id does not work!?!?!?!?!?!?!?!?
+    public Category insertNewCategory(Category category) throws SQLException, CategoryException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "insert into categories(category_name) value (?);",
                 Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, category.getName());
         ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
+        ResultSet rs=ps.getGeneratedKeys();
         rs.next();
         category.setId(rs.getLong(1));
+        return category;
     }
 
+    //tested
     public Category getCategoryById(long categoryId) throws SQLException, CategoryException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "select category_id from categories where category_id= ?  ;");
+                "select category_name from categories where category_id= ?  ;");
         ps.setLong(1, categoryId);
         ResultSet rs = ps.executeQuery();
         rs.next();
@@ -45,15 +48,14 @@ public class CategoryDao {
         return category;
     }
 
-    public void deleteCategory(Category category) throws SQLException {
+    //tested
+    public int deleteCategory(Category category) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "delete from categories where category_id= ? ;");
+                "delete from categories where category_id=?;");
         ps.setLong(1, category.getId());
         int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO show popup info here
-        }
+        return affectedRows;
     }
 
     public HashSet<Category> getCategoriesForPost(Post post) throws SQLException, CategoryException {

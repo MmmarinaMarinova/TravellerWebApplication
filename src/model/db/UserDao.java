@@ -31,10 +31,11 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// insert user in db
 	public void insertUser(User u) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("insert into users (username, password) VALUES (?, ?);",
+		PreparedStatement ps = con.prepareStatement("insert into users (username, password,email) VALUES (?, ?,?);",
 				Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, u.getUsername());
 		ps.setString(2, u.getPassword()); // hashing required
+		ps.setString(3,u.getEmail());
 		ps.executeUpdate();
 		ResultSet rs = ps.getGeneratedKeys();
 		rs.next();
@@ -42,6 +43,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// check if user exists ( to be used when users log in )
+	//tested
 	public boolean existsUser(String username, String password) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con
@@ -81,21 +83,23 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 				postsIds);
 	}
 
+	//tested
 	public User getUserById(long user_id) throws SQLException, UserException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con
-				.prepareStatement("select username, password, profile_pic_id, description from users where id = ?;");
+				.prepareStatement("select username, password, email from users where user_id = ?;");
 		ps.setLong(1, user_id);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		ArrayList<Long> followersIds = this.getFollowersIds(rs.getLong("user_id"));
-		ArrayList<Long> followingIds = this.getFollowingIds(rs.getLong("user_id"));
-		ArrayList<Long> visitedLocationsIds = this.getVisitedLocationsIds(rs.getLong("user_id"));
-		ArrayList<Long> locationsFromWishlistIds = this.getLocationsFromWishlistIds(rs.getLong("user_id"));
-		ArrayList<Long> postsIds = this.getPostsIds(rs.getLong("user_id"));
-		return new User(user_id, rs.getString("username"), rs.getString("password"), rs.getLong("profile_pic_id"),
-				rs.getString("description"), followersIds, followingIds, visitedLocationsIds, locationsFromWishlistIds,
-				postsIds);
+		//ArrayList<Long> followersIds = this.getFollowersIds(rs.getLong("user_id"));
+		//ArrayList<Long> followingIds = this.getFollowingIds(rs.getLong("user_id"));
+		//ArrayList<Long> visitedLocationsIds = this.getVisitedLocationsIds(rs.getLong("user_id"));
+		//ArrayList<Long> locationsFromWishlistIds = this.getLocationsFromWishlistIds(rs.getLong("user_id"));
+		//ArrayList<Long> postsIds = this.getPostsIds(rs.getLong("user_id"));
+		//return new User(user_id, rs.getString("username"), rs.getString("password"), rs.getLong("profile_pic_id"),
+		//		rs.getString("description"), followersIds, followingIds, visitedLocationsIds, locationsFromWishlistIds,
+		//		postsIds);
+		return new User(rs.getString("username"),rs.getString("password"),rs.getString("email"));
 	}
 
 	// getting visited locations ids

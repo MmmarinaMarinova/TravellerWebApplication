@@ -45,6 +45,16 @@ public class Post {
         this.dislikesCount=0;
     }
 
+    public Post(User user, HashSet<Category> categories, HashSet<User> taggedPeople) throws PostException {
+        this.user = user;
+        this.categories = categories;
+        this.taggedPeople = taggedPeople;
+        this.likesCount=0;
+        this.dislikesCount=0;
+        this.description="trial_description";
+    }
+
+
     //constructor to be used when fetching from database
     public Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
         this.id = id;
@@ -55,7 +65,6 @@ public class Post {
         //have to make methods in post dao for:
         //HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople
     }
-
 
     public long getId() {
         return this.id;

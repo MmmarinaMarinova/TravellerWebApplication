@@ -23,12 +23,10 @@ public class PostDao {
     public void insertNewPost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "insert into posts(user_id, description, date_time, location_id) value (?,?,?,?);",
+                "insert into posts(user_id, description, date_time) value (?,?,now());",
                 Statement.RETURN_GENERATED_KEYS);
         ps.setLong(1, post.getUser().getUserId());
         ps.setString(2,post.getDescription());
-        ps.setTimestamp(3,post.getDateTime());
-        ps.setLong(4,post.getLocation().getId());
         ps.executeUpdate();
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
@@ -139,7 +137,7 @@ public class PostDao {
         }
     }
 
-    public void getPostsForUser(User user) throws SQLException, VisitedLocationException, UserException, PostException, CategoryException, MultimediaException, LocationException {
+    /*public void getPostsForUser(User user) throws SQLException, VisitedLocationException, UserException, PostException, CategoryException, MultimediaException, LocationException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select * from posts where user_id= ?;");
         ps.setLong(1, user.getUserId());
@@ -156,9 +154,18 @@ public class PostDao {
             post.setMultimedia(MultimediaDao.getInstance().getMultimediaForPost(post));
             posts.add(post);
         }
+    }*/
+
+
+    public Post getPostById(long post_id) throws SQLException, PostException {
+        Connection con = DBManager.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement("select description, likes_count, " +
+                "dislikes_count, date_time from posts where post_id = ? ;");
+        ps.setLong(1, post_id);
+        ResultSet rs=ps.executeQuery();
+        rs.next();
+        Post post=new Post(post_id, rs.getString("description"),rs.getInt("likes_count"),rs.getInt("dislikes_count"),
+                rs.getTimestamp("date_time"));
+        return post;
     }
-
-
-
-
 }

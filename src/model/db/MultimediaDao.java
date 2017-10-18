@@ -3,6 +3,8 @@ package model.db;
 import model.Multimedia;
 import model.Post;
 import model.exceptions.MultimediaException;
+import model.exceptions.PostException;
+import model.exceptions.UserException;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -25,11 +27,11 @@ public class MultimediaDao {
     public void insertMultimedia(Post post, Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "insert into multimedia(file_dir,is_video, post_id) value (?,?,?);",
+                "insert into multimedia(file_url,is_video, post_id) value (?,?,?);",
                 Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, multimedia.getUrl());
         ps.setBoolean(2,multimedia.isVideo());
-        ps.setLong(3,multimedia.getPost().getId());
+        ps.setLong(3,post.getId());
         ps.executeUpdate();
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
@@ -47,7 +49,7 @@ public class MultimediaDao {
         }
     }
 
-    public HashSet<Multimedia> getAllMultimediaForPost(Post post) throws SQLException {
+   /* public HashSet<Multimedia> getAllMultimediaForPost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
                 "select multimedia_id from multimedia where post_id= ?  ;");
@@ -55,24 +57,25 @@ public class MultimediaDao {
         ResultSet rs=ps.executeQuery();
         HashSet<Multimedia> multimedia=new HashSet<>();
         while (rs.next()){
-            multimedia.add(new Multimedia(rs.getLong("multimedia_id"), rs.getString("file_dir"), rs.getBoolean("is_video"),post.getId()));
+            multimedia.add(new Multimedia(rs.getLong("multimedia_id"), rs.getString("file_dir"), rs.getBoolean("is_video"),post));
         }
         return multimedia;
-    }
+    }*/
 
-    public Multimedia getMultimediaById(long multimediaId) throws MultimediaException,SQLException {
+    /*public Multimedia getMultimediaById(long multimediaId) throws MultimediaException, SQLException, UserException, PostException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "select * from multimedia where multimedia_id= ?   ;");
+                "select file_dir, is_video, post_id from multimedia where multimedia_id= ?   ;");
         ps.setLong(1,multimediaId );
         ResultSet rs=ps.executeQuery();
         rs.next();
         Multimedia multimedia=new Multimedia(multimediaId,
-                rs.getString("file_dir"), rs.getBoolean("is_video"),rs.getLong("post_id"));
+                rs.getString("file_dir"), rs.getBoolean("is_video"),
+                PostDao.getInstance().getPostById(rs.getLong("post_id")));
         return multimedia;
-    }
+    }*/
 
-    public HashSet<Multimedia> getMultimediaForPost(Post post) throws SQLException, MultimediaException {
+    /*public HashSet<Multimedia> getMultimediaForPost(Post post) throws SQLException, MultimediaException, PostException, UserException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement("select multimedia_id from multimedia where post_id= ?;");
         ps.setLong(1, post.getId());
@@ -82,7 +85,7 @@ public class MultimediaDao {
             multimedia.add(MultimediaDao.getInstance().getMultimediaById(rs.getLong("multimedia_id")));
         }
         return multimedia;
-    }
+    }*/
 
     public void addMultimediaToPost(Post post, Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();

@@ -46,9 +46,6 @@ public class Category {
     }
 
     public void setId(long id) throws CategoryException {
-        if(id<=0){
-            throw new CategoryException("Id for the category is not valid!");
-        }
         this.id = id;
     }
 }

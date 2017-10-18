@@ -16,6 +16,7 @@ public final class User {
 	private ArrayList<Long> visitedLocationsIds = null;
 	private ArrayList<Long> locationsFromWishlistIds = null;
 	private ArrayList<Long> postsIds = null;
+	private String email;
 	// constants
 	private static final int MIN_USERNAME_LENGTH = 5;
 	private static final int MAX_USERNAME_LENGTH = 45;
@@ -26,6 +27,12 @@ public final class User {
 	public User(String username, String password) throws UserException {
 		this.setUsername(username);
 		this.setPassword(password);
+	}
+
+	public User(String username, String password, String email) throws UserException{
+		this.username = username;
+		this.password = password;
+		this.email = email;
 	}
 
 	// constructor to be used when loading an existing user from db
@@ -154,6 +161,14 @@ public final class User {
 
 	public void setPostsIds(ArrayList<Long> postsIds) {
 		this.postsIds = postsIds;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

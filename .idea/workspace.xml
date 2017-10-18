@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="790d6e8e-85af-4f6f-af6a-834c7a29c62a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Wanderlust.iml" afterPath="$PROJECT_DIR$/Wanderlust.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Category.java" afterPath="$PROJECT_DIR$/src/model/Category.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Multimedia.java" afterPath="$PROJECT_DIR$/src/model/Multimedia.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Post.java" afterPath="$PROJECT_DIR$/src/model/Post.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/User.java" afterPath="$PROJECT_DIR$/src/model/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/CategoryDao.java" afterPath="$PROJECT_DIR$/src/model/db/CategoryDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/DBManager.java" afterPath="$PROJECT_DIR$/src/model/db/DBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/LocationDao.java" afterPath="$PROJECT_DIR$/src/model/db/LocationDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/MultimediaDao.java" afterPath="$PROJECT_DIR$/src/model/db/MultimediaDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/PostDao.java" afterPath="$PROJECT_DIR$/src/model/db/PostDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/UserDao.java" afterPath="$PROJECT_DIR$/src/model/db/UserDao.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,43 +29,120 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Category.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/Category.java">
+      <file leaf-file-name="PostDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="44" column="25" lean-forward="false" selection-start-line="35" selection-start-column="8" selection-end-line="44" selection-end-column="25" />
+            <state relative-caret-position="113">
+              <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="28" selection-end-column="44" />
               <folding>
-                <element signature="method#Category#0;class#Category#0" expanded="false" />
-                <element signature="method#Category#1;class#Category#0" expanded="false" />
-                <element signature="method#setId#0;class#Category#0" expanded="false" />
+                <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+                <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
+                <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
+                <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
+                <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
+                <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
+                <element signature="method#updateLikes#0;class#PostDao#0" expanded="false" />
+                <element signature="method#updateDislikes#0;class#PostDao#0" expanded="false" />
+                <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
+                <marker date="1508317762399" expanded="true" signature="601:669" ph="insert into posts... " />
+                <marker date="1508317762399" expanded="true" signature="1504:1558" ph="insert into tagged_users... " />
+                <marker date="1508317762399" expanded="true" signature="1964:2018" ph="insert into tagged_users... " />
+                <marker date="1508317762399" expanded="true" signature="2357:2419" ph="insert into posts_categories... " />
+                <marker date="1508317762399" expanded="true" signature="2369:2419" ph="delete from " />
+                <marker date="1508317762399" expanded="true" signature="2822:2855" ph="delete from " />
+                <marker date="1508317762399" expanded="true" signature="3253:3302" ph="update posts... " />
+                <marker date="1508317762399" expanded="true" signature="3895:3944" ph="update posts... " />
+                <marker date="1508317762399" expanded="true" signature="4546:4604" ph="update posts... " />
+                <marker date="1508317762399" expanded="true" signature="5058:5113" ph="update posts... " />
+                <marker date="1508317762399" expanded="true" signature="5630:5666" ph="select * fro... posts" />
+                <marker date="1508317762399" expanded="false" signature="5793:5799" ph="&lt;~&gt;" />
+                <marker date="1508317762399" expanded="true" signature="6652:6760" ph="select from posts" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/Location.java">
+      <file leaf-file-name="CategoryDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1364">
-              <caret line="88" column="41" lean-forward="false" selection-start-line="79" selection-start-column="8" selection-end-line="88" selection-end-column="41" />
+            <state relative-caret-position="275">
+              <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+              <folding>
+                <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
+                <marker date="1508317342125" expanded="true" signature="754:801" ph="insert into categories... " />
+                <marker date="1508317342125" expanded="true" signature="1305:1356" ph="select categ... categories" />
+                <marker date="1508317342125" expanded="true" signature="1305:1362" ph="select categ... categories" />
+                <marker date="1508317342125" expanded="true" signature="1800:1842" ph="delete from " />
+                <marker date="1508317342125" expanded="true" signature="2190:2247" ph="select categ... posts_categories" />
+                <marker date="1508317342125" expanded="true" signature="2762:2810" ph="insert into categories... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestClass.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/model/TestClass.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="47" column="50" lean-forward="true" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#Location#0;class#Location#0" expanded="false" />
-                <element signature="method#Location#1;class#Location#0" expanded="false" />
-                <element signature="method#setLongtitude#0;class#Location#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Post.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MultimediaDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="37" column="40" lean-forward="true" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+              <folding>
+                <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
+                <element signature="method#deleteMultimedia#0;class#MultimediaDao#0" expanded="false" />
+                <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+                <element signature="method#addAllMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+                <marker date="1508316676777" expanded="true" signature="768:832" ph="insert into multimedia... " />
+                <marker date="1508316676777" expanded="true" signature="1370:1399" ph="delete from " />
+                <marker date="1508316676777" expanded="true" signature="1370:1415" ph="delete from " />
+                <marker date="1508316676777" expanded="true" signature="1376:1392" ph="insert into multimedia... " />
+                <marker date="1508316676777" expanded="true" signature="1820:1840" ph="select multi... " />
+                <marker date="1508316676777" expanded="true" signature="1820:1873" ph="select multi... multimedia" />
+                <marker date="1508316676777" expanded="true" signature="2487:2560" ph="select * fro... multimedia" />
+                <marker date="1508316676777" expanded="true" signature="3160:3213" ph="select multi... multimedia" />
+                <marker date="1508316676777" expanded="true" signature="3756:3821" ph="insert into multimedia... " />
+                <marker date="1508316676777" expanded="true" signature="4363:4427" ph="insert into multimedia... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Multimedia.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/Multimedia.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="484">
+              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding>
+                <element signature="method#Multimedia#0;class#Multimedia#0" expanded="false" />
+                <element signature="method#Multimedia#1;class#Multimedia#0" expanded="false" />
+                <element signature="method#setUrl#0;class#Multimedia#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Post.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/Post.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="34" column="203" lean-forward="false" selection-start-line="34" selection-start-column="203" selection-end-line="34" selection-end-column="203" />
+            <state relative-caret-position="399">
+              <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#Post#0;class#Post#0" expanded="false" />
+                <element signature="method#Post#2;class#Post#0" expanded="false" />
+                <element signature="e#3738#3739#0" expanded="true" />
+                <element signature="e#3774#3775#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,6 +153,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Jsp File" />
         <option value="Class" />
       </list>
     </option>
@@ -90,21 +179,30 @@
         <option value="$PROJECT_DIR$/src/Model/Multimedia.java" />
         <option value="$PROJECT_DIR$/src/Model/Post.java" />
         <option value="$PROJECT_DIR$/src/Model/User.java" />
-        <option value="$PROJECT_DIR$/src/model/User.java" />
         <option value="$PROJECT_DIR$/src/model/db/CommentDao.java" />
-        <option value="$PROJECT_DIR$/src/model/db/LocationDao.java" />
-        <option value="$PROJECT_DIR$/src/model/db/UserDao.java" />
-        <option value="$PROJECT_DIR$/src/model/db/MultimediaDao.java" />
-        <option value="$PROJECT_DIR$/src/model/db/CategoryDao.java" />
         <option value="$PROJECT_DIR$/src/model/exceptions/PostException.java" />
         <option value="$PROJECT_DIR$/src/model/exceptions/LocationException.java" />
         <option value="$PROJECT_DIR$/src/model/exceptions/MultimediaException.java" />
         <option value="$PROJECT_DIR$/src/model/exceptions/CategoryException.java" />
-        <option value="$PROJECT_DIR$/src/model/db/PostDao.java" />
-        <option value="$PROJECT_DIR$/src/model/Category.java" />
         <option value="$PROJECT_DIR$/src/model/Location.java" />
+        <option value="$PROJECT_DIR$/../Emag 3/Emag/WebContent/orders.jsp" />
+        <option value="$PROJECT_DIR$/../Emag 3/Emag/WebContent/login.jsp" />
+        <option value="$PROJECT_DIR$/web/login.jsp" />
+        <option value="$PROJECT_DIR$/web/register.jsp" />
+        <option value="$PROJECT_DIR$/src/controller/RegisterServlet.java" />
+        <option value="$PROJECT_DIR$/src/model/db/DBManager.java" />
+        <option value="$PROJECT_DIR$/src/model/User.java" />
+        <option value="$PROJECT_DIR$/src/Tests/UserTest.java" />
+        <option value="$PROJECT_DIR$/src/Tests/UserTest.groovy" />
+        <option value="$PROJECT_DIR$/src/model/db/UserDao.java" />
+        <option value="$PROJECT_DIR$/src/model/Category.java" />
+        <option value="$PROJECT_DIR$/src/model/db/LocationDao.java" />
+        <option value="$PROJECT_DIR$/src/model/db/MultimediaDao.java" />
         <option value="$PROJECT_DIR$/src/model/Multimedia.java" />
+        <option value="$PROJECT_DIR$/src/model/db/CategoryDao.java" />
+        <option value="$PROJECT_DIR$/src/model/db/PostDao.java" />
         <option value="$PROJECT_DIR$/src/model/Post.java" />
+        <option value="$PROJECT_DIR$/src/model/TestClass.java" />
       </list>
     </option>
   </component>
@@ -113,6 +211,13 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-9" />
@@ -134,6 +239,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -145,6 +251,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TravellerWebApplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Wanderlust" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravellerWebApplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -204,28 +324,57 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.44-bin.jar!/" />
+    <property name="settings.editor.selected.configurable" value="org.intellij.sonar.configuration.project.ProjectSettingsConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Libraries/jstl-1.2.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Groovy JUnit" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="Tests" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="Model" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="groovy.util.GroovyTestCase" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Model" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 8.5.23">
+  <component name="RunManager" selected="Application.TestClass">
+    <configuration default="false" name="TestClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="model.TestClass" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Wanderlust" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
       <deployment />
       <server-settings />
@@ -625,22 +774,45 @@
           </settings>
         </artifact>
       </deployment>
-      <server-settings />
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Tomcat_8_5_23_Wanderlust" />
+      </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
       <predefined_log_file id="Tomcat Manager" enabled="false" />
       <predefined_log_file id="Tomcat Host Manager" enabled="false" />
       <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <method>
         <option name="BuildArtifacts" enabled="true">
           <artifact name="Wanderlust:war exploded" />
         </option>
       </method>
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 8.5.23" />
+      <item index="1" class="java.lang.String" itemvalue="Application.TestClass" />
     </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Application.TestClass" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -656,40 +828,44 @@
       <option name="presentableId" value="Default" />
       <updated>1508053756862</updated>
       <workItem from="1508053760673" duration="26172000" />
-      <workItem from="1508162777479" duration="92000" />
+      <workItem from="1508162777479" duration="5785000" />
+      <workItem from="1508184688486" duration="996000" />
+      <workItem from="1508307118136" duration="10696000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26264000" />
+    <option name="totallyTimeSpent" value="43649000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="0" width="1924" height="1038" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32963374" sideWeight="0.5062959" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="SonarQube" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.4874082" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32963374" sideWeight="0.49370408" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.79801327" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.20198676" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -708,7 +884,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -717,6 +893,184 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
+            <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDislikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
+            <marker date="1508317762399" expanded="true" signature="601:669" ph="insert into posts... " />
+            <marker date="1508317762399" expanded="true" signature="1504:1558" ph="insert into tagged_users... " />
+            <marker date="1508317762399" expanded="true" signature="1964:2018" ph="insert into tagged_users... " />
+            <marker date="1508317762399" expanded="true" signature="2357:2419" ph="insert into posts_categories... " />
+            <marker date="1508317762399" expanded="true" signature="2369:2419" ph="delete from " />
+            <marker date="1508317762399" expanded="true" signature="2822:2855" ph="delete from " />
+            <marker date="1508317762399" expanded="true" signature="3253:3302" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="3895:3944" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="4546:4604" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="5058:5113" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="5630:5666" ph="select * fro... posts" />
+            <marker date="1508317762399" expanded="false" signature="5793:5799" ph="&lt;~&gt;" />
+            <marker date="1508317762399" expanded="true" signature="6652:6760" ph="select from posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1584">
+          <caret line="77" column="26" lean-forward="false" selection-start-line="74" selection-start-column="11" selection-end-line="77" selection-end-column="26" />
+          <folding>
+            <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
+            <marker date="1508317342125" expanded="true" signature="754:801" ph="insert into categories... " />
+            <marker date="1508317342125" expanded="true" signature="1305:1356" ph="select categ... categories" />
+            <marker date="1508317342125" expanded="true" signature="1305:1362" ph="select categ... categories" />
+            <marker date="1508317342125" expanded="true" signature="1800:1842" ph="delete from " />
+            <marker date="1508317342125" expanded="true" signature="2190:2247" ph="select categ... posts_categories" />
+            <marker date="1508317342125" expanded="true" signature="2762:2810" ph="insert into categories... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1100">
+          <caret line="107" column="26" lean-forward="false" selection-start-line="107" selection-start-column="26" selection-end-line="107" selection-end-column="26" />
+          <folding>
+            <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#deleteMultimedia#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#addAllMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+            <marker date="1508316676777" expanded="true" signature="768:832" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="1370:1399" ph="delete from " />
+            <marker date="1508316676777" expanded="true" signature="1370:1415" ph="delete from " />
+            <marker date="1508316676777" expanded="true" signature="1376:1392" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="1820:1840" ph="select multi... " />
+            <marker date="1508316676777" expanded="true" signature="1820:1873" ph="select multi... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="2487:2560" ph="select * fro... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="3160:3213" ph="select multi... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="3756:3821" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="4363:4427" ph="insert into multimedia... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Post.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2357#2358#0" expanded="false" />
+            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="e#2427#2428#0" expanded="false" />
+            <element signature="e#2459#2460#0" expanded="false" />
+            <element signature="e#3824#3825#0" expanded="false" />
+            <element signature="e#3864#3865#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
+            <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDislikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
+            <marker date="1508317762399" expanded="true" signature="601:669" ph="insert into posts... " />
+            <marker date="1508317762399" expanded="true" signature="1504:1558" ph="insert into tagged_users... " />
+            <marker date="1508317762399" expanded="true" signature="1964:2018" ph="insert into tagged_users... " />
+            <marker date="1508317762399" expanded="true" signature="2357:2419" ph="insert into posts_categories... " />
+            <marker date="1508317762399" expanded="true" signature="2369:2419" ph="delete from " />
+            <marker date="1508317762399" expanded="true" signature="2822:2855" ph="delete from " />
+            <marker date="1508317762399" expanded="true" signature="3253:3302" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="3895:3944" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="4546:4604" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="5058:5113" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="5630:5666" ph="select * fro... posts" />
+            <marker date="1508317762399" expanded="false" signature="5793:5799" ph="&lt;~&gt;" />
+            <marker date="1508317762399" expanded="true" signature="6652:6760" ph="select from posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1584">
+          <caret line="77" column="26" lean-forward="true" selection-start-line="74" selection-start-column="11" selection-end-line="77" selection-end-column="26" />
+          <folding>
+            <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
+            <marker date="1508317342125" expanded="true" signature="754:801" ph="insert into categories... " />
+            <marker date="1508317342125" expanded="true" signature="1305:1356" ph="select categ... categories" />
+            <marker date="1508317342125" expanded="true" signature="1305:1362" ph="select categ... categories" />
+            <marker date="1508317342125" expanded="true" signature="1800:1842" ph="delete from " />
+            <marker date="1508317342125" expanded="true" signature="2190:2247" ph="select categ... posts_categories" />
+            <marker date="1508317342125" expanded="true" signature="2762:2810" ph="insert into categories... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1100">
+          <caret line="107" column="26" lean-forward="true" selection-start-line="107" selection-start-column="26" selection-end-line="107" selection-end-column="26" />
+          <folding>
+            <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#deleteMultimedia#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#addAllMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+            <marker date="1508316676777" expanded="true" signature="768:832" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="1370:1399" ph="delete from " />
+            <marker date="1508316676777" expanded="true" signature="1370:1415" ph="delete from " />
+            <marker date="1508316676777" expanded="true" signature="1376:1392" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="1820:1840" ph="select multi... " />
+            <marker date="1508316676777" expanded="true" signature="1820:1873" ph="select multi... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="2487:2560" ph="select * fro... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="3160:3213" ph="select multi... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="3756:3821" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="4363:4427" ph="insert into multimedia... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Post.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2357#2358#0" expanded="false" />
+            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="e#2427#2428#0" expanded="false" />
+            <element signature="e#2459#2460#0" expanded="false" />
+            <element signature="e#3824#3825#0" expanded="false" />
+            <element signature="e#3864#3865#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Category.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="770">
@@ -724,6 +1078,7 @@
           <folding>
             <element signature="method#Category#0;class#Category#0" expanded="false" />
             <element signature="method#Category#1;class#Category#0" expanded="false" />
+            <element signature="method#setName#0;class#Category#0" expanded="false" />
             <element signature="method#setId#0;class#Category#0" expanded="false" />
           </folding>
         </state>
@@ -734,10 +1089,14 @@
         <state relative-caret-position="1364">
           <caret line="88" column="41" lean-forward="true" selection-start-line="79" selection-start-column="8" selection-end-line="88" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
             <element signature="method#setLongtitude#0;class#Location#0" expanded="false" />
+            <element signature="e#2725#2726#0" expanded="false" />
+            <element signature="e#2766#2767#0" expanded="false" />
+            <element signature="e#2831#2832#0" expanded="false" />
+            <element signature="e#2881#2882#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -747,8 +1106,13 @@
         <state relative-caret-position="682">
           <caret line="34" column="203" lean-forward="false" selection-start-line="34" selection-start-column="203" selection-end-line="34" selection-end-column="203" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Post#0;class#Post#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2357#2358#0" expanded="false" />
+            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="e#2427#2428#0" expanded="false" />
+            <element signature="e#2459#2460#0" expanded="false" />
+            <element signature="e#3824#3825#0" expanded="false" />
+            <element signature="e#3864#3865#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -809,10 +1173,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#164#165#0" expanded="false" />
-            <element signature="e#190#191#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -823,35 +1183,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/exceptions/CategoryException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/exceptions/MultimediaException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="12" column="27" lean-forward="true" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#insertNewCategory#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#deleteCategoryById#0;class#CategoryDao#0" expanded="false" />
-            <marker date="1508091140429" expanded="true" signature="588:635" ph="insert into categories... " />
-            <marker date="1508091140429" expanded="true" signature="1084:1133" ph="select categ... categories" />
-            <marker date="1508091140429" expanded="true" signature="1084:1139" ph="select categ... categories" />
-            <marker date="1508091140429" expanded="true" signature="1567:1610" ph="delete from " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -870,101 +1205,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/DBManager.java">
+    <entry file="file://$PROJECT_DIR$/src/model/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+        <state relative-caret-position="70">
+          <caret line="76" column="38" lean-forward="false" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/LocationDao.java">
+    <entry file="file://$PROJECT_DIR$/../Emag 3/Emag/WebContent/main.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="36" column="61" lean-forward="false" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Emag 3/Emag/WebContent/orders.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="26" column="47" lean-forward="false" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Emag 3/Emag/WebContent/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="2" column="65" lean-forward="false" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="18" column="7" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="18" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Emag 3/Emag/WebContent/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Emag 3/Emag/src/controller/RegisterServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="67" column="81" lean-forward="true" selection-start-line="66" selection-start-column="12" selection-end-line="67" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/RegisterServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-403">
+          <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getInstance#0;class#LocationDao#0" expanded="false" />
-            <element signature="method#insertLocation#0;class#LocationDao#0" expanded="false" />
-            <element signature="method#getLocation#0;class#LocationDao#0" expanded="false" />
-            <marker date="1508093413444" expanded="true" signature="585:672" ph="insert into locations... " />
-            <marker date="1508093413444" expanded="true" signature="1266:1356" ph="SELECT latit... locations" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
+    <entry file="file://$PROJECT_DIR$/src/TestClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#insertMultimedia#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#deleteMultimedia#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#getMultimediaIds#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#getMultimediaById#0;class#MultimediaDao#0" expanded="false" />
-            <marker date="1508091140483" expanded="true" signature="647:711" ph="insert into multimedia... " />
-            <marker date="1508091140483" expanded="true" signature="1249:1288" ph="delete from " />
-            <marker date="1508091140483" expanded="true" signature="1255:1271" ph="insert into multimedia... " />
-            <marker date="1508091140483" expanded="true" signature="1575:1595" ph="select multi... " />
-            <marker date="1508091140483" expanded="true" signature="1575:1628" ph="select multi... multimedia" />
-            <marker date="1508091140483" expanded="true" signature="2114:2161" ph="select * fro... multimedia" />
-          </folding>
+        <state relative-caret-position="66">
+          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
+    <entry file="file://$PROJECT_DIR$/src/Tests/UserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="175">
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Tests/UserTest.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="31" column="6" lean-forward="true" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
-            <element signature="method#insertNewPost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
-            <element signature="method#addMultimediaToPost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
-            <element signature="method#updateLikes#0;class#PostDao#0" expanded="false" />
-            <element signature="method#updateDislikes#0;class#PostDao#0" expanded="false" />
-            <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
-            <element signature="method#getCategoriesIdsForPost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#getPostsByUserId#0;class#PostDao#0" expanded="false" />
-            <element signature="e#6447#6453#0" expanded="true" />
-            <element signature="method#getMultimediaIdsForPost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#getLocationByUserId#0;class#PostDao#0" expanded="false" />
-            <marker date="1508092461822" expanded="true" signature="691:770" ph="insert into posts... " />
-            <marker date="1508092461822" expanded="true" signature="1671:1725" ph="insert into tagged_users... " />
-            <marker date="1508092461822" expanded="true" signature="2072:2137" ph="insert into multimedia... " />
-            <marker date="1508092461822" expanded="true" signature="2656:2718" ph="insert into posts_categories... " />
-            <marker date="1508092461822" expanded="true" signature="2668:2718" ph="delete from " />
-            <marker date="1508092461822" expanded="true" signature="3019:3058" ph="delete from " />
-            <marker date="1508092461822" expanded="true" signature="3456:3511" ph="update posts... " />
-            <marker date="1508092461822" expanded="true" signature="4104:4159" ph="update posts... " />
-            <marker date="1508092461822" expanded="true" signature="4761:4819" ph="update posts... " />
-            <marker date="1508092461822" expanded="true" signature="5273:5328" ph="update posts... " />
-            <marker date="1508092461822" expanded="true" signature="5747:5804" ph="select cat.c... categories" />
-            <marker date="1508092461822" expanded="true" signature="6294:6330" ph="select * fro... posts" />
-            <marker date="1508092461822" expanded="true" signature="7212:7265" ph="select cat.c... categories" />
-            <marker date="1508092461822" expanded="true" signature="7733:7772" ph="select * fro... locations" />
+            <element signature="method#User#2;class#User#0" expanded="false" />
+            <element signature="method#setUsername#0;class#User#0" expanded="false" />
+            <element signature="method#setPassword#0;class#User#0" expanded="false" />
+            <element signature="e#5260#5261#0" expanded="true" />
+            <element signature="e#5284#5285#0" expanded="true" />
+            <element signature="e#5323#5324#0" expanded="true" />
+            <element signature="e#5348#5349#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/db/UserDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="138" column="0" lean-forward="true" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+        <state relative-caret-position="-401">
+          <caret line="123" column="41" lean-forward="true" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#getInstance#0;class#UserDao#0" expanded="false" />
             <element signature="method#insertUser#0;class#UserDao#0" expanded="false" />
             <element signature="method#existsUser#0;class#UserDao#0" expanded="false" />
             <element signature="method#existsUsername#0;class#UserDao#0" expanded="false" />
             <element signature="method#getUserByUsername#0;class#UserDao#0" expanded="false" />
-            <element signature="method#getLocationsFromWishlistIds#0;class#UserDao#0" expanded="false" />
+            <element signature="method#getUserById#0;class#UserDao#0" expanded="false" />
+            <element signature="e#5013#5019#0" expanded="true" />
             <element signature="method#getPostsIds#0;class#UserDao#0" expanded="false" />
             <element signature="method#changePassword#0;class#UserDao#0" expanded="false" />
             <element signature="method#changeProfilePicId#0;class#UserDao#0" expanded="false" />
@@ -977,62 +1343,113 @@
             <element signature="method#getFollowing#0;class#UserDao#0" expanded="false" />
             <element signature="method#addToWishlist#0;class#UserDao#0" expanded="false" />
             <element signature="method#removeFromWishlist#0;class#UserDao#0" expanded="false" />
-            <marker date="1508088171798" expanded="true" signature="872:924" ph="insert into users... " />
-            <marker date="1508088171798" expanded="true" signature="1420:1491" ph="select count... " />
-            <marker date="1508088171798" expanded="true" signature="1902:1956" ph="select count... " />
-            <marker date="1508088171798" expanded="true" signature="2324:2417" ph="select user_... users" />
-            <marker date="1508088171798" expanded="true" signature="3337:3415" ph="select usern... users" />
-            <marker date="1508088171798" expanded="true" signature="4439:4498" ph="select locat... visited_locations" />
-            <marker date="1508088171798" expanded="true" signature="4979:5030" ph="select locat... wishlists" />
-            <marker date="1508088171798" expanded="true" signature="5476:5519" ph="select post_... posts" />
-            <marker date="1508088171798" expanded="true" signature="5910:5957" ph="update users... " />
-            <marker date="1508088171798" expanded="true" signature="6310:6363" ph="update users... " />
-            <marker date="1508088171798" expanded="true" signature="6680:6730" ph="update users... " />
-            <marker date="1508088171798" expanded="true" signature="7062:7129" ph="insert into users_followers... " />
-            <marker date="1508088171798" expanded="true" signature="7569:7638" ph="delete from " />
-            <marker date="1508088171798" expanded="true" signature="8156:8217" ph="select follo... users_followers" />
-            <marker date="1508088171798" expanded="true" signature="8908:8969" ph="select follo... users_followers" />
-            <marker date="1508088171798" expanded="true" signature="9610:9667" ph="insert into wishlists... " />
-            <marker date="1508088171798" expanded="true" signature="10119:10176" ph="delete from " />
+            <marker date="1508312977562" expanded="true" signature="872:932" ph="insert into users... " />
+            <marker date="1508312977562" expanded="true" signature="1470:1541" ph="select count... " />
+            <marker date="1508312977562" expanded="true" signature="1952:2006" ph="select count... " />
+            <marker date="1508312977562" expanded="true" signature="2374:2467" ph="select user_... users" />
+            <marker date="1508312977562" expanded="true" signature="3397:3458" ph="select usern... users" />
+            <marker date="1508312977562" expanded="true" signature="4590:4649" ph="select locat... visited_locations" />
+            <marker date="1508312977562" expanded="true" signature="5130:5181" ph="select locat... wishlists" />
+            <marker date="1508312977562" expanded="true" signature="5627:5670" ph="select post_... posts" />
+            <marker date="1508312977562" expanded="true" signature="6061:6108" ph="update users... " />
+            <marker date="1508312977562" expanded="true" signature="6461:6514" ph="update users... " />
+            <marker date="1508312977562" expanded="true" signature="6831:6881" ph="update users... " />
+            <marker date="1508312977562" expanded="true" signature="7213:7280" ph="insert into users_followers... " />
+            <marker date="1508312977562" expanded="true" signature="7720:7789" ph="delete from " />
+            <marker date="1508312977562" expanded="true" signature="8307:8368" ph="select follo... users_followers" />
+            <marker date="1508312977562" expanded="true" signature="9059:9120" ph="select follo... users_followers" />
+            <marker date="1508312977562" expanded="true" signature="9761:9818" ph="insert into wishlists... " />
+            <marker date="1508312977562" expanded="true" signature="10270:10327" ph="delete from " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Comment.java">
+    <entry file="file://$PROJECT_DIR$/src/model/exceptions/CategoryException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="76" column="38" lean-forward="false" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="41" column="15" lean-forward="true" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="15" />
+        <state relative-caret-position="176">
+          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
           <folding>
-            <element signature="method#setUsername#0;class#User#0" expanded="false" />
-            <element signature="method#setPassword#0;class#User#0" expanded="false" />
+            <element signature="e#172#173#0" expanded="false" />
+            <element signature="e#198#199#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/DBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Category.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="44" column="25" lean-forward="false" selection-start-line="35" selection-start-column="8" selection-end-line="44" selection-end-column="25" />
+        <state relative-caret-position="286">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding>
             <element signature="method#Category#0;class#Category#0" expanded="false" />
             <element signature="method#Category#1;class#Category#0" expanded="false" />
-            <element signature="method#setId#0;class#Category#0" expanded="false" />
+            <element signature="method#setName#0;class#Category#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/LocationDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="method#getInstance#0;class#LocationDao#0" expanded="false" />
+            <element signature="method#insertLocation#0;class#LocationDao#0" expanded="false" />
+            <element signature="method#getLocationById#0;class#LocationDao#0" expanded="false" />
+            <element signature="method#getLocationByPost#0;class#LocationDao#0" expanded="false" />
+            <marker date="1508316561511" expanded="true" signature="664:752" ph="insert into locations... " />
+            <marker date="1508316561511" expanded="true" signature="1502:1592" ph="SELECT latit... locations" />
+            <marker date="1508316561511" expanded="true" signature="2098:2316" ph="select * fro... locations" />
+            <marker date="1508316561511" expanded="true" signature="2098:2317" ph="select l.loc... locations" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="85" column="14" lean-forward="true" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
+          <folding>
+            <element signature="method#Location#1;class#Location#0" expanded="false" />
+            <element signature="method#setLongtitude#0;class#Location#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="37" column="40" lean-forward="true" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+          <folding>
+            <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#deleteMultimedia#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+            <element signature="method#addAllMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
+            <marker date="1508316676777" expanded="true" signature="768:832" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="1370:1399" ph="delete from " />
+            <marker date="1508316676777" expanded="true" signature="1370:1415" ph="delete from " />
+            <marker date="1508316676777" expanded="true" signature="1376:1392" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="1820:1840" ph="select multi... " />
+            <marker date="1508316676777" expanded="true" signature="1820:1873" ph="select multi... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="2487:2560" ph="select * fro... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="3160:3213" ph="select multi... multimedia" />
+            <marker date="1508316676777" expanded="true" signature="3756:3821" ph="insert into multimedia... " />
+            <marker date="1508316676777" expanded="true" signature="4363:4427" ph="insert into multimedia... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Multimedia.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        <state relative-caret-position="484">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="method#Multimedia#0;class#Multimedia#0" expanded="false" />
             <element signature="method#Multimedia#1;class#Multimedia#0" expanded="false" />
@@ -1041,26 +1458,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Location.java">
+    <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1364">
-          <caret line="88" column="41" lean-forward="false" selection-start-line="79" selection-start-column="8" selection-end-line="88" selection-end-column="41" />
+        <state relative-caret-position="275">
+          <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Location#0;class#Location#0" expanded="false" />
-            <element signature="method#Location#1;class#Location#0" expanded="false" />
-            <element signature="method#setLongtitude#0;class#Location#0" expanded="false" />
+            <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
+            <marker date="1508317342125" expanded="true" signature="754:801" ph="insert into categories... " />
+            <marker date="1508317342125" expanded="true" signature="1305:1356" ph="select categ... categories" />
+            <marker date="1508317342125" expanded="true" signature="1305:1362" ph="select categ... categories" />
+            <marker date="1508317342125" expanded="true" signature="1800:1842" ph="delete from " />
+            <marker date="1508317342125" expanded="true" signature="2190:2247" ph="select categ... posts_categories" />
+            <marker date="1508317342125" expanded="true" signature="2762:2810" ph="insert into categories... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="28" selection-end-column="44" />
+          <folding>
+            <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
+            <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDislikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
+            <marker date="1508317762399" expanded="true" signature="601:669" ph="insert into posts... " />
+            <marker date="1508317762399" expanded="true" signature="1504:1558" ph="insert into tagged_users... " />
+            <marker date="1508317762399" expanded="true" signature="1964:2018" ph="insert into tagged_users... " />
+            <marker date="1508317762399" expanded="true" signature="2357:2419" ph="insert into posts_categories... " />
+            <marker date="1508317762399" expanded="true" signature="2369:2419" ph="delete from " />
+            <marker date="1508317762399" expanded="true" signature="2822:2855" ph="delete from " />
+            <marker date="1508317762399" expanded="true" signature="3253:3302" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="3895:3944" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="4546:4604" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="5058:5113" ph="update posts... " />
+            <marker date="1508317762399" expanded="true" signature="5630:5666" ph="select * fro... posts" />
+            <marker date="1508317762399" expanded="false" signature="5793:5799" ph="&lt;~&gt;" />
+            <marker date="1508317762399" expanded="true" signature="6652:6760" ph="select from posts" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="34" column="203" lean-forward="false" selection-start-line="34" selection-start-column="203" selection-end-line="34" selection-end-column="203" />
+        <state relative-caret-position="399">
+          <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+          <folding>
+            <element signature="method#Post#2;class#Post#0" expanded="false" />
+            <element signature="e#3738#3739#0" expanded="true" />
+            <element signature="e#3774#3775#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/TestClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="47" column="50" lean-forward="true" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Post#0;class#Post#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1143,6 +1608,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>javax.servlet:jstl:1.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

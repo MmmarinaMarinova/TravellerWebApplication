@@ -15,16 +15,17 @@ public class LocationDao {
     private LocationDao() {}
 
     public static synchronized LocationDao getInstance(){
-        if(instance!=null){
+        if(instance==null){
             instance=new LocationDao();
         }
         return instance;
     }
 
-    public void insertLocation(Location location) throws SQLException {
+    //tested
+    public Location insertLocation(Location location) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "insert into locations( latitude,longtitude, description, location_name) value (?,?,?,?);",
+                "insert into locations( latitude,longtitude, description, location_name) values (?,?,?,?);",
                 Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, location.getLatitude());
         ps.setString(2,location.getLongtitude());
@@ -37,29 +38,35 @@ public class LocationDao {
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         location.setId(rs.getLong(1));
+        return location;
     }
 
+    //tested
     public Location getLocationById(long id) throws SQLException, LocationException {
         Connection con = DBManager.getInstance().getConnection();
         PreparedStatement ps = con.prepareStatement(
-                "SELECT latitude, longtitude, description, location_name FROM locations where location_id=?;",
-                Statement.RETURN_GENERATED_KEYS);
+                "SELECT latitude, longtitude, description, location_name FROM locations where location_id=?;");
         ps.setLong(1, id);
         ResultSet rs=ps.executeQuery();
+        rs.next();
         Location location=new Location(id,rs.getString("latitude"),
                 rs.getString("longtitude"), rs.getString("description"), rs.getString("location_name"));
         return location;
     }
 
+
     public Location getLocationByPost(Post post) throws SQLException, LocationException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select * from locations where post_id=?;");
+        PreparedStatement ps = con.prepareStatement("select l.location_id, l.latitude, l.longtitude, l.description, l.location_name" +
+                " from locations as l join posts " +
+                "on posts.post_id=l.location_id" +
+                " where post_id=?;");
         ps.setLong(1,post.getId());
         ResultSet rs=ps.executeQuery();
         rs.next();
-        Location location=new Location(rs.getLong("location_id"),
-                rs.getString("latitude"), rs.getString("longtitude"),
-                rs.getString("description"), rs.getString("location_name"));
+        Location location=new Location(rs.getLong("l.location_id"),
+                rs.getString("l.latitude"), rs.getString("l.longtitude"),
+                rs.getString("l.description"), rs.getString("l.location_name"));
         return location;
     }
 }
