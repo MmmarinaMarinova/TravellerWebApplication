@@ -2,7 +2,9 @@ package model;
 
 import model.exceptions.LocationException;
 
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Created by Marina on 15.10.2017 г..
@@ -21,7 +23,7 @@ location_name VARCHAR(45)*/
     private String longtitude;
     private String description;
     private String locationName;
-    private HashSet<User> peopleVisited;
+    private ConcurrentSkipListSet<User> peopleVisited;
 
     //constructor to be used when putting object in database
     public Location(String latitude, String longtitute, String description, String locationName) throws LocationException {
@@ -29,7 +31,7 @@ location_name VARCHAR(45)*/
         this.setLongtitude(longtitute);
         this.setDescription(description);
         this.setLocationName(locationName);
-        this.peopleVisited =new HashSet<>();
+        this.peopleVisited = new ConcurrentSkipListSet<>();
     }
 
     //constructor to be used when fetching from database
@@ -89,11 +91,11 @@ location_name VARCHAR(45)*/
         this.locationName = locationName;
     }
 
-    public HashSet<User> getPeopleVisited() {
-        return this.peopleVisited;
+    public Collection<User> getPeopleVisited() {
+        return Collections.unmodifiableCollection(this.peopleVisited);
     }
 
-    public void setPeopleVisited(HashSet<User> peopleVisited) {
+    public void setPeopleVisited(ConcurrentSkipListSet<User> peopleVisited) {
         this.peopleVisited = peopleVisited;
     }
 }

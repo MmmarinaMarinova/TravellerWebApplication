@@ -13,7 +13,7 @@ import model.User;
 import model.exceptions.UserException;
 import model.exceptions.VisitedLocationException;
 
-public class UserDao { // operates with the following tables: 'users', 'users_followers',
+public class UserDao extends AbstractDao{ // operates with the following tables: 'users', 'users_followers',
 						// 'visited_locations', 'wishlists', 'posts'
 
 	private static UserDao instance;
@@ -30,8 +30,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	// insert user in db
 	public void insertUser(User u) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("insert into users (username, password,email) VALUES (?, ?,?);",
+		PreparedStatement ps = this.getCon().prepareStatement("insert into users (username, password,email) VALUES (?, ?,?);",
 				Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, u.getUsername());
 		ps.setString(2, u.getPassword()); // hashing required
@@ -45,8 +44,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// check if user exists ( to be used when users log in )
 	//tested
 	public boolean existsUser(String username, String password) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
+		PreparedStatement ps = this.getCon()
 				.prepareStatement("select count(*) as count from users where username = ? and password = ?;");
 		ps.setString(1, username);
 		ps.setString(2, password); // hashing required
@@ -57,8 +55,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	// check if username is taken ( to be used when users register)
 	public boolean existsUsername(String username) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select count(*) as count from users where username = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("select count(*) as count from users where username = ?;");
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
@@ -67,8 +64,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	// loading user from db
 	public User getUserByUsername(String username) throws SQLException, UserException, VisitedLocationException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				"select user_id, username, password, profile_pic_id, description from users where username = ?;");
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
@@ -85,8 +81,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	//tested
 	public User getUserById(long user_id) throws SQLException, UserException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
+		PreparedStatement ps = this.getCon()
 				.prepareStatement("select username, password, email from users where user_id = ?;");
 		ps.setLong(1, user_id);
 		ResultSet rs = ps.executeQuery();
@@ -105,8 +100,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// getting visited locations ids
 	private ArrayList<Long> getVisitedLocationsIds(long user_id) throws SQLException {
 		ArrayList<Long> visitedLocationsIds = new ArrayList<Long>();
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select location_id from visited_locations where user_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("select location_id from visited_locations where user_id = ?;");
 		ps.setLong(1, user_id);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -118,8 +112,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// getting wishlist locations ids
 	private ArrayList<Long> getLocationsFromWishlistIds(long user_id) throws SQLException {
 		ArrayList<Long> locationsFromWishlistIds = new ArrayList<Long>();
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select location_id from wishlists where user_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("select location_id from wishlists where user_id = ?;");
 		ps.setLong(1, user_id);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -131,8 +124,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// getting posts ids
 	private ArrayList<Long> getPostsIds(long user_id) throws SQLException {
 		ArrayList<Long> postsIds = new ArrayList<Long>();
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select post_id from posts where user_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("select post_id from posts where user_id = ?;");
 		ps.setLong(1, user_id);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -143,8 +135,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	// methods for updating user data
 	public void changePassword(User u, String newPassword) throws SQLException, UserException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("update users set password = ? where user_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("update users set password = ? where user_id = ?;");
 		ps.setString(1, newPassword); // hashing required
 		ps.setLong(2, u.getUserId());
 		ps.executeUpdate();
@@ -152,8 +143,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	public void changeProfilePicId(User u, long profilePicId) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("update users set profile_pic_id = ? where user_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("update users set profile_pic_id = ? where user_id = ?;");
 		ps.setLong(1, profilePicId);
 		ps.setLong(2, u.getUserId());
 		ps.executeUpdate();
@@ -161,8 +151,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	public void changeDescription(User u, String description) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("update users set description = ? where user_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("update users set description = ? where user_id = ?;");
 		ps.setString(1, description);
 		ps.setLong(2, u.getUserId());
 		ps.executeUpdate();
@@ -171,8 +160,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	// follow/unfollow
 	public void follow(User follower, User followed) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
+		PreparedStatement ps = this.getCon()
 				.prepareStatement("insert into users_followers (follower_id, followed_id) value (?, ?);");
 		ps.setLong(1, follower.getUserId());
 		ps.setLong(2, followed.getUserId());
@@ -183,8 +171,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	public void unfollow(User follower, User followed) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
+		PreparedStatement ps = this.getCon()
 				.prepareStatement("delete from users_followers where follower_id = ? and followed_id = ?;");
 		ps.setLong(1, follower.getUserId());
 		ps.setLong(2, followed.getUserId());
@@ -197,8 +184,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// get followers
 	public ArrayList<Long> getFollowersIds(long followed_id) throws SQLException {
 		ArrayList<Long> followersIds = new ArrayList<Long>();
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select follower_id from users_followers where followed_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("select follower_id from users_followers where followed_id = ?;");
 		ps.setLong(1, followed_id);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -218,8 +204,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// get followed users
 	public ArrayList<Long> getFollowingIds(long follower_id) throws SQLException {
 		ArrayList<Long> followingIds = new ArrayList<Long>();
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select followed_id from users_followers where follower_id = ?;");
+		PreparedStatement ps = this.getCon().prepareStatement("select followed_id from users_followers where follower_id = ?;");
 		ps.setLong(1, follower_id);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -238,8 +223,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 
 	// add/remove location from wishlist
 	public void addToWishlist(User u, Location l) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");
+		PreparedStatement ps = this.getCon().prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1, u.getUserId());
 		ps.setLong(2, l.getId());
 		ps.executeUpdate();
@@ -249,8 +233,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	public void removeFromWishlist(User u, Location l) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");
+		PreparedStatement ps = this.getCon().prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1, u.getUserId());
 		ps.setLong(2, l.getId());
 		ps.executeUpdate();

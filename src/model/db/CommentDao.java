@@ -11,7 +11,7 @@ import java.util.TreeSet;
 import model.Comment;
 import model.exceptions.CommentException;
 
-public final class CommentDao { //used to operate with table 'comments' from db
+public final class CommentDao extends AbstractDao{ //used to operate with table 'comments' from db
 	private static CommentDao instance;
 
 	private CommentDao() {
@@ -25,8 +25,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 	}
 
 	public void insertComment(Comment c) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				"insert into comments (content, post_id, user_id, date_time) values (?, ?, ?, ?);",
 				Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, c.getContent());
@@ -40,8 +39,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 	}
 	
 	public void deleteComment(Comment c) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				"delete from comments where id = ? and content = ? and post_id = ? and user_id = ? and date_time = ?;",
 				Statement.RETURN_GENERATED_KEYS);
 		ps.setLong(1, c.getId());
@@ -57,8 +55,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 
 	public Comment getComment(String content, int likesCount, int dislikesCount, long postId, long userId,
 			Timestamp datetime) throws SQLException, CommentException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				" select id, content, likes_counter, dislikes_counter, post_id, user_id, date_time from comments where content = ? and likes_counter = ? and dislikes_counter = ? and post_id = ? and user_id = ? and date_time = ?;");
 		ps.setString(1, content);
 		ps.setInt(2, likesCount);
@@ -73,8 +70,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 	}
 	
 	public void incrementLikes(Comment c) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				"update comments set likes_counter = ? where id = ?;");
 		ps.setInt(1, c.getLikesCount()+1);
 		ps.setLong(2, c.getId());
@@ -82,8 +78,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 	}
 
 	public void incrementDislikes(Comment c) throws SQLException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				"update comments set dislikes_counter = ? where id = ?;");
 		ps.setInt(1, c.getDislikesCount()+1);
 		ps.setLong(2, c.getId());
@@ -92,8 +87,7 @@ public final class CommentDao { //used to operate with table 'comments' from db
 	
 	public TreeSet<Comment> getCommentsForPost(long postId) throws SQLException, CommentException {
 		TreeSet<Comment> comments = new TreeSet<>((c1, c2) -> c1.getDatetime().compareTo(c2.getDatetime()));
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+		PreparedStatement ps = this.getCon().prepareStatement(
 				"select id, content, likes_counter, dislikes_counter, post_id, user_id, date_time from comments where post_id = ?;");
 		ps.setLong(1, postId);
 		ResultSet rs = ps.executeQuery();
