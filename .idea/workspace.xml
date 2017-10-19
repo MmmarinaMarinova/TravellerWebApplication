@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="790d6e8e-85af-4f6f-af6a-834c7a29c62a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Multimedia.java" afterPath="$PROJECT_DIR$/src/model/Multimedia.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/TestClass.java" afterPath="$PROJECT_DIR$/src/model/TestClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/CategoryDao.java" afterPath="$PROJECT_DIR$/src/model/db/CategoryDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/LocationDao.java" afterPath="$PROJECT_DIR$/src/model/db/LocationDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/db/MultimediaDao.java" afterPath="$PROJECT_DIR$/src/model/db/MultimediaDao.java" />
@@ -20,23 +19,90 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DatabaseView">
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="LocationDao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/db/LocationDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state relative-caret-position="-31">
+              <caret line="24" column="74" lean-forward="false" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
               <folding>
                 <element signature="method#getInstance#0;class#LocationDao#0" expanded="false" />
                 <element signature="method#insertLocation#0;class#LocationDao#0" expanded="false" />
-                <element signature="method#getLocationById#0;class#LocationDao#0" expanded="false" />
                 <element signature="method#getLocationByPost#0;class#LocationDao#0" expanded="false" />
-                <marker date="1508361025224" expanded="true" signature="664:752" ph="insert into locations... " />
-                <marker date="1508361025224" expanded="true" signature="1502:1592" ph="SELECT latit... locations" />
-                <marker date="1508361025224" expanded="true" signature="2110:2332" ph="select * fro... locations" />
-                <marker date="1508361025224" expanded="true" signature="2110:2333" ph="select l.loc... locations" />
+                <marker date="1508412509275" expanded="true" signature="739:827" ph="insert into locations... " />
+                <marker date="1508412509275" expanded="true" signature="1760:1850" ph="SELECT latit... locations" />
+                <marker date="1508412509275" expanded="true" signature="2368:2590" ph="select * fro... locations" />
+                <marker date="1508412509275" expanded="true" signature="2368:2591" ph="select l.loc... locations" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CategoryDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="60" column="70" lean-forward="false" selection-start-line="60" selection-start-column="70" selection-end-line="60" selection-end-column="70" />
+              <folding>
+                <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#deleteCategory#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
+                <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
+                <marker date="1508413547277" expanded="true" signature="787:834" ph="insert into categories... " />
+                <marker date="1508413547277" expanded="true" signature="1523:1574" ph="select categ... categories" />
+                <marker date="1508413547277" expanded="true" signature="1523:1580" ph="select categ... categories" />
+                <marker date="1508413547277" expanded="true" signature="2094:2136" ph="delete from " />
+                <marker date="1508413547277" expanded="true" signature="2622:2679" ph="select categ... posts_categories" />
+                <marker date="1508413547277" expanded="true" signature="3269:3332" ph="INSERT into posts_categories... " />
+                <marker date="1508413547277" expanded="true" signature="3281:3332" ph="insert into categories... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostDao.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-59">
+              <caret line="92" column="58" lean-forward="false" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
+              <folding>
+                <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+                <element signature="method#insertNewPost#0;class#PostDao#0" expanded="false" />
+                <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
+                <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
+                <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
+                <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
+                <element signature="method#incrementLikes#0;class#PostDao#0" expanded="false" />
+                <element signature="method#decrementLikes#0;class#PostDao#0" expanded="false" />
+                <element signature="method#incrementDislikes#0;class#PostDao#0" expanded="false" />
+                <element signature="method#decrementDislikes#0;class#PostDao#0" expanded="false" />
+                <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
+                <element signature="method#getPostsForUser#0;class#PostDao#0" expanded="false" />
+                <element signature="method#getPostById#0;class#PostDao#0" expanded="false" />
+                <marker date="1508413547129" expanded="true" signature="689:757" ph="insert into posts... " />
+                <marker date="1508413547129" expanded="true" signature="1717:1771" ph="insert into tagged_users... " />
+                <marker date="1508413547129" expanded="true" signature="2189:2243" ph="insert into tagged_users... " />
+                <marker date="1508413547129" expanded="true" signature="2669:2731" ph="insert into posts_categories... " />
+                <marker date="1508413547129" expanded="true" signature="3305:3338" ph="delete from " />
+                <marker date="1508413547129" expanded="true" signature="3793:3842" ph="update posts... " />
+                <marker date="1508413547129" expanded="true" signature="4274:4323" ph="update posts... " />
+                <marker date="1508413547129" expanded="true" signature="4757:4806" ph="update posts... " />
+                <marker date="1508413547129" expanded="true" signature="5300:5358" ph="update posts... " />
+                <marker date="1508413547129" expanded="true" signature="5798:5856" ph="update posts... " />
+                <marker date="1508413547129" expanded="true" signature="6319:6374" ph="update posts... " />
+                <marker date="1508413547129" expanded="false" signature="6911:7027" ph="select * fro... posts" />
+                <marker date="1508413547129" expanded="true" signature="7968:8076" ph="select from posts" />
               </folding>
             </state>
           </provider>
@@ -45,47 +111,10 @@
       <file leaf-file-name="TestClass.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/TestClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="67" column="65" lean-forward="true" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+            <state relative-caret-position="1009">
+              <caret line="67" column="65" lean-forward="false" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MultimediaDao.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-              <folding>
-                <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
-                <element signature="method#insertMultimedia#0;class#MultimediaDao#0" expanded="false" />
-                <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
-                <marker date="1508361682391" expanded="true" signature="787:851" ph="insert into multimedia... " />
-                <marker date="1508361682391" expanded="true" signature="1440:1469" ph="delete from " />
-                <marker date="1508361682391" expanded="true" signature="1440:1485" ph="delete from " />
-                <marker date="1508361682391" expanded="true" signature="1446:1462" ph="insert into multimedia... " />
-                <marker date="1508361682391" expanded="true" signature="1902:1922" ph="select multi... " />
-                <marker date="1508361682391" expanded="true" signature="1902:1955" ph="select multi... multimedia" />
-                <marker date="1508361682391" expanded="true" signature="2567:2640" ph="select * fro... multimedia" />
-                <marker date="1508361682391" expanded="true" signature="3213:3278" ph="insert into multimedia... " />
-                <marker date="1508361682391" expanded="true" signature="3820:3885" ph="insert into multimedia... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Multimedia.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/Multimedia.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="24" column="19" lean-forward="false" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
-              <folding>
-                <element signature="method#Multimedia#0;class#Multimedia#0" expanded="false" />
-                <element signature="method#Multimedia#1;class#Multimedia#0" expanded="false" />
-                <element signature="method#setUrl#0;class#Multimedia#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -140,12 +169,12 @@
         <option value="$PROJECT_DIR$/src/model/Post.java" />
         <option value="$PROJECT_DIR$/src/model/db/UserDao.java" />
         <option value="$PROJECT_DIR$/src/model/User.java" />
-        <option value="$PROJECT_DIR$/src/model/db/PostDao.java" />
-        <option value="$PROJECT_DIR$/src/model/db/CategoryDao.java" />
-        <option value="$PROJECT_DIR$/src/model/db/LocationDao.java" />
         <option value="$PROJECT_DIR$/src/model/Multimedia.java" />
         <option value="$PROJECT_DIR$/src/model/TestClass.java" />
         <option value="$PROJECT_DIR$/src/model/db/MultimediaDao.java" />
+        <option value="$PROJECT_DIR$/src/model/db/LocationDao.java" />
+        <option value="$PROJECT_DIR$/src/model/db/CategoryDao.java" />
+        <option value="$PROJECT_DIR$/src/model/db/PostDao.java" />
       </list>
     </option>
   </component>
@@ -182,9 +211,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -267,6 +295,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -773,12 +802,13 @@
       <workItem from="1508053760673" duration="26172000" />
       <workItem from="1508162777479" duration="5785000" />
       <workItem from="1508184688486" duration="996000" />
-      <workItem from="1508307118136" duration="19964000" />
+      <workItem from="1508307118136" duration="20534000" />
+      <workItem from="1508410244223" duration="3073000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52917000" />
+    <option name="totallyTimeSpent" value="56560000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="0" width="1924" height="1038" extended-state="0" />
@@ -799,22 +829,22 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.48530954" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39844617" sideWeight="0.4895068" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39844617" sideWeight="0.4895068" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.7527675" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.24723247" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.74169743" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973767" sideWeight="0.25830257" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.48530954" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -842,8 +872,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+            <element signature="method#insertNewPost#0;class#PostDao#0" expanded="false" />
             <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
-            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
             <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
             <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
             <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
@@ -854,20 +884,19 @@
             <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
             <element signature="method#getPostsForUser#0;class#PostDao#0" expanded="false" />
             <element signature="method#getPostById#0;class#PostDao#0" expanded="false" />
-            <marker date="1508359276759" expanded="true" signature="614:682" ph="insert into posts... " />
-            <marker date="1508359276759" expanded="true" signature="1440:1494" ph="insert into tagged_users... " />
-            <marker date="1508359276759" expanded="true" signature="1912:1966" ph="insert into tagged_users... " />
-            <marker date="1508359276759" expanded="true" signature="2317:2379" ph="insert into posts_categories... " />
-            <marker date="1508359276759" expanded="true" signature="2329:2379" ph="delete from " />
-            <marker date="1508359276759" expanded="true" signature="2795:2828" ph="delete from " />
-            <marker date="1508359276759" expanded="true" signature="3239:3288" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="3720:3769" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="4203:4252" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="4746:4804" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="5244:5302" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="5765:5820" ph="update posts... " />
-            <marker date="1508359276759" expanded="false" signature="6357:6473" ph="select * fro... posts" />
-            <marker date="1508359276759" expanded="true" signature="7414:7522" ph="select from posts" />
+            <marker date="1508413547129" expanded="true" signature="689:757" ph="insert into posts... " />
+            <marker date="1508413547129" expanded="true" signature="1717:1771" ph="insert into tagged_users... " />
+            <marker date="1508413547129" expanded="true" signature="2189:2243" ph="insert into tagged_users... " />
+            <marker date="1508413547129" expanded="true" signature="2669:2731" ph="insert into posts_categories... " />
+            <marker date="1508413547129" expanded="true" signature="3305:3338" ph="delete from " />
+            <marker date="1508413547129" expanded="true" signature="3793:3842" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="4274:4323" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="4757:4806" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="5300:5358" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="5798:5856" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="6319:6374" ph="update posts... " />
+            <marker date="1508413547129" expanded="false" signature="6911:7027" ph="select * fro... posts" />
+            <marker date="1508413547129" expanded="true" signature="7968:8076" ph="select from posts" />
           </folding>
         </state>
       </provider>
@@ -878,18 +907,17 @@
           <caret line="77" column="26" lean-forward="false" selection-start-line="74" selection-start-column="11" selection-end-line="77" selection-end-column="26" />
           <folding>
             <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#insertNewCategory#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#deleteCategory#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
-            <marker date="1508360783581" expanded="true" signature="754:801" ph="insert into categories... " />
-            <marker date="1508360783581" expanded="true" signature="1305:1356" ph="select categ... categories" />
-            <marker date="1508360783581" expanded="true" signature="1305:1362" ph="select categ... categories" />
-            <marker date="1508360783581" expanded="true" signature="1800:1842" ph="delete from " />
-            <marker date="1508360783581" expanded="true" signature="2204:2261" ph="select categ... posts_categories" />
-            <marker date="1508360783581" expanded="true" signature="2851:2914" ph="INSERT into posts_categories... " />
-            <marker date="1508360783581" expanded="true" signature="2863:2914" ph="insert into categories... " />
+            <marker date="1508413547277" expanded="true" signature="787:834" ph="insert into categories... " />
+            <marker date="1508413547277" expanded="true" signature="1523:1574" ph="select categ... categories" />
+            <marker date="1508413547277" expanded="true" signature="1523:1580" ph="select categ... categories" />
+            <marker date="1508413547277" expanded="true" signature="2094:2136" ph="delete from " />
+            <marker date="1508413547277" expanded="true" signature="2622:2679" ph="select categ... posts_categories" />
+            <marker date="1508413547277" expanded="true" signature="3269:3332" ph="INSERT into posts_categories... " />
+            <marker date="1508413547277" expanded="true" signature="3281:3332" ph="insert into categories... " />
           </folding>
         </state>
       </provider>
@@ -900,17 +928,14 @@
           <caret line="107" column="26" lean-forward="false" selection-start-line="107" selection-start-column="26" selection-end-line="107" selection-end-column="26" />
           <folding>
             <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#insertMultimedia#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
-            <marker date="1508361682391" expanded="true" signature="787:851" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="1440:1469" ph="delete from " />
-            <marker date="1508361682391" expanded="true" signature="1440:1485" ph="delete from " />
-            <marker date="1508361682391" expanded="true" signature="1446:1462" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="1902:1922" ph="select multi... " />
-            <marker date="1508361682391" expanded="true" signature="1902:1955" ph="select multi... multimedia" />
-            <marker date="1508361682391" expanded="true" signature="2567:2640" ph="select * fro... multimedia" />
-            <marker date="1508361682391" expanded="true" signature="3213:3278" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="3820:3885" ph="insert into multimedia... " />
+            <element signature="method#getAllMultimediaForPost#0;class#MultimediaDao#0" expanded="false" />
+            <marker date="1508412509196" expanded="true" signature="965:1029" ph="insert into multimedia... " />
+            <marker date="1508412509196" expanded="true" signature="1908:1953" ph="delete from " />
+            <marker date="1508412509196" expanded="true" signature="2421:2441" ph="select multi... " />
+            <marker date="1508412509196" expanded="true" signature="2421:2474" ph="select multi... multimedia" />
+            <marker date="1508412509196" expanded="true" signature="3086:3159" ph="select * fro... multimedia" />
+            <marker date="1508412509196" expanded="true" signature="3732:3797" ph="insert into multimedia... " />
+            <marker date="1508412509196" expanded="true" signature="4518:4583" ph="insert into multimedia... " />
           </folding>
         </state>
       </provider>
@@ -919,15 +944,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1122">
           <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2357#2358#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
-            <element signature="e#2427#2428#0" expanded="false" />
-            <element signature="e#2459#2460#0" expanded="false" />
-            <element signature="e#3824#3825#0" expanded="false" />
-            <element signature="e#3864#3865#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -937,8 +953,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+            <element signature="method#insertNewPost#0;class#PostDao#0" expanded="false" />
             <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
-            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
             <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
             <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
             <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
@@ -949,20 +965,19 @@
             <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
             <element signature="method#getPostsForUser#0;class#PostDao#0" expanded="false" />
             <element signature="method#getPostById#0;class#PostDao#0" expanded="false" />
-            <marker date="1508359276759" expanded="true" signature="614:682" ph="insert into posts... " />
-            <marker date="1508359276759" expanded="true" signature="1440:1494" ph="insert into tagged_users... " />
-            <marker date="1508359276759" expanded="true" signature="1912:1966" ph="insert into tagged_users... " />
-            <marker date="1508359276759" expanded="true" signature="2317:2379" ph="insert into posts_categories... " />
-            <marker date="1508359276759" expanded="true" signature="2329:2379" ph="delete from " />
-            <marker date="1508359276759" expanded="true" signature="2795:2828" ph="delete from " />
-            <marker date="1508359276759" expanded="true" signature="3239:3288" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="3720:3769" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="4203:4252" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="4746:4804" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="5244:5302" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="5765:5820" ph="update posts... " />
-            <marker date="1508359276759" expanded="false" signature="6357:6473" ph="select * fro... posts" />
-            <marker date="1508359276759" expanded="true" signature="7414:7522" ph="select from posts" />
+            <marker date="1508413547129" expanded="true" signature="689:757" ph="insert into posts... " />
+            <marker date="1508413547129" expanded="true" signature="1717:1771" ph="insert into tagged_users... " />
+            <marker date="1508413547129" expanded="true" signature="2189:2243" ph="insert into tagged_users... " />
+            <marker date="1508413547129" expanded="true" signature="2669:2731" ph="insert into posts_categories... " />
+            <marker date="1508413547129" expanded="true" signature="3305:3338" ph="delete from " />
+            <marker date="1508413547129" expanded="true" signature="3793:3842" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="4274:4323" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="4757:4806" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="5300:5358" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="5798:5856" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="6319:6374" ph="update posts... " />
+            <marker date="1508413547129" expanded="false" signature="6911:7027" ph="select * fro... posts" />
+            <marker date="1508413547129" expanded="true" signature="7968:8076" ph="select from posts" />
           </folding>
         </state>
       </provider>
@@ -973,18 +988,17 @@
           <caret line="77" column="26" lean-forward="true" selection-start-line="74" selection-start-column="11" selection-end-line="77" selection-end-column="26" />
           <folding>
             <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#insertNewCategory#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#deleteCategory#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
             <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
-            <marker date="1508360783581" expanded="true" signature="754:801" ph="insert into categories... " />
-            <marker date="1508360783581" expanded="true" signature="1305:1356" ph="select categ... categories" />
-            <marker date="1508360783581" expanded="true" signature="1305:1362" ph="select categ... categories" />
-            <marker date="1508360783581" expanded="true" signature="1800:1842" ph="delete from " />
-            <marker date="1508360783581" expanded="true" signature="2204:2261" ph="select categ... posts_categories" />
-            <marker date="1508360783581" expanded="true" signature="2851:2914" ph="INSERT into posts_categories... " />
-            <marker date="1508360783581" expanded="true" signature="2863:2914" ph="insert into categories... " />
+            <marker date="1508413547277" expanded="true" signature="787:834" ph="insert into categories... " />
+            <marker date="1508413547277" expanded="true" signature="1523:1574" ph="select categ... categories" />
+            <marker date="1508413547277" expanded="true" signature="1523:1580" ph="select categ... categories" />
+            <marker date="1508413547277" expanded="true" signature="2094:2136" ph="delete from " />
+            <marker date="1508413547277" expanded="true" signature="2622:2679" ph="select categ... posts_categories" />
+            <marker date="1508413547277" expanded="true" signature="3269:3332" ph="INSERT into posts_categories... " />
+            <marker date="1508413547277" expanded="true" signature="3281:3332" ph="insert into categories... " />
           </folding>
         </state>
       </provider>
@@ -995,17 +1009,14 @@
           <caret line="107" column="26" lean-forward="true" selection-start-line="107" selection-start-column="26" selection-end-line="107" selection-end-column="26" />
           <folding>
             <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#insertMultimedia#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
-            <marker date="1508361682391" expanded="true" signature="787:851" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="1440:1469" ph="delete from " />
-            <marker date="1508361682391" expanded="true" signature="1440:1485" ph="delete from " />
-            <marker date="1508361682391" expanded="true" signature="1446:1462" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="1902:1922" ph="select multi... " />
-            <marker date="1508361682391" expanded="true" signature="1902:1955" ph="select multi... multimedia" />
-            <marker date="1508361682391" expanded="true" signature="2567:2640" ph="select * fro... multimedia" />
-            <marker date="1508361682391" expanded="true" signature="3213:3278" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="3820:3885" ph="insert into multimedia... " />
+            <element signature="method#getAllMultimediaForPost#0;class#MultimediaDao#0" expanded="false" />
+            <marker date="1508412509196" expanded="true" signature="965:1029" ph="insert into multimedia... " />
+            <marker date="1508412509196" expanded="true" signature="1908:1953" ph="delete from " />
+            <marker date="1508412509196" expanded="true" signature="2421:2441" ph="select multi... " />
+            <marker date="1508412509196" expanded="true" signature="2421:2474" ph="select multi... multimedia" />
+            <marker date="1508412509196" expanded="true" signature="3086:3159" ph="select * fro... multimedia" />
+            <marker date="1508412509196" expanded="true" signature="3732:3797" ph="insert into multimedia... " />
+            <marker date="1508412509196" expanded="true" signature="4518:4583" ph="insert into multimedia... " />
           </folding>
         </state>
       </provider>
@@ -1014,15 +1025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1122">
           <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2357#2358#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
-            <element signature="e#2427#2428#0" expanded="false" />
-            <element signature="e#2459#2460#0" expanded="false" />
-            <element signature="e#3824#3825#0" expanded="false" />
-            <element signature="e#3864#3865#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,7 +1036,6 @@
             <element signature="method#Category#0;class#Category#0" expanded="false" />
             <element signature="method#Category#1;class#Category#0" expanded="false" />
             <element signature="method#setName#0;class#Category#0" expanded="false" />
-            <element signature="method#setId#0;class#Category#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1044,14 +1045,8 @@
         <state relative-caret-position="1364">
           <caret line="88" column="41" lean-forward="true" selection-start-line="79" selection-start-column="8" selection-end-line="88" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
             <element signature="method#setLongtitude#0;class#Location#0" expanded="false" />
-            <element signature="e#2725#2726#0" expanded="false" />
-            <element signature="e#2766#2767#0" expanded="false" />
-            <element signature="e#2831#2832#0" expanded="false" />
-            <element signature="e#2881#2882#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1060,15 +1055,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="682">
           <caret line="34" column="203" lean-forward="false" selection-start-line="34" selection-start-column="203" selection-end-line="34" selection-end-column="203" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2357#2358#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
-            <element signature="e#2427#2428#0" expanded="false" />
-            <element signature="e#2459#2460#0" expanded="false" />
-            <element signature="e#3824#3825#0" expanded="false" />
-            <element signature="e#3864#3865#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1149,7 +1135,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
           <caret line="76" column="38" lean-forward="false" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1157,7 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1165,7 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
           <caret line="26" column="47" lean-forward="false" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,7 +1156,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="62">
           <caret line="2" column="65" lean-forward="false" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1181,7 +1163,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
           <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="83" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1189,7 +1170,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="67" column="81" lean-forward="true" selection-start-line="66" selection-start-column="12" selection-end-line="67" selection-end-column="81" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1197,44 +1177,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-403">
           <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TestClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tests/UserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tests/UserTest.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TestClass.java" />
+    <entry file="file://$PROJECT_DIR$/src/Tests/UserTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/Tests/UserTest.groovy" />
     <entry file="file://$PROJECT_DIR$/src/model/exceptions/CategoryException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-          <folding>
-            <element signature="e#172#173#0" expanded="false" />
-            <element signature="e#198#199#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1253,11 +1205,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
-          <folding>
-            <element signature="method#User#2;class#User#0" expanded="false" />
-            <element signature="method#setUsername#0;class#User#0" expanded="false" />
-            <element signature="method#setPassword#0;class#User#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1265,11 +1212,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
-          <folding>
-            <element signature="method#Post#2;class#Post#0" expanded="false" />
-            <element signature="e#3738#3739#0" expanded="true" />
-            <element signature="e#3774#3775#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1310,7 +1252,7 @@
             <element signature="method#getUserById#0;class#UserDao#0" expanded="false" />
             <element signature="method#getVisitedLocationsIds#0;class#UserDao#0" expanded="false" />
             <element signature="method#getLocationsFromWishlistIds#0;class#UserDao#0" expanded="false" />
-            <element signature="e#5021#5027#0" expanded="true" />
+            <element signature="e#5021#5027#0" expanded="false" />
             <element signature="method#getPostsIds#0;class#UserDao#0" expanded="false" />
             <element signature="method#changePassword#0;class#UserDao#0" expanded="false" />
             <element signature="method#changeProfilePicId#0;class#UserDao#0" expanded="false" />
@@ -1339,64 +1281,6 @@
             <marker date="1508339733297" expanded="true" signature="9067:9128" ph="select follo... users_followers" />
             <marker date="1508339733297" expanded="true" signature="9769:9826" ph="insert into wishlists... " />
             <marker date="1508339733297" expanded="true" signature="10278:10335" ph="delete from " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-          <folding>
-            <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
-            <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
-            <element signature="method#tagUser#0;class#PostDao#0" expanded="false" />
-            <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
-            <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
-            <element signature="method#incrementLikes#0;class#PostDao#0" expanded="false" />
-            <element signature="method#decrementLikes#0;class#PostDao#0" expanded="false" />
-            <element signature="method#incrementDislikes#0;class#PostDao#0" expanded="false" />
-            <element signature="method#decrementDislikes#0;class#PostDao#0" expanded="false" />
-            <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
-            <element signature="method#getPostsForUser#0;class#PostDao#0" expanded="false" />
-            <element signature="method#getPostById#0;class#PostDao#0" expanded="false" />
-            <marker date="1508359276759" expanded="true" signature="614:682" ph="insert into posts... " />
-            <marker date="1508359276759" expanded="true" signature="1440:1494" ph="insert into tagged_users... " />
-            <marker date="1508359276759" expanded="true" signature="1912:1966" ph="insert into tagged_users... " />
-            <marker date="1508359276759" expanded="true" signature="2317:2379" ph="insert into posts_categories... " />
-            <marker date="1508359276759" expanded="true" signature="2329:2379" ph="delete from " />
-            <marker date="1508359276759" expanded="true" signature="2795:2828" ph="delete from " />
-            <marker date="1508359276759" expanded="true" signature="3239:3288" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="3720:3769" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="4203:4252" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="4746:4804" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="5244:5302" ph="update posts... " />
-            <marker date="1508359276759" expanded="true" signature="5765:5820" ph="update posts... " />
-            <marker date="1508359276759" expanded="false" signature="6357:6473" ph="select * fro... posts" />
-            <marker date="1508359276759" expanded="true" signature="7414:7522" ph="select from posts" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#insertNewCategory#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#deleteCategory#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
-            <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
-            <marker date="1508360783581" expanded="true" signature="754:801" ph="insert into categories... " />
-            <marker date="1508360783581" expanded="true" signature="1305:1356" ph="select categ... categories" />
-            <marker date="1508360783581" expanded="true" signature="1305:1362" ph="select categ... categories" />
-            <marker date="1508360783581" expanded="true" signature="1800:1842" ph="delete from " />
-            <marker date="1508360783581" expanded="true" signature="2204:2261" ph="select categ... posts_categories" />
-            <marker date="1508360783581" expanded="true" signature="2851:2914" ph="INSERT into posts_categories... " />
-            <marker date="1508360783581" expanded="true" signature="2863:2914" ph="insert into categories... " />
           </folding>
         </state>
       </provider>
@@ -1436,36 +1320,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/db/LocationDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="method#getInstance#0;class#LocationDao#0" expanded="false" />
-            <element signature="method#insertLocation#0;class#LocationDao#0" expanded="false" />
-            <element signature="method#getLocationById#0;class#LocationDao#0" expanded="false" />
-            <element signature="method#getLocationByPost#0;class#LocationDao#0" expanded="false" />
-            <marker date="1508361025224" expanded="true" signature="664:752" ph="insert into locations... " />
-            <marker date="1508361025224" expanded="true" signature="1502:1592" ph="SELECT latit... locations" />
-            <marker date="1508361025224" expanded="true" signature="2110:2332" ph="select * fro... locations" />
-            <marker date="1508361025224" expanded="true" signature="2110:2333" ph="select l.loc... locations" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/TestClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="67" column="65" lean-forward="true" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Multimedia.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
+        <state relative-caret-position="440">
           <caret line="24" column="19" lean-forward="false" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
           <folding>
             <element signature="method#Multimedia#0;class#Multimedia#0" expanded="false" />
@@ -1477,21 +1334,100 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/db/MultimediaDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+        <state relative-caret-position="462">
+          <caret line="137" column="27" lean-forward="false" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
           <folding>
             <element signature="method#getInstance#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#insertMultimedia#0;class#MultimediaDao#0" expanded="false" />
-            <element signature="method#addMultimediaToPost#0;class#MultimediaDao#0" expanded="false" />
-            <marker date="1508361682391" expanded="true" signature="787:851" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="1440:1469" ph="delete from " />
-            <marker date="1508361682391" expanded="true" signature="1440:1485" ph="delete from " />
-            <marker date="1508361682391" expanded="true" signature="1446:1462" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="1902:1922" ph="select multi... " />
-            <marker date="1508361682391" expanded="true" signature="1902:1955" ph="select multi... multimedia" />
-            <marker date="1508361682391" expanded="true" signature="2567:2640" ph="select * fro... multimedia" />
-            <marker date="1508361682391" expanded="true" signature="3213:3278" ph="insert into multimedia... " />
-            <marker date="1508361682391" expanded="true" signature="3820:3885" ph="insert into multimedia... " />
+            <element signature="method#getAllMultimediaForPost#0;class#MultimediaDao#0" expanded="false" />
+            <marker date="1508412509196" expanded="true" signature="965:1029" ph="insert into multimedia... " />
+            <marker date="1508412509196" expanded="true" signature="1908:1953" ph="delete from " />
+            <marker date="1508412509196" expanded="true" signature="2421:2441" ph="select multi... " />
+            <marker date="1508412509196" expanded="true" signature="2421:2474" ph="select multi... multimedia" />
+            <marker date="1508412509196" expanded="true" signature="3086:3159" ph="select * fro... multimedia" />
+            <marker date="1508412509196" expanded="true" signature="3732:3797" ph="insert into multimedia... " />
+            <marker date="1508412509196" expanded="true" signature="4518:4583" ph="insert into multimedia... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/TestClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1009">
+          <caret line="67" column="65" lean-forward="false" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/LocationDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31">
+          <caret line="24" column="74" lean-forward="false" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+          <folding>
+            <element signature="method#getInstance#0;class#LocationDao#0" expanded="false" />
+            <element signature="method#insertLocation#0;class#LocationDao#0" expanded="false" />
+            <element signature="method#getLocationByPost#0;class#LocationDao#0" expanded="false" />
+            <marker date="1508412509275" expanded="true" signature="739:827" ph="insert into locations... " />
+            <marker date="1508412509275" expanded="true" signature="1760:1850" ph="SELECT latit... locations" />
+            <marker date="1508412509275" expanded="true" signature="2368:2590" ph="select * fro... locations" />
+            <marker date="1508412509275" expanded="true" signature="2368:2591" ph="select l.loc... locations" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/CategoryDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="60" column="70" lean-forward="false" selection-start-line="60" selection-start-column="70" selection-end-line="60" selection-end-column="70" />
+          <folding>
+            <element signature="method#getInstance#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoryById#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#deleteCategory#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#getCategoriesForPost#0;class#CategoryDao#0" expanded="false" />
+            <element signature="method#addAllCategoriesToPost#0;class#CategoryDao#0" expanded="false" />
+            <marker date="1508413547277" expanded="true" signature="787:834" ph="insert into categories... " />
+            <marker date="1508413547277" expanded="true" signature="1523:1574" ph="select categ... categories" />
+            <marker date="1508413547277" expanded="true" signature="1523:1580" ph="select categ... categories" />
+            <marker date="1508413547277" expanded="true" signature="2094:2136" ph="delete from " />
+            <marker date="1508413547277" expanded="true" signature="2622:2679" ph="select categ... posts_categories" />
+            <marker date="1508413547277" expanded="true" signature="3269:3332" ph="INSERT into posts_categories... " />
+            <marker date="1508413547277" expanded="true" signature="3281:3332" ph="insert into categories... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/db/PostDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-59">
+          <caret line="92" column="58" lean-forward="false" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
+          <folding>
+            <element signature="method#getInstance#0;class#PostDao#0" expanded="false" />
+            <element signature="method#insertNewPost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#tagAllUsers#0;class#PostDao#0" expanded="false" />
+            <element signature="method#addCategoryToPost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#deletePost#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateLocation#0;class#PostDao#0" expanded="false" />
+            <element signature="method#incrementLikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#decrementLikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#incrementDislikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#decrementDislikes#0;class#PostDao#0" expanded="false" />
+            <element signature="method#updateDescription#0;class#PostDao#0" expanded="false" />
+            <element signature="method#getPostsForUser#0;class#PostDao#0" expanded="false" />
+            <element signature="method#getPostById#0;class#PostDao#0" expanded="false" />
+            <marker date="1508413547129" expanded="true" signature="689:757" ph="insert into posts... " />
+            <marker date="1508413547129" expanded="true" signature="1717:1771" ph="insert into tagged_users... " />
+            <marker date="1508413547129" expanded="true" signature="2189:2243" ph="insert into tagged_users... " />
+            <marker date="1508413547129" expanded="true" signature="2669:2731" ph="insert into posts_categories... " />
+            <marker date="1508413547129" expanded="true" signature="3305:3338" ph="delete from " />
+            <marker date="1508413547129" expanded="true" signature="3793:3842" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="4274:4323" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="4757:4806" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="5300:5358" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="5798:5856" ph="update posts... " />
+            <marker date="1508413547129" expanded="true" signature="6319:6374" ph="update posts... " />
+            <marker date="1508413547129" expanded="false" signature="6911:7027" ph="select * fro... posts" />
+            <marker date="1508413547129" expanded="true" signature="7968:8076" ph="select from posts" />
           </folding>
         </state>
       </provider>

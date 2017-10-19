@@ -22,17 +22,26 @@ public class CategoryDao {
         return instance;
     }
 
-    //tested, setting id does not work!?!?!?!?!?!?!?!?
-    public Category insertNewCategory(Category category) throws SQLException, CategoryException {
+    //tested
+    public Category insertNewCategory(Category category) throws CategoryException, SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "insert into categories(category_name) value (?);",
-                Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, category.getName());
-        ps.executeUpdate();
-        ResultSet rs=ps.getGeneratedKeys();
-        rs.next();
-        category.setId(rs.getLong(1));
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "insert into categories(category_name) value (?);",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, category.getName());
+            ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            rs.next();
+            category.setId(rs.getLong(1));
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
+        }
         return category;
     }
 
@@ -49,13 +58,22 @@ public class CategoryDao {
     }
 
     //tested
-    public int deleteCategory(Category category) throws SQLException {
+    public void deleteCategory(Category category) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "delete from categories where category_id=?;");
-        ps.setLong(1, category.getId());
-        int affectedRows=ps.executeUpdate();
-        return affectedRows;
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "delete from categories where category_id=?;");
+            ps.setLong(1, category.getId());
+            ps.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
+
+        }
     }
 
 

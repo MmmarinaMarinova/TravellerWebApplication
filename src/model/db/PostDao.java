@@ -23,18 +23,28 @@ public class PostDao {
     //tested
     public void insertNewPost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "insert into posts(user_id, description, date_time) value (?,?,now());",
-                Statement.RETURN_GENERATED_KEYS);
-        ps.setLong(1, post.getUser().getUserId());
-        ps.setString(2,post.getDescription());
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        post.setId(rs.getLong(1));
-        CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories());
-        //MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
-        this.tagAllUsers(post, post.getTaggedPeople());
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "insert into posts(user_id, description, date_time) value (?,?,now());",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(1, post.getUser().getUserId());
+            ps.setString(2,post.getDescription());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            post.setId(rs.getLong(1));
+            CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories());
+            //MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
+            this.tagAllUsers(post, post.getTaggedPeople());
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
+        }
+
     }
 
     //tested
@@ -63,25 +73,36 @@ public class PostDao {
     //tested
     public void addCategoryToPost(Post post, Category category) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "insert into posts_categories(post_id, category_id) values(?,?);");
-        ps.setLong(1, post.getId());
-        ps.setLong(2,category.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO show popup info
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "insert into posts_categories(post_id, category_id) values(?,?);");
+            ps.setLong(1, post.getId());
+            ps.setLong(2,category.getId());
+            ps.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
         }
     }
 
     //tested
     public void deletePost(Post post) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "delete from posts where post_id=?;");
-        ps.setLong(1, post.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO PUT SOME POPUP WITH INFO
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "delete from posts where post_id=?;");
+            ps.setLong(1, post.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
         }
     }
 

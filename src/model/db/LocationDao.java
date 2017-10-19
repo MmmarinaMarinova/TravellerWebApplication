@@ -24,20 +24,28 @@ public class LocationDao {
     //tested
     public Location insertLocation(Location location) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "insert into locations( latitude,longtitude, description, location_name) values (?,?,?,?);",
-                Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, location.getLatitude());
-        ps.setString(2,location.getLongtitude());
-        ps.setString(3,location.getDescription());
-        ps.setString(4,location.getLocationName());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO show popup info here
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "insert into locations( latitude,longtitude, description, location_name) values (?,?,?,?);",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, location.getLatitude());
+            ps.setString(2,location.getLongtitude());
+            ps.setString(3,location.getDescription());
+            ps.setString(4,location.getLocationName());
+            int affectedRows=ps.executeUpdate();
+            if(affectedRows>0){
+                //TODO show popup info here
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            location.setId(rs.getLong(1));
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
         }
-        ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        location.setId(rs.getLong(1));
         return location;
     }
 

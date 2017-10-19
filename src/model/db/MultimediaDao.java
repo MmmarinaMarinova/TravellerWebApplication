@@ -27,16 +27,31 @@ public class MultimediaDao {
     //tested
     public Multimedia insertMultimedia(Post post, Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "insert into multimedia(file_url,is_video, post_id) value (?,?,?);",
-                Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, multimedia.getUrl());
-        ps.setBoolean(2,multimedia.isVideo());
-        ps.setLong(3,post.getId());
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        multimedia.setId(rs.getLong(1));
+        try {
+            con.setAutoCommit(false);
+        } catch (SQLException e) {
+            System.out.println("oops");
+        }
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "insert into multimedia(file_url,is_video, post_id) value (?,?,?);",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, multimedia.getUrl());
+            ps.setBoolean(2,multimedia.isVideo());
+            ps.setLong(3,post.getId());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            multimedia.setId(rs.getLong(1));
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
+            throw e;
+        }
+
         return multimedia;
     }
 
@@ -44,13 +59,21 @@ public class MultimediaDao {
     //TODO not working
     public void deleteMultimedia(Multimedia multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "delete from multimedia where multimedia_id= ? ;");
-        ps.setLong(1, multimedia.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            System.out.println("multimedia deleted");
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "delete from multimedia where multimedia_id= ? ;");
+            ps.setLong(1, multimedia.getId());
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
+            throw e;
         }
+
+
     }
 
     public HashSet<Multimedia> getAllMultimediaForPost(Post post) throws SQLException {
@@ -96,16 +119,27 @@ public class MultimediaDao {
 
     public void addAllMultimediaToPost(Post post, HashSet<Multimedia> multimedia) throws SQLException {
         Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "insert into multimedia(file_dir,is_video, post_id) values (?,?,?);",Statement.RETURN_GENERATED_KEYS);
-        for (Multimedia m : multimedia) {
-            //TODO SET IDS OF ALL  MULTIMEDIA
-            ps.setString(1,m.getUrl());
-            ps.setBoolean(2,m.isVideo());
-            ps.setLong(3,post.getId());
-            ps.executeUpdate();
-            ResultSet resultSet=ps.getGeneratedKeys();
-            m.setId(resultSet.getLong(1));
+        con.setAutoCommit(false);
+        PreparedStatement ps = null;
+        try {
+            for (Multimedia m : multimedia) {
+                //TODO SET IDS OF ALL  MULTIMEDIA
+                ps = con.prepareStatement(
+                        "insert into multimedia(file_dir,is_video, post_id) values (?,?,?);", Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1,m.getUrl());
+                ps.setBoolean(2,m.isVideo());
+                ps.setLong(3,post.getId());
+                ps.executeUpdate();
+                ResultSet resultSet=ps.getGeneratedKeys();
+                m.setId(resultSet.getLong(1));
+                con.commit();
+            }
+        } catch (SQLException e) {
+            con.rollback();
+            con.setAutoCommit(true);
+            con.close();
         }
+
+
     }
 }
