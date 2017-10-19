@@ -8,7 +8,7 @@ import java.util.HashSet;
 /**
  * Created by Marina on 15.10.2017 г..
  */
-public class PostDao {
+public class PostDao extends AbstractDao{
     private static PostDao instance;
 
     private PostDao() {}
@@ -22,11 +22,10 @@ public class PostDao {
 
     //tested
     public void insertNewPost(Post post) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        con.setAutoCommit(false);
+        this.getCon().setAutoCommit(false);
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = this.getCon().prepareStatement(
                     "insert into posts(user_id, description, date_time) value (?,?,now());",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, post.getUser().getUserId());
@@ -38,19 +37,18 @@ public class PostDao {
             CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories());
             //MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
             this.tagAllUsers(post, post.getTaggedPeople());
-            con.commit();
+            this.getCon().commit();
         } catch (SQLException e) {
-            con.rollback();
-            con.setAutoCommit(true);
-            con.close();
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+            this.getCon().close();
         }
 
     }
 
     //tested
     private void tagAllUsers(Post post, HashSet<User> taggedPeople) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "insert into tagged_users(post_id, user_id) values(?,?);");
         for (User user : taggedPeople) {
             ps.setLong(1,post.getId());
@@ -62,8 +60,7 @@ public class PostDao {
 
     //tested
     public void tagUser(Post post, User user) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "insert into tagged_users(post_id, user_id) values(?,?);");
         ps.setLong(1,post.getId());
         ps.setLong(2,user.getUserId());
@@ -72,51 +69,45 @@ public class PostDao {
 
     //tested
     public void addCategoryToPost(Post post, Category category) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        con.setAutoCommit(false);
+        this.getCon().setAutoCommit(false);
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = this.getCon().prepareStatement(
                     "insert into posts_categories(post_id, category_id) values(?,?);");
             ps.setLong(1, post.getId());
             ps.setLong(2,category.getId());
             ps.executeUpdate();
-            con.commit();
+            this.getCon().commit();
         } catch (SQLException e) {
-            con.rollback();
-            con.setAutoCommit(true);
-            con.close();
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+            this.getCon().close();
         }
     }
 
     //tested
     public void deletePost(Post post) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        con.setAutoCommit(false);
+        this.getCon().setAutoCommit(false);
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = this.getCon().prepareStatement(
                     "delete from posts where post_id=?;");
             ps.setLong(1, post.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            con.rollback();
-            con.setAutoCommit(true);
-            con.close();
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+            this.getCon().close();
         }
     }
 
     //tested
     public void updateLocation(Post post, Location newLocation) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "update posts set location_id= ?  where post_id= ?;");
         ps.setLong(1, newLocation.getId());
         ps.setLong(2,post.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO PUT SOME POPUP WITH INFO
-        }
+        ps.executeUpdate();
     }
 
     //tested
@@ -134,8 +125,7 @@ public class PostDao {
 
     //tested
     public void decrementLikes(Post post) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "update posts set likes_count= ?  where post_id= ?;");
         ps.setInt(1, post.getLikesCount()-1);
         ps.setLong(2,post.getId());
@@ -149,8 +139,7 @@ public class PostDao {
     //tested
     public void incrementDislikes(Post post) throws SQLException {
         //TODO dislikes should never become less than 0
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "update posts set dislikes_count= ?  where posts.post_id= ?;");
         ps.setInt(1, post.getDislikesCount()+1);
         ps.setLong(2,post.getId());
@@ -162,8 +151,7 @@ public class PostDao {
 
     //tested
     public void decrementDislikes(Post post) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "update posts set dislikes_count= ?  where posts.post_id= ?;");
         ps.setInt(1, post.getDislikesCount()-1);
         ps.setLong(2,post.getId());
@@ -175,8 +163,7 @@ public class PostDao {
 
     //tested
     public void updateDescription(Post post, String newDescription) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "update posts set description= ?  where posts.post_id= ?;");
         ps.setString(1, newDescription);
         ps.setLong(2,post.getId());
@@ -188,8 +175,7 @@ public class PostDao {
 
     //tested
     public HashSet<Post> getPostsForUser(User user) throws SQLException, VisitedLocationException, UserException, PostException, CategoryException, MultimediaException, LocationException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select post_id, description, " +
+        PreparedStatement ps = this.getCon().prepareStatement("select post_id, description, " +
                 "likes_count, dislikes_count, date_time from posts where user_id= ?;");
         ps.setLong(1, user.getUserId());
         ResultSet rs = ps.executeQuery();
@@ -210,8 +196,7 @@ public class PostDao {
 
     //tested
     public Post getPostById(long post_id) throws SQLException, PostException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select description, likes_count, " +
+        PreparedStatement ps = this.getCon().prepareStatement("select description, likes_count, " +
                 "dislikes_count, date_time from posts where post_id = ? ;");
         ps.setLong(1, post_id);
         ResultSet rs=ps.executeQuery();

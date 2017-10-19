@@ -10,7 +10,7 @@ import java.util.HashSet;
 /**
  * Created by Marina on 15.10.2017 г..
  */
-public class CategoryDao {
+public class CategoryDao extends AbstractDao{
     private static CategoryDao instance;
 
     private CategoryDao(){}
@@ -24,11 +24,10 @@ public class CategoryDao {
 
     //tested
     public Category insertNewCategory(Category category) throws CategoryException, SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        con.setAutoCommit(false);
+        this.getCon().setAutoCommit(false);
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = this.getCon().prepareStatement(
                     "insert into categories(category_name) value (?);",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, category.getName());
@@ -36,19 +35,18 @@ public class CategoryDao {
             ResultSet rs=ps.getGeneratedKeys();
             rs.next();
             category.setId(rs.getLong(1));
-            con.commit();
+            this.getCon().commit();
         } catch (SQLException e) {
-            con.rollback();
-            con.setAutoCommit(true);
-            con.close();
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+            this.getCon().close();
         }
         return category;
     }
 
     //tested
     public Category getCategoryById(long categoryId) throws SQLException, CategoryException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
+        PreparedStatement ps = this.getCon().prepareStatement(
                 "select category_name from categories where category_id= ?  ;");
         ps.setLong(1, categoryId);
         ResultSet rs = ps.executeQuery();
@@ -59,19 +57,18 @@ public class CategoryDao {
 
     //tested
     public void deleteCategory(Category category) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        con.setAutoCommit(false);
+        this.getCon().setAutoCommit(false);
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = this.getCon().prepareStatement(
                     "delete from categories where category_id=?;");
             ps.setLong(1, category.getId());
             ps.executeUpdate();
-            con.commit();
+            this.getCon().commit();
         } catch (SQLException e) {
-            con.rollback();
-            con.setAutoCommit(true);
-            con.close();
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+            this.getCon().close();
 
         }
     }
@@ -79,8 +76,7 @@ public class CategoryDao {
 
     //tested
     public HashSet<Category> getCategoriesForPost(Post post) throws SQLException, CategoryException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("select category_id from posts_categories where post_id= ?;");
+        PreparedStatement ps = this.getCon().prepareStatement("select category_id from posts_categories where post_id= ?;");
         ps.setLong(1, post.getId());
         ResultSet rs=ps.executeQuery();
         HashSet<Category> categories=new HashSet<>();
@@ -93,8 +89,7 @@ public class CategoryDao {
     //tested
     public void addAllCategoriesToPost(Post post,HashSet<Category> categories) throws SQLException {
         //TODO IF ENTRY EXISTS- THROWS EXCEPTION!!!
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
+        PreparedStatement ps = this.getCon().prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
         for (Category category : categories) {
             ps.setLong(1,post.getId());
             ps.setLong(2,category.getId());
