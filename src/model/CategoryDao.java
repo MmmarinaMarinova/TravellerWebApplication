@@ -1,4 +1,4 @@
-package model.db;
+﻿package model;
 
 import model.Category;
 import model.Post;

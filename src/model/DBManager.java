@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public final class DBManager {
+final class DBManager {
 
 	private static DBManager instance;
 	private Connection con;
@@ -31,18 +31,18 @@ public final class DBManager {
 		
 	}
 	
-	public static synchronized DBManager getInstance(){
+	static synchronized DBManager getInstance(){
 		if(instance == null){
 			instance = new DBManager();
 		}
 		return instance;
 	}
 	
-	public Connection getConnection(){
+	Connection getConnection(){
 		return this.con;
 	}
 	
-	public void closeConnection(){
+	void closeConnection(){
 		if(this.con != null){
 			try {
 				this.con.close();
