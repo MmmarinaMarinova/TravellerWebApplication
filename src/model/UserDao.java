@@ -52,6 +52,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// ::::::::: check if user exists ( to be used when users log in ) :::::::::
+	// to be modified - should check for username OR email !!!
 	public boolean existsUser(String username, String password) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con
@@ -311,7 +312,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		if (u.setEmail(newEmail)) {
 			con = DBManager.getInstance().getConnection();
 			ps = con.prepareStatement("update users set email = ? where user_id = ?;");
-			ps.setString(1, newEmail);
+			ps.setString(1, u.getEmail());
 			ps.setLong(2, u.getUserId());
 			ps.executeUpdate();
 		}
@@ -327,7 +328,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		if (u.setProfilePicId(profilePic.getId())) {
 			con = DBManager.getInstance().getConnection();
 			ps = con.prepareStatement("update users set profile_pic_id = ? where user_id = ?;");
-			ps.setLong(1, profilePic.getId());
+			ps.setLong(1, u.getProfilePicId());
 			ps.setLong(2, u.getUserId());
 			ps.executeUpdate();
 		}
@@ -340,10 +341,10 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	public void changeDescription(User u, String description) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement("update users set description = ? where user_id = ?;");
-		ps.setString(1, description);
+		u.setDescription(description);
+		ps.setString(1, u.getDescription());
 		ps.setLong(2, u.getUserId());
 		ps.executeUpdate();
-		u.setDescription(description);
 		if (ps != null) {
 			ps.close();
 		}
