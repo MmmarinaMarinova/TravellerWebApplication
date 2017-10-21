@@ -1,10 +1,4 @@
-package model.db;
-
-import model.Multimedia;
-import model.Post;
-import model.exceptions.MultimediaException;
-import model.exceptions.PostException;
-import model.exceptions.UserException;
+package model;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -12,7 +6,7 @@ import java.util.HashSet;
 /**
  * Created by Marina on 15.10.2017 г..
  */
-public class MultimediaDao extends AbstractDao{
+public class MultimediaDao extends AbstractDao {
     private static MultimediaDao instance;
 
     private MultimediaDao(){}
@@ -133,6 +127,7 @@ public class MultimediaDao extends AbstractDao{
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
+            throw e;
         }
 
 

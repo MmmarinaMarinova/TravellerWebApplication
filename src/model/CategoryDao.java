@@ -40,6 +40,7 @@ public class CategoryDao extends AbstractDao{
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
+            throw e;
         }
         return category;
     }
@@ -69,7 +70,7 @@ public class CategoryDao extends AbstractDao{
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
-
+            throw e;
         }
     }
 

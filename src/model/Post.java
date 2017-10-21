@@ -133,39 +133,25 @@ public class Post {
         this.location = location;
     }
 
-<<<<<<< HEAD
-    public Set<Category> getCategories() {
-        return Collections.unmodifiableSet(this.categories);
-=======
     HashSet<Category> getCategories() {
         return this.categories;
->>>>>>> 4b088f946734be909f85cfb4030bc49f0c9f0099
     }
 
     void setCategories(HashSet<Category> categories) {
         this.categories = categories;
     }
 
-<<<<<<< HEAD
-    public Set<Multimedia> getMultimedia() {
-        return Collections.unmodifiableSet(this.multimedia);
-=======
     HashSet<Multimedia> getMultimedia() {
         return this.multimedia;
->>>>>>> 4b088f946734be909f85cfb4030bc49f0c9f0099
     }
 
     void setMultimedia(HashSet<Multimedia> multimedia) {
         this.multimedia = multimedia;
     }
 
-<<<<<<< HEAD
-    public Set<User> getTaggedPeople() {
-        return Collections.unmodifiableSet(this.taggedPeople);
-=======
+
     HashSet<User> getTaggedPeople() {
         return this.taggedPeople;
->>>>>>> 4b088f946734be909f85cfb4030bc49f0c9f0099
     }
 
     void setTaggedPeople(HashSet<User> taggedPeople) {

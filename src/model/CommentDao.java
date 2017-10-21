@@ -1,4 +1,4 @@
-package model.db;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,11 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.TreeSet;
 
+import model.AbstractDao;
 import model.Comment;
 import model.exceptions.CommentException;
 
-public final class CommentDao extends AbstractDao{ //used to operate with table 'comments' from db
+public final class CommentDao extends AbstractDao { //used to operate with table 'comments' from db
 	private static CommentDao instance;
 
 	private CommentDao() {

@@ -1,5 +1,4 @@
-package model.db;
-import model.*;
+package model;
 import model.exceptions.*;
 
 import java.sql.*;
@@ -34,14 +33,15 @@ public class PostDao extends AbstractDao{
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             post.setId(rs.getLong(1));
-            CategoryDao.getInstance().addAllCategoriesToPost(post, (HashSet<Category>) post.getCategories()); //not sure if it is correct this way
+            CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories()); //not sure if it is correct this way
             //MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
-            this.tagAllUsers(post, (HashSet<User>) post.getTaggedPeople());
+            this.tagAllUsers(post, post.getTaggedPeople());
             this.getCon().commit();
         } catch (SQLException e) {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
+            throw e;
         }
 
     }
@@ -82,6 +82,7 @@ public class PostDao extends AbstractDao{
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
+            throw e;
         }
     }
 
@@ -98,6 +99,7 @@ public class PostDao extends AbstractDao{
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
+            throw e;
         }
     }
 
@@ -117,10 +119,7 @@ public class PostDao extends AbstractDao{
                 "update posts set likes_count= ?  where post_id= ?;");
         ps.setInt(1, post.getLikesCount()+1);
         ps.setLong(2,post.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO PUT SOME POPUP WITH INFO
-        }
+        ps.executeUpdate();
     }
 
     //tested
@@ -129,10 +128,7 @@ public class PostDao extends AbstractDao{
                 "update posts set likes_count= ?  where post_id= ?;");
         ps.setInt(1, post.getLikesCount()-1);
         ps.setLong(2,post.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO PUT SOME POPUP WITH INFO
-        }
+        ps.executeUpdate();
     }
 
 

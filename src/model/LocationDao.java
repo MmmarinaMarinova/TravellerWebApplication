@@ -1,5 +1,6 @@
-package model.db;
+package model;
 
+import model.AbstractDao;
 import model.Location;
 import model.Post;
 import model.exceptions.LocationException;
@@ -40,6 +41,7 @@ public class LocationDao extends AbstractDao {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
             this.getCon().close();
+            throw e;
         }
         return location;
     }
