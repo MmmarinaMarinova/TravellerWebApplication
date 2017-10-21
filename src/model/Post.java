@@ -33,6 +33,7 @@ public class Post {
     private HashSet<Category> categories;
     private HashSet<Multimedia> multimedia;
     private HashSet<User> taggedPeople;
+    private HashSet<Comment> comments;
 
     //constructor to be used when putting object in database
     Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {

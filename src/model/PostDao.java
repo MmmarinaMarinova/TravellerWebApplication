@@ -201,4 +201,10 @@ public class PostDao extends AbstractDao{
                 rs.getTimestamp("date_time"));
         return post;
     }
+
+    public void addComment(Post postById, Comment c) {
+    }
+public void deleteComment(Post postById, Comment c) {
+    }
+    
 }
