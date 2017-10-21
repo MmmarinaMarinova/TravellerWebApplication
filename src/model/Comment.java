@@ -4,12 +4,12 @@ import java.sql.Timestamp;
 
 import model.exceptions.CommentException;
 
-public final class Comment {
+public final class Comment implements Comparable<Comment>{
 	// ::::::::: main object characteristics :::::::::
 	private long id = 0;
 	private String content = null;
-	private int likesCount = 0;
-	private int dislikesCount = 0;
+	private long likesCount = 0;
+	private long dislikesCount = 0;
 	private long postId = 0;
 	private long userId = 0;
 	private Timestamp datetime = null;
@@ -18,7 +18,7 @@ public final class Comment {
 	private User sentBy = null;
 
 	// ::::::::: constructor to be used when posting a new comment :::::::::
-	Comment(String content, long postId, long userId, Timestamp datetime, User sentBy) throws CommentException {
+	public Comment(String content, long postId, long userId, Timestamp datetime, User sentBy) throws CommentException {
 		this.setContent(content);
 		this.setPostId(postId);
 		this.setUserId(userId);
@@ -37,23 +37,23 @@ public final class Comment {
 	}
 
 	// ::::::::: accessors :::::::::
-	long getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	String getContent() {
+	public String getContent() {
 		return this.content;
 	}
 
-	int getLikesCount() {
+	public long getLikesCount() {
 		return this.likesCount;
 	}
 
-	int getDislikesCount() {
+	public long getDislikesCount() {
 		return this.dislikesCount;
 	}
 
-	long getPostId() {
+	public long getPostId() {
 		return this.postId;
 	}
 
@@ -61,11 +61,11 @@ public final class Comment {
 		return this.userId;
 	}
 
-	Timestamp getDatetime() {
+	public Timestamp getDatetime() {
 		return this.datetime;
 	}
 
-	User getSentBy() {
+	public User getSentBy() {
 		return this.sentBy;
 	}
 
@@ -86,7 +86,7 @@ public final class Comment {
 		}
 	}
 
-	void setLikesCount(int likesCount) throws CommentException {
+	private void setLikesCount(long likesCount) throws CommentException {
 		if (likesCount >= 0) {
 			this.likesCount = likesCount;
 		} else {
@@ -94,7 +94,7 @@ public final class Comment {
 		}
 	}
 
-	void setDislikesCount(int dislikesCount) throws CommentException {
+	private void setDislikesCount(long dislikesCount) throws CommentException {
 		if (dislikesCount >= 0) {
 			this.dislikesCount = dislikesCount;
 		} else {
@@ -134,18 +134,17 @@ public final class Comment {
 		}
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+	void incrementLikes() throws CommentException {
+		this.setLikesCount(this.likesCount + 1);
+	}
 
-		Comment comment = (Comment) o;
-
-		return id == comment.id;
+	void incrementDislikes() throws CommentException {
+		this.setDislikesCount(this.dislikesCount + 1);
 	}
 
 	@Override
-	public int hashCode() {
-		return (int) (id ^ (id >>> 32));
+	public int compareTo(Comment c) {
+		return this.getDatetime().compareTo(c.getDatetime());
 	}
+
 }
