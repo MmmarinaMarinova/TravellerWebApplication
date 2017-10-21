@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import model.exceptions.LocationException;
+import model.exceptions.PostException;
 import model.exceptions.UserException;
 
 public class UserDao { // operates with the following tables: 'users', 'users_followers',
@@ -51,15 +53,6 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// * TESTED *
 	public boolean existsUser(String username, String password) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-<<<<<<< HEAD
-		PreparedStatement ps = con
-				.prepareStatement("select count(*) as count from users where username = ? and password = ?;");
-		ps.setString(1, username);
-		ps.setString(2, password); // hashing required
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		return rs.getInt("count") > 0;
-=======
 		try (PreparedStatement ps = con
 				.prepareStatement("select count(*) as count from users where username = ? and password = ?;");) {
 			ps.setString(1, username);
@@ -68,27 +61,18 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 			rs.next();
 			return rs.getInt("count") > 0;
 		}
->>>>>>> 36b216d3a2cff1657785b71b3f5b740913b4baf9
 	}
 
 	// ::::::::: check if username is taken :::::::::
 	// * TESTED *
 	public boolean existsUsername(String username) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-<<<<<<< HEAD
-		PreparedStatement ps = con.prepareStatement("select count(*) as count from users where username = ?;");
-		ps.setString(1, username);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		return rs.getInt("count") > 0;
-=======
 		try (PreparedStatement ps = con.prepareStatement("select count(*) as count from users where username = ?;");) {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			return rs.getInt("count") > 0;
 		}
->>>>>>> 36b216d3a2cff1657785b71b3f5b740913b4baf9
 	}
 
 	// ::::::::: check if email is taken :::::::::
@@ -107,15 +91,6 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	// * TESTED *
 	public User getUserByUsername(String username) throws SQLException, UserException {
 		Connection con = DBManager.getInstance().getConnection();
-<<<<<<< HEAD
-		PreparedStatement ps = con.prepareStatement(
-				"select user_id, username, password, email, profile_pic_id, description from users where username = ?;");
-		ps.setString(1, username);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		return new User(rs.getLong("user_id"), username, rs.getString("password"), rs.getString("email"),
-				rs.getLong("profile_pic_id"), rs.getString("description"));
-=======
 		User fetched = null;
 		try (PreparedStatement ps = con.prepareStatement(
 				"select user_id, username, password, email, profile_pic_id, description from users where username = ?;");) {
@@ -127,25 +102,11 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 			}
 			return fetched;
 		}
->>>>>>> 36b216d3a2cff1657785b71b3f5b740913b4baf9
 	}
 
 	// * TESTED *
 	public User getUserById(long user_id) throws SQLException, UserException {
 		Connection con = DBManager.getInstance().getConnection();
-<<<<<<< HEAD
-		PreparedStatement ps = con.prepareStatement(
-				"select username, password, email, profile_pic_id, description from users where user_id = ?;");
-		ps.setLong(1, user_id);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
-		return new User(user_id, rs.getString("username"), rs.getString("password"), rs.getString("email"),
-				rs.getLong("profile_pic_id"), rs.getString("description"));
-=======
 		User fetched = null;
 		try (PreparedStatement ps = con.prepareStatement(
 				"select username, password, email, profile_pic_id, description from users where user_id = ?;");) {
@@ -157,7 +118,6 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 			}
 			return fetched;
 		}
->>>>>>> 36b216d3a2cff1657785b71b3f5b740913b4baf9
 	}
 
 	// ::::::::: loading user data from db (helper methods) :::::::::
@@ -254,7 +214,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get visited locations
-	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException {
+	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException, LocationException {
 		TreeMap<Timestamp, Location> visitedLocations = new TreeMap<Timestamp, Location>();
 		TreeMap<Timestamp, Long> visitedLocationsData = UserDao.getInstance().getVisitedLocationsData(u);
 		for (Iterator<Entry<Timestamp, Long>> it = visitedLocationsData.entrySet().iterator(); it.hasNext();) {
@@ -266,7 +226,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get wishlist locations
-	public HashSet<Location> getWishlistLocations(User u) throws SQLException {
+	public HashSet<Location> getWishlistLocations(User u) throws SQLException, LocationException {
 		HashSet<Location> wishlistLocations = new HashSet<Location>();
 		for (Long wishlistLocationId : UserDao.getInstance().getWishlistLocationsIds(u)) {
 			wishlistLocations.add(LocationDao.getInstance().getLocationById(wishlistLocationId));
@@ -275,7 +235,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get posts
-	public TreeSet<Post> getPosts(User u) throws SQLException {
+	public TreeSet<Post> getPosts(User u) throws SQLException, PostException {
 		TreeSet<Post> posts = new TreeSet<Post>((p1, p2) -> p1.getDateTime().compareTo(p2.getDateTime()));
 		for (Long postId : UserDao.getInstance().getPostsIds(u)) {
 			posts.add(PostDao.getInstance().getPostById(postId));
@@ -295,17 +255,17 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// set visited locations
-	public void setVisitedLocations(User u) throws SQLException, UserException {
+	public void setVisitedLocations(User u) throws SQLException, UserException, LocationException {
 		u.setVisitedLocations(UserDao.getInstance().getVisitedLocations(u));
 	}
 
 	// set wishlit
-	public void setWishlistLocations(User u) throws SQLException, UserException {
+	public void setWishlistLocations(User u) throws SQLException, UserException, LocationException {
 		u.setWishlist(UserDao.getInstance().getWishlistLocations(u));
 	}
 
 	// set posts
-	public void setPosts(User u) throws SQLException, UserException {
+	public void setPosts(User u) throws SQLException, UserException, PostException {
 		u.setPosts(UserDao.getInstance().getPosts(u));
 	}
 
@@ -389,7 +349,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		try (PreparedStatement ps = con.prepareStatement(
 				"insert into visited_locations (user_id, location_id, date_time) value (?, ?, ?);");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.setTimestamp(3, t);
 		}
 	}
@@ -400,7 +360,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		try (PreparedStatement ps = con.prepareStatement(
 				"delete from visited_locations where user_id = ? and location_id = ? and date_time = ?;");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.setTimestamp(3, t);
 		}
 	}
@@ -411,7 +371,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		try (PreparedStatement ps = con
 				.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.executeUpdate();
 			u.addToWishlist(l);
 		}
@@ -422,7 +382,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		try (PreparedStatement ps = con
 				.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.executeUpdate();
 			u.removeFromWihslist(l);
 		}
