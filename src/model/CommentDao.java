@@ -46,27 +46,29 @@ public final class CommentDao extends AbstractDao { //used to operate with table
 		DBManager.getInstance().closeConnection();
 	}
 	
-	public void deleteComment(Comment c) throws SQLException, PostException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
-				"delete from comments where id = ? and content = ? and post_id = ? and user_id = ? and date_time = ?;",
-				Statement.RETURN_GENERATED_KEYS);
-		ps.setLong(1, c.getId());
-		ps.setString(2, c.getContent());
-		ps.setLong(3, c.getPostId());
-		ps.setLong(4, c.getUserId());
-		ps.setTimestamp(5, c.getDatetime());
-		ps.executeUpdate();
-		ResultSet rs = ps.getGeneratedKeys();
-		rs.next();
-		c.setId(rs.getLong(1));
-		// !!! delete from post POJO comments collection required: 
-		PostDao.getInstance().deleteComment(PostDao.getInstance().getPostById(c.getPostId()), c);
-		if(ps!=null) {
-			ps.close();
+	public void deleteComment(Comment c) throws PostException {
+
+		PreparedStatement ps = null;
+		try {
+			ps = this.getCon().prepareStatement(
+					"delete from comments where id = ? and content = ? and post_id = ? and user_id = ? and date_time = ?;",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, c.getId());
+			ps.setString(2, c.getContent());
+			ps.setLong(3, c.getPostId());
+			ps.setLong(4, c.getUserId());
+			ps.setTimestamp(5, c.getDatetime());
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			c.setId(rs.getLong(1));
+			// !!! delete from post POJO comments collection required:
+			PostDao.getInstance().deleteComment(PostDao.getInstance().getPostById(c.getPostId()), c);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		DBManager.getInstance().closeConnection();
 	}
+
 	
 	// ::::::::: loading comments for post :::::::::
 	public TreeSet<Comment> getCommentsForPost(long postId) throws SQLException, CommentException, UserException {

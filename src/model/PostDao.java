@@ -203,9 +203,11 @@ public class PostDao extends AbstractDao{
     }
 
     public void addComment(Post postById, Comment c) throws SQLException {
+        //TODO INSERT IN COLLECTION
     }
 
     public void deleteComment(Post postById, Comment c) throws SQLException {
+        //TODO DELETE FROM COLLECTION
 
     }
     

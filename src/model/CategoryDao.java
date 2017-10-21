@@ -24,23 +24,16 @@ public class CategoryDao extends AbstractDao{
 
     //tested
     public Category insertNewCategory(Category category) throws CategoryException, SQLException {
-        this.getCon().setAutoCommit(false);
-        PreparedStatement ps = null;
-        try {
-            ps = this.getCon().prepareStatement(
-                    "insert into categories(category_name) value (?);",
-                    Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement ps = this.getCon().prepareStatement(
+                "insert into categories(category_name) value (?);",
+                Statement.RETURN_GENERATED_KEYS)){
             ps.setString(1, category.getName());
             ps.executeUpdate();
-            ResultSet rs=ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             category.setId(rs.getLong(1));
-            this.getCon().commit();
-        } catch (SQLException e) {
-            this.getCon().rollback();
-            this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
+        }catch (SQLException e){
+            throw new CategoryException("New Category couldn't be inserted in database.Reason: "+e.getMessage());
         }
         return category;
     }
@@ -57,20 +50,13 @@ public class CategoryDao extends AbstractDao{
     }
 
     //tested
-    public void deleteCategory(Category category) throws SQLException {
-        this.getCon().setAutoCommit(false);
-        PreparedStatement ps = null;
-        try {
-            ps = this.getCon().prepareStatement(
-                    "delete from categories where category_id=?;");
+    public void deleteCategory(Category category) throws SQLException, CategoryException {
+        try (PreparedStatement ps= this.getCon().prepareStatement(
+                "delete from categories where category_id=?;")){
             ps.setLong(1, category.getId());
             ps.executeUpdate();
-            this.getCon().commit();
         } catch (SQLException e) {
-            this.getCon().rollback();
-            this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
+            throw new CategoryException("Category could not be deleted. Reason: "+e.getMessage());
         }
     }
 
@@ -88,14 +74,19 @@ public class CategoryDao extends AbstractDao{
     }
 
     //tested
-    public void addAllCategoriesToPost(Post post,HashSet<Category> categories) throws SQLException {
+    public void addAllCategoriesToPost(Post post,HashSet<Category> categories) throws CategoryException {
         //TODO IF ENTRY EXISTS- THROWS EXCEPTION!!!
-        PreparedStatement ps = this.getCon().prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
-        for (Category category : categories) {
-            ps.setLong(1,post.getId());
-            ps.setLong(2,category.getId());
-            ps.addBatch();
+        try {
+            PreparedStatement ps = this.getCon().prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
+            for (Category category : categories) {
+                ps.setLong(1,post.getId());
+                ps.setLong(2,category.getId());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            throw new CategoryException("Could not add all categories to this post. Reason: "+e.getMessage());
         }
-        ps.executeBatch();
+
     }
 }
