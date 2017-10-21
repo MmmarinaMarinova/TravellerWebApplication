@@ -1,9 +1,7 @@
 package model;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 import model.exceptions.UserException;
 
@@ -76,23 +74,23 @@ public final class User {
 	}
 
 	 HashSet<User> getFollowers() {
-		return this.followers;
+		 return (HashSet<User>) Collections.unmodifiableSet(this.followers);
 	}
 
 	 HashSet<User> getFollowing() {
-		return this.following;
+		 return (HashSet<User>) Collections.unmodifiableSet(this.following);
 	}
 
 	 TreeMap<Timestamp, Location> getVisitedLocations() {
-		return this.visitedLocations;
+		 return (TreeMap<Timestamp, Location>) Collections.unmodifiableMap(this.visitedLocations);
 	}
 
 	 HashSet<Location> getWishlist() {
-		return this.wishlist;
+		 return (HashSet<Location>) Collections.unmodifiableSet(this.wishlist);
 	}
 
 	 TreeSet<Post> getPosts() {
-		return this.posts;
+		 return (TreeSet<Post>) Collections.unmodifiableSet(this.posts);
 	}
 
 	// ::::::::: mutators :::::::::

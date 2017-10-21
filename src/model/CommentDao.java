@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeSet;
 
-import model.AbstractDao;
-import model.Comment;
 import model.exceptions.CommentException;
 import model.exceptions.PostException;
 import model.exceptions.UserException;
@@ -42,7 +40,7 @@ public final class CommentDao extends AbstractDao { //used to operate with table
 		c.setId(rs.getLong(1));
 		// !!! insert in post POJO comments collection required: 
 		PostDao.getInstance().addComment(PostDao.getInstance().getPostById(c.getPostId()), c);
-		if(ps!=null) {
+			if(ps!=null) {
 			ps.close();
 		}
 		DBManager.getInstance().closeConnection();

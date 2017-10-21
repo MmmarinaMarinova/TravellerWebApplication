@@ -31,8 +31,8 @@ post_id INT(11)*/
     }
 
     Multimedia(String url, boolean isVideo) {
-        this.url = url;
-        this.isVideo = isVideo;
+        this.setUrl(url);
+        this.setVideo(isVideo);
     }
 
     long getId() {

@@ -69,6 +69,7 @@ public class Post {
         //HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople
     }
 
+
     long getId() {
         return this.id;
     }
@@ -90,7 +91,7 @@ public class Post {
     }
 
     void setDescription(String description) throws PostException {
-        if (!description.isEmpty()) {
+        if (description!=null && !description.isEmpty()) {
             if (description.length() < MIN_LENGTH) {
                 throw new PostException("Name of the category is too short. It should be more than " + MIN_LENGTH + " symbols.");
             } else if (description.length() > MAX_LENGTH) {
@@ -135,7 +136,7 @@ public class Post {
     }
 
     HashSet<Category> getCategories() {
-        return this.categories;
+        return (HashSet<Category>) Collections.unmodifiableSet(this.categories);
     }
 
     void setCategories(HashSet<Category> categories) {
@@ -143,20 +144,27 @@ public class Post {
     }
 
     HashSet<Multimedia> getMultimedia() {
-        return this.multimedia;
+        return (HashSet<Multimedia>) Collections.unmodifiableSet(this.multimedia);
     }
 
     void setMultimedia(HashSet<Multimedia> multimedia) {
         this.multimedia = multimedia;
     }
 
-
     HashSet<User> getTaggedPeople() {
-        return this.taggedPeople;
+        return (HashSet<User>) Collections.unmodifiableSet(this.taggedPeople);
     }
 
     void setTaggedPeople(HashSet<User> taggedPeople) {
         this.taggedPeople = taggedPeople;
+    }
+
+    HashSet<Comment> getComments() {
+        return (HashSet<Comment>) Collections.unmodifiableSet(this.comments);
+    }
+
+    void setComments(HashSet<Comment> comments) {
+        this.comments = comments;
     }
 }
 
