@@ -1,111 +1,110 @@
 package model;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import model.exceptions.UserException;
 
+// !!! SYNCHRONIZATION TO BE DISCUSSED !!!
+
 public final class User {
-	// object data
+	// ::::::::: main object characteristics :::::::::
 	private long userId = 0;
 	private String username = null;
 	private String password = null;
+	private String email = null;
 	private long profilePicId = 0; // default profile pic id must be 0
 	private String description = "";
-	private ArrayList<Long> followersIds = null;
-	private ArrayList<Long> followingIds = null;
-	private ArrayList<Long> visitedLocationsIds = null;
-	private ArrayList<Long> locationsFromWishlistIds = null;
-	private ArrayList<Long> postsIds = null;
-	private String email;
-	// constants
+	private HashSet<User> followers = null;
+	private HashSet<User> following = null;
+	private TreeMap<Timestamp, Location> visitedLocations = null; // order by date and time of visit required
+	private HashSet<Location> wishlist = null;
+	private TreeSet<Post> posts = null; // order by date and time of post submition required
+
+	// ::::::::: additional object characteristics :::::::::
 	private static final int MIN_USERNAME_LENGTH = 5;
 	private static final int MAX_USERNAME_LENGTH = 45;
 	private static final int MIN_PASSWORD_LENGTH = 6;
 	private static final int MAX_PASSWORD_LENGTH = 255;
+	private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])$";
+	private static final String EMAIL_VALIDATION_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+	private static final String USERNAME_VALIDATION_REGEX = "^(?=\\S+$)$";
 
-	// constructor to be used when registering new user
-	public User(String username, String password) throws UserException {
+	// ::::::::: constructor to be used for user registration :::::::::
+	 User(String username, String password, String email) throws UserException {
 		this.setUsername(username);
 		this.setPassword(password);
+		this.setEmail(email);
 	}
 
-	public User(String username, String password, String email) throws UserException{
-		this.username = username;
-		this.password = password;
-		this.email = email;
-	}
-
-	// constructor to be used when loading an existing user from db
-	public User(long userId, String username, String password, long profilePicId, String description,
-			ArrayList<Long> followersIds, ArrayList<Long> followingIds, ArrayList<Long> visitedLocationsIds,
-			ArrayList<Long> locationsFromWishlistIds, ArrayList<Long> postsIds) throws UserException {
-		this(username, password);
-		this.userId = userId;
+	// ::::::::: constructor to be used when loading an existing user from db
+	// :::::::::
+	 User(long userId, String username, String password, String email, long profilePicId, String description)
+			throws UserException {
+		this(username, password, email);
+		this.setUserId(userId);
 		this.setProfilePicId(profilePicId);
 		this.setDescription(description);
-		this.followersIds = followersIds;
-		this.followingIds = followingIds;
-		this.visitedLocationsIds = visitedLocationsIds;
-		this.locationsFromWishlistIds = locationsFromWishlistIds;
-		this.postsIds = postsIds;
 	}
 
-	public User(long user_id, String username, String password, String email) {
-		this.userId=user_id;
-		this.username=username;
-		this.password=password;
-		this.email=email;
-	}
-
-
-	// accessors
-	public long getUserId() {
+	// ::::::::: accessors :::::::::
+	 long getUserId() {
 		return this.userId;
 	}
 
-	public String getUsername() {
+	 String getUsername() {
 		return this.username;
 	}
 
-	public String getPassword() {
+	 String getPassword() {
 		return this.password;
 	}
 
-	public long getProfilePicId() {
+	 long getProfilePicId() {
 		return this.profilePicId;
 	}
 
-	public String getDescription() {
+	 String getDescription() {
 		return this.description;
 	}
 
-	public ArrayList<Long> getFollowersIds() {
-		return this.followersIds;
+	 String getEmail() {
+		return this.email;
 	}
 
-	public ArrayList<Long> getFollowingIds() {
-		return this.followingIds;
+	 HashSet<User> getFollowers() {
+		return this.followers;
 	}
 
-	public ArrayList<Long> getVisitedLocationsIds() {
-		return this.visitedLocationsIds;
-	}
-	
-	public ArrayList<Long> getLocationsFromWishlistIds() {
-		return this.locationsFromWishlistIds;
+	 HashSet<User> getFollowing() {
+		return this.following;
 	}
 
-	public ArrayList<Long> getPostsIds() {
-		return this.postsIds;
+	 TreeMap<Timestamp, Location> getVisitedLocations() {
+		return this.visitedLocations;
 	}
 
-	// mutators
-	public void setUserId(long userId) {
-		this.userId = userId;
+	 HashSet<Location> getWishlist() {
+		return this.wishlist;
 	}
 
-	public void setUsername(String username) throws UserException {
-		if (username.length() >= MIN_USERNAME_LENGTH && username.matches("^(?=\\S+$)$")) {
+	 TreeSet<Post> getPosts() {
+		return this.posts;
+	}
+
+	// ::::::::: mutators :::::::::
+	 void setUserId(long userId) throws UserException {
+		if (userId > 0) {
+			this.userId = userId;
+		} else {
+			throw new UserException("Invalid user id!");
+		}
+	}
+
+	 void setUsername(String username) throws UserException {
+		if (username.length() >= MIN_USERNAME_LENGTH && username.matches(USERNAME_VALIDATION_REGEX)) {
 			if (this.username.length() <= MAX_USERNAME_LENGTH) {
 				this.username = username;
 			} else {
@@ -129,11 +128,14 @@ public final class User {
 	 * ); } } else { throw new UserException("Password must be at least " +
 	 * MIN_PASWORD_LENGTH + " characters long!"); } }
 	 */
-	public void setPassword(String password) throws UserException {
-		if (password.length() >= MIN_PASSWORD_LENGTH && (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$")
-				|| password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])$"))) {
+
+	 boolean setPassword(String password) throws UserException {
+		if (password != null && password.length() >= MIN_PASSWORD_LENGTH
+				&& (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$")
+						|| password.matches(PASSWORD_VALIDATION_REGEX))) {
 			if (password.length() <= MAX_PASSWORD_LENGTH) {
 				this.password = password; // hashing required
+				return true;
 			} else {
 				throw new UserException("Password too long!");
 			}
@@ -143,48 +145,56 @@ public final class User {
 		}
 	}
 
-	public void setProfilePicId(long profilePicId) {
-		this.profilePicId = profilePicId;
+	 boolean setEmail(String email) throws UserException {
+		if (email != null && email.matches(EMAIL_VALIDATION_REGEX)) {
+			this.email = email;
+			return true;
+		} else {
+			throw new UserException("Invalid e-mail address!");
+		}
 	}
 
-	public void setDescription(String description) {
+	 boolean setProfilePicId(long profilePicId) throws UserException {
+		if (profilePicId >= 0) {
+			this.profilePicId = profilePicId;
+			return true;
+		} else {
+			throw new UserException("Invalid profile picture id!");
+		}
+	}
+
+	 void setDescription(String description) {
 		this.description = description != null ? description : "";
 	}
 
-	public void setFollowersIds(ArrayList<Long> followersIds) {
-		this.followersIds = followersIds;
+	 void setFollowers(HashSet<User> followers) {
+		this.followers = followers;
 	}
 
-	public void setFollowingIds(ArrayList<Long> followingIds) {
-		this.followingIds = followingIds;
+	 void setFollowing(HashSet<User> following) {
+		this.following = following;
 	}
 
-	public void setVisitedLocationsIds(ArrayList<Long> visitedLocationsIds) {
-		this.visitedLocationsIds = visitedLocationsIds;
+	 void setVisitedLocations(TreeMap<Timestamp, Location> visitedLocations) {
+		this.visitedLocations = visitedLocations;
 	}
 
-	public void setLocationsFromWishlistIds(ArrayList<Long> locationsFromWishlistIds) {
-		this.locationsFromWishlistIds = locationsFromWishlistIds;
+	 void setWishlist(HashSet<Location> wishlist) {
+		this.wishlist = wishlist;
 	}
 
-	public void setPostsIds(ArrayList<Long> postsIds) {
-		this.postsIds = postsIds;
+	 void setPosts(TreeSet<Post> posts) {
+		this.posts = posts;
 	}
 
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	// ::::::::: overriding of 'hashCode()' and 'equals()' methods :::::::::
+	// only 'userId' field is used for user distinction
+	// (duplicate usernames and emails must not be assigned)
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (userId ^ (userId >>> 32));
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -198,11 +208,6 @@ public final class User {
 			return false;
 		User other = (User) obj;
 		if (userId != other.userId)
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}
