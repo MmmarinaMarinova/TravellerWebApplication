@@ -17,7 +17,7 @@ public final class Comment {
 		private static final int MAX_CONTENT_LENGTH = 500;
 		
 		// constructor to be used when posting a new comment
-		public Comment(String content, long postId, long userId, Timestamp datetime) throws CommentException {
+		Comment(String content, long postId, long userId, Timestamp datetime) throws CommentException {
 			this.setContent(content);
 			this.postId = postId;
 			this.userId = userId;
@@ -25,7 +25,7 @@ public final class Comment {
 		}
 
 		// constructor to be used when loading an existing comment from db
-		public Comment(long id, String content, int likesCount, int dislikesCount, long postId, long userId, Timestamp datetime) throws CommentException {
+		Comment(long id, String content, int likesCount, int dislikesCount, long postId, long userId, Timestamp datetime) throws CommentException {
 			this(content, postId, userId, datetime);
 			this.setId(userId);
 			this.setLikesCount(likesCount);
@@ -33,36 +33,36 @@ public final class Comment {
 		}
 
 		//accessors
-		public long getId() {
+		long getId() {
 			return this.id;
 		}
 		
-		public String getContent() {
+		String getContent() {
 			return this.content;
 		}
 
-		public int getLikesCount() {
+		int getLikesCount() {
 			return this.likesCount;
 		}
 
-		public int getDislikesCount() {
+		int getDislikesCount() {
 			return this.dislikesCount;
 		}
 
-		public long getPostId() {
+		long getPostId() {
 			return this.postId;
 		}
 
-		public long getUserId() {
+		long getUserId() {
 			return this.userId;
 		}
 
-		public Timestamp getDatetime() {
+		Timestamp getDatetime() {
 			return this.datetime;
 		}
 
 		//mutators
-		public void setId(long id) {
+		void setId(long id) {
 			this.id = id;
 		}
 		
@@ -78,7 +78,7 @@ public final class Comment {
 			}
 		}
 
-		public void setLikesCount(int likesCount) throws CommentException {
+		void setLikesCount(int likesCount) throws CommentException {
 			if(likesCount>=0) {
 				this.likesCount = likesCount;
 			} else {
@@ -86,7 +86,7 @@ public final class Comment {
 			}
 		}
 		
-		public void setDislikesCount(int dislikesCount) throws CommentException {
+		void setDislikesCount(int dislikesCount) throws CommentException {
 			if(dislikesCount>=0) {
 				this.dislikesCount = dislikesCount;
 			} else {

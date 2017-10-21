@@ -1,4 +1,4 @@
-package model;
+﻿package model;
 
 import model.exceptions.LocationException;
 
@@ -26,7 +26,7 @@ location_name VARCHAR(45)*/
     private ConcurrentSkipListSet<User> peopleVisited;
 
     //constructor to be used when putting object in database
-    public Location(String latitude, String longtitute, String description, String locationName) throws LocationException {
+    Location(String latitude, String longtitute, String description, String locationName) throws LocationException {
         this.setLatitude(latitude);
         this.setLongtitude(longtitute);
         this.setDescription(description);
@@ -35,50 +35,50 @@ location_name VARCHAR(45)*/
     }
 
     //constructor to be used when fetching from database
-    public Location(long id, String latitude, String longtitute, String description, String locationName) throws LocationException {
+    Location(long id, String latitude, String longtitute, String description, String locationName) throws LocationException {
         this(latitude, longtitute, description, locationName);
         this.id = id;
     }
 
-    public long getId() {
+    long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    void setId(long id) {
         this.id = id;
     }
 
-    public String getLatitude() {
+    String getLatitude() {
         return this.latitude;
     }
 
-    public void setLatitude(String latitude) {
+    void setLatitude(String latitude) {
         //TODO validations for latitude
         this.latitude = latitude;
     }
 
-    public String getLongtitude() {
+    String getLongtitude() {
         return this.longtitude;
     }
 
-    public void setLongtitude(String longtitude) {
+    void setLongtitude(String longtitude) {
         //TODO validations for longtitude
         this.longtitude = longtitude;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
-    public String getLocationName() {
+    String getLocationName() {
         return this.locationName;
     }
 
-    public void setLocationName(String locationName) throws LocationException {
+    void setLocationName(String locationName) throws LocationException {
         if(!locationName.isEmpty()){
             if(locationName.length()<MIN_LENGTH){
                 throw new LocationException("Name of the category is too short. It should be more than "+MIN_LENGTH+" symbols.");
@@ -91,11 +91,11 @@ location_name VARCHAR(45)*/
         this.locationName = locationName;
     }
 
-    public Collection<User> getPeopleVisited() {
+    Collection<User> getPeopleVisited() {
         return Collections.unmodifiableCollection(this.peopleVisited);
     }
 
-    public void setPeopleVisited(ConcurrentSkipListSet<User> peopleVisited) {
+    void setPeopleVisited(ConcurrentSkipListSet<User> peopleVisited) {
         this.peopleVisited = peopleVisited;
     }
 }

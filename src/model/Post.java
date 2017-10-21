@@ -1,4 +1,4 @@
-package model;
+﻿package model;
 
 import model.exceptions.PostException;
 
@@ -33,7 +33,7 @@ public class Post {
     private HashSet<User> taggedPeople;
 
     //constructor to be used when putting object in database
-    public Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {
+    Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {
         this.user = user;
         this.setDescription(description);
         this.dateTime = dateTime;
@@ -45,7 +45,7 @@ public class Post {
         this.dislikesCount=0;
     }
 
-    public Post(User user, HashSet<Category> categories, HashSet<User> taggedPeople) throws PostException {
+    Post(User user, HashSet<Category> categories, HashSet<User> taggedPeople) throws PostException {
         this.user = user;
         this.categories = categories;
         this.taggedPeople = taggedPeople;
@@ -56,7 +56,7 @@ public class Post {
 
 
     //constructor to be used when fetching from database
-    public Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
+    Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
         this.id = id;
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
@@ -66,27 +66,27 @@ public class Post {
         //HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople
     }
 
-    public long getId() {
+    long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    void setId(long id) {
         this.id = id;
     }
 
-    public User getUser() {
+    User getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    void setUser(User user) {
         this.user = user;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description) throws PostException {
+    void setDescription(String description) throws PostException {
         if (!description.isEmpty()) {
             if (description.length() < MIN_LENGTH) {
                 throw new PostException("Name of the category is too short. It should be more than " + MIN_LENGTH + " symbols.");
@@ -99,59 +99,59 @@ public class Post {
         this.description = description;
     }
 
-    public int getLikesCount() {
+    int getLikesCount() {
         return this.likesCount;
     }
 
-    public void setLikesCount(int likesCount) {
+    void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
     }
 
-    public int getDislikesCount() {
+    int getDislikesCount() {
         return this.dislikesCount;
     }
 
-    public void setDislikesCount(int dislikesCount) {
+    void setDislikesCount(int dislikesCount) {
         this.dislikesCount = dislikesCount;
     }
 
-    public Timestamp getDateTime() {
+    Timestamp getDateTime() {
         return this.dateTime;
     }
 
-    public void setDateTime(Timestamp dateTime) {
+    void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 
-    public Location getLocation() {
+    Location getLocation() {
         return this.location;
     }
 
-    public void setLocation(Location location) {
+    void setLocation(Location location) {
         this.location = location;
     }
 
-    public HashSet<Category> getCategories() {
+    HashSet<Category> getCategories() {
         return this.categories;
     }
 
-    public void setCategories(HashSet<Category> categories) {
+    void setCategories(HashSet<Category> categories) {
         this.categories = categories;
     }
 
-    public HashSet<Multimedia> getMultimedia() {
+    HashSet<Multimedia> getMultimedia() {
         return this.multimedia;
     }
 
-    public void setMultimedia(HashSet<Multimedia> multimedia) {
+    void setMultimedia(HashSet<Multimedia> multimedia) {
         this.multimedia = multimedia;
     }
 
-    public HashSet<User> getTaggedPeople() {
+    HashSet<User> getTaggedPeople() {
         return this.taggedPeople;
     }
 
-    public void setTaggedPeople(HashSet<User> taggedPeople) {
+    void setTaggedPeople(HashSet<User> taggedPeople) {
         this.taggedPeople = taggedPeople;
     }
 }

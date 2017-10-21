@@ -1,4 +1,4 @@
-package model;
+﻿package model;
 
 import model.exceptions.CategoryException;
 
@@ -13,26 +13,26 @@ public class Category {
 
 
     //     * constructor to be used when putting object in database
-    public Category(String name) throws CategoryException {
+        Category(String name) throws CategoryException {
         this.setName(name);
     }
 
 
     //     * constructor to be used for fetching from database
-    public Category(long id, String name) throws CategoryException {
+        Category(long id, String name) throws CategoryException {
         this(name);
         this.id = id;
     }
 
-    public String getName() {
+    String getName() {
         return this.name;
     }
 
-    public long getId() {
+    long getId() {
         return this.id;
     }
 
-    public void setName(String name) throws CategoryException {
+    void setName(String name) throws CategoryException {
         if(!name.isEmpty()){
             if(name.length()<MIN_LENGTH){
                 throw new CategoryException("Name of the category is too short. It should be more than "+MIN_LENGTH+" symbols.");
@@ -45,7 +45,7 @@ public class Category {
         this.name = name;
     }
 
-    public void setId(long id) throws CategoryException {
+    void setId(long id) throws CategoryException {
         this.id = id;
     }
 }
