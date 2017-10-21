@@ -17,6 +17,7 @@ import model.exceptions.UserException;
 
 public class UserDao { // operates with the following tables: 'users', 'users_followers',
 						// 'visited_locations', 'wishlists', 'posts'
+	
 
 	private static UserDao instance;
 

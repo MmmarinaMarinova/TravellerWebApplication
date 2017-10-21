@@ -26,17 +26,26 @@ location_name VARCHAR(45)*/
     private ConcurrentSkipListSet<User> peopleVisited;
 
     //constructor to be used when putting object in database
+<<<<<<< HEAD
+    public Location(String latitude, String longtitude, String description, String locationName) throws LocationException {
+=======
     Location(String latitude, String longtitute, String description, String locationName) throws LocationException {
+>>>>>>> 4b088f946734be909f85cfb4030bc49f0c9f0099
         this.setLatitude(latitude);
-        this.setLongtitude(longtitute);
+        this.setLongtitude(longtitude);
         this.setDescription(description);
         this.setLocationName(locationName);
         this.peopleVisited = new ConcurrentSkipListSet<>();
     }
 
     //constructor to be used when fetching from database
+<<<<<<< HEAD
+    public Location(long id, String latitude, String longtitude, String description, String locationName) throws LocationException {
+        this(latitude, longtitude, description, locationName);
+=======
     Location(long id, String latitude, String longtitute, String description, String locationName) throws LocationException {
         this(latitude, longtitute, description, locationName);
+>>>>>>> 4b088f946734be909f85cfb4030bc49f0c9f0099
         this.id = id;
     }
 
