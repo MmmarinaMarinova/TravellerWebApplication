@@ -1,9 +1,6 @@
 package model;
-import model.db.*;
 import model.exceptions.*;
-
 import java.sql.SQLException;
-import java.util.HashSet;
 
 /**
  * Created by Marina on 18.10.2017 г..

@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import model.exceptions.LocationException;
+import model.exceptions.PostException;
 import model.exceptions.UserException;
 
 public class UserDao { // operates with the following tables: 'users', 'users_followers',
@@ -231,7 +233,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get visited locations
-	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException {
+	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException, LocationException {
 		TreeMap<Timestamp, Location> visitedLocations = new TreeMap<Timestamp, Location>();
 		TreeMap<Timestamp, Long> visitedLocationsData = UserDao.getInstance().getVisitedLocationsData(u);
 		for (Iterator<Entry<Timestamp, Long>> it = visitedLocationsData.entrySet().iterator(); it.hasNext();) {
@@ -243,7 +245,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get wishlist locations
-	public HashSet<Location> getWishlistLocations(User u) throws SQLException {
+	public HashSet<Location> getWishlistLocations(User u) throws SQLException, LocationException {
 		HashSet<Location> wishlistLocations = new HashSet<Location>();
 		for (Long wishlistLocationId : UserDao.getInstance().getWishlistLocationsIds(u)) {
 			wishlistLocations.add(LocationDao.getInstance().getLocationById(wishlistLocationId));
@@ -252,7 +254,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get posts
-	public TreeSet<Post> getPosts(User u) throws SQLException {
+	public TreeSet<Post> getPosts(User u) throws SQLException, PostException {
 		TreeSet<Post> posts = new TreeSet<Post>((p1, p2) -> p1.getDateTime().compareTo(p2.getDateTime()));
 		for (Long postId : UserDao.getInstance().getPostsIds(u)) {
 			posts.add(PostDao.getInstance().getPostById(postId));
@@ -272,17 +274,17 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// set visited locations
-	public void setVisitedLocations(User u) throws SQLException, UserException {
+	public void setVisitedLocations(User u) throws SQLException, UserException, LocationException {
 		u.setVisitedLocations(UserDao.getInstance().getVisitedLocations(u));
 	}
 
 	// set wishlit
-	public void setWishlistLocations(User u) throws SQLException, UserException {
+	public void setWishlistLocations(User u) throws SQLException, UserException, LocationException {
 		u.setWishlist(UserDao.getInstance().getWishlistLocations(u));
 	}
 
 	// set posts
-	public void setPosts(User u) throws SQLException, UserException {
+	public void setPosts(User u) throws SQLException, UserException, PostException {
 		u.setPosts(UserDao.getInstance().getPosts(u));
 	}
 
@@ -417,7 +419,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1, u.getUserId());
-		ps.setLong(2, l.getLocationId());
+		ps.setLong(2, l.getId());
 		ps.executeUpdate();
 		if (ps != null) {
 			ps.close();
@@ -437,7 +439,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");
 		ps.setLong(1, u.getUserId());
-		ps.setLong(2, l.getLocationId());
+		ps.setLong(2, l.getId());
 		ps.executeUpdate();
 		if (ps != null) {
 			ps.close();
