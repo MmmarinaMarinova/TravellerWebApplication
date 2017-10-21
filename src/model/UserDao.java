@@ -13,13 +13,10 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import model.exceptions.LocationException;
-import model.exceptions.PostException;
 import model.exceptions.UserException;
 
 public class UserDao { // operates with the following tables: 'users', 'users_followers',
 						// 'visited_locations', 'wishlists', 'posts'
-	
 
 	private static UserDao instance;
 
@@ -34,97 +31,91 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// ::::::::: inserting user in db :::::::::
+	// * TESTED *
 	public void insertUser(User u) throws SQLException, UserException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("insert into users (username, password, email) VALUES (?, ?, ?);",
-				Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, u.getUsername());
-		ps.setString(2, u.getPassword()); // hashing required
-		ps.setString(3, u.getEmail());
-		ps.executeUpdate();
-		ResultSet rs = ps.getGeneratedKeys();
-		rs.next();
-		u.setUserId(rs.getLong(1));
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con.prepareStatement(
+				"insert into users (username, password, email) value (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);) {
+			ps.setString(1, u.getUsername());
+			ps.setString(2, u.getPassword()); // hashing required
+			ps.setString(3, u.getEmail());
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			u.setUserId(rs.getLong(1));
 		}
-		DBManager.getInstance().closeConnection();
 	}
 
 	// ::::::::: check if user exists ( to be used when users log in ) :::::::::
 	// to be modified - should check for username OR email !!!
+	// * TESTED *
 	public boolean existsUser(String username, String password) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
-				.prepareStatement("select count(*) as count from users where username = ? and password = ?;");
-		ps.setString(1, username);
-		ps.setString(2, password); // hashing required
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con
+				.prepareStatement("select count(*) as count from users where username = ? and password = ?;");) {
+			ps.setString(1, username);
+			ps.setString(2, password); // hashing required
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt("count") > 0;
 		}
-		DBManager.getInstance().closeConnection();
-		return rs.getInt("count") > 0;
 	}
 
 	// ::::::::: check if username is taken :::::::::
+	// * TESTED *
 	public boolean existsUsername(String username) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select count(*) as count from users where username = ?;");
-		ps.setString(1, username);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con.prepareStatement("select count(*) as count from users where username = ?;");) {
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt("count") > 0;
 		}
-		DBManager.getInstance().closeConnection();
-		return rs.getInt("count") > 0;
 	}
 
 	// ::::::::: check if email is taken :::::::::
+	// * TESTED *
 	public boolean existsEmail(String email) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select count(*) as count from users where email = ?;");
-		ps.setString(1, email);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con.prepareStatement("select count(*) as count from users where email = ?;");) {
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt("count") > 0;
 		}
-		DBManager.getInstance().closeConnection();
-		return rs.getInt("count") > 0;
 	}
 
 	// ::::::::: loading user from db :::::::::
+	// * TESTED *
 	public User getUserByUsername(String username) throws SQLException, UserException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
-				"select user_id, username, password, email, profile_pic_id, description from users where username = ?;");
-		ps.setString(1, username);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		if (ps != null) {
-			ps.close();
+		User fetched = null;
+		try (PreparedStatement ps = con.prepareStatement(
+				"select user_id, username, password, email, profile_pic_id, description from users where username = ?;");) {
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				fetched = new User(rs.getLong("user_id"), username, rs.getString("password"), rs.getString("email"),
+						rs.getLong("profile_pic_id"), rs.getString("description"));
+			}
+			return fetched;
 		}
-		DBManager.getInstance().closeConnection();
-		return new User(rs.getLong("id"), username, rs.getString("password"), rs.getString("email"),
-				rs.getLong("profile_pic_id"), rs.getString("description"));
 	}
 
+	// * TESTED *
 	public User getUserById(long user_id) throws SQLException, UserException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
-				"select username, password, email, profile_pic_id, description from users where id = ?;");
-		ps.setLong(1, user_id);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		if (ps != null) {
-			ps.close();
+		User fetched = null;
+		try (PreparedStatement ps = con.prepareStatement(
+				"select username, password, email, profile_pic_id, description from users where user_id = ?;");) {
+			ps.setLong(1, user_id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				fetched = new User(user_id, rs.getString("username"), rs.getString("password"), rs.getString("email"),
+						rs.getLong("profile_pic_id"), rs.getString("description"));
+			}
+			return fetched;
 		}
-		DBManager.getInstance().closeConnection();
-		return new User(user_id, rs.getString("usernam"), rs.getString("password"), rs.getString("email"),
-				rs.getLong("profile_pic_id"), rs.getString("description"));
 	}
 
 	// ::::::::: loading user data from db (helper methods) :::::::::
@@ -132,86 +123,73 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	public ArrayList<Long> getFollowersIds(User u) throws SQLException {
 		ArrayList<Long> followersIds = new ArrayList<Long>();
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select follower_id from users_followers where followed_id = ?;");
-		ps.setLong(1, u.getUserId());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			followersIds.add(rs.getLong("follower_id"));
+		try (PreparedStatement ps = con
+				.prepareStatement("select follower_id from users_followers where followed_id = ?;");) {
+			ps.setLong(1, u.getUserId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				followersIds.add(rs.getLong("follower_id"));
+			}
+			return followersIds;
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
-		return followersIds;
 	}
 
 	// get following ids
 	public ArrayList<Long> getFollowingIds(User u) throws SQLException {
 		ArrayList<Long> followingIds = new ArrayList<Long>();
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select followed_id from users_followers where follower_id = ?;");
-		ps.setLong(1, u.getUserId());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			followingIds.add(rs.getLong("followed_id"));
+		try (PreparedStatement ps = con
+				.prepareStatement("select followed_id from users_followers where follower_id = ?;");) {
+			ps.setLong(1, u.getUserId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				followingIds.add(rs.getLong("followed_id"));
+			}
+			return followingIds;
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
-		return followingIds;
 	}
 
 	// get visited locations ids and datetimes
 	private TreeMap<Timestamp, Long> getVisitedLocationsData(User u) throws SQLException {
 		TreeMap<Timestamp, Long> visitedLocationsData = new TreeMap<Timestamp, Long>();
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
-				.prepareStatement("select location_id, date_time from visited_locations where user_id = ?;");
-		ps.setLong(1, u.getUserId());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			visitedLocationsData.put(rs.getTimestamp("date_time"), rs.getLong("location_id"));
+		try (PreparedStatement ps = con
+				.prepareStatement("select location_id, date_time from visited_locations where user_id = ?;");) {
+			ps.setLong(1, u.getUserId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				visitedLocationsData.put(rs.getTimestamp("date_time"), rs.getLong("location_id"));
+			}
+			return visitedLocationsData;
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
-		return visitedLocationsData;
 	}
 
 	// get wishlist locations ids
 	private ArrayList<Long> getWishlistLocationsIds(User u) throws SQLException {
 		ArrayList<Long> wishlistLocationsIds = new ArrayList<Long>();
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select location_id from wishlists where user_id = ?;");
-		ps.setLong(1, u.getUserId());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			wishlistLocationsIds.add(rs.getLong("location_id"));
+		try (PreparedStatement ps = con.prepareStatement("select location_id from wishlists where user_id = ?;");) {
+			ps.setLong(1, u.getUserId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				wishlistLocationsIds.add(rs.getLong("location_id"));
+			}
+			return wishlistLocationsIds;
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
-		return wishlistLocationsIds;
 	}
 
 	// get posts ids
 	private ArrayList<Long> getPostsIds(User u) throws SQLException {
 		ArrayList<Long> postsIds = new ArrayList<Long>();
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("select post_id from posts where user_id = ?;");
-		ps.setLong(1, u.getUserId());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			postsIds.add(rs.getLong("post_id"));
+		try (PreparedStatement ps = con.prepareStatement("select post_id from posts where user_id = ?;");) {
+			ps.setLong(1, u.getUserId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				postsIds.add(rs.getLong("post_id"));
+			}
+			return postsIds;
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
-		return postsIds;
 	}
 
 	// ::::::::: loading user data from db :::::::::
@@ -234,7 +212,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get visited locations
-	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException, LocationException {
+	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException {
 		TreeMap<Timestamp, Location> visitedLocations = new TreeMap<Timestamp, Location>();
 		TreeMap<Timestamp, Long> visitedLocationsData = UserDao.getInstance().getVisitedLocationsData(u);
 		for (Iterator<Entry<Timestamp, Long>> it = visitedLocationsData.entrySet().iterator(); it.hasNext();) {
@@ -246,7 +224,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get wishlist locations
-	public HashSet<Location> getWishlistLocations(User u) throws SQLException, LocationException {
+	public HashSet<Location> getWishlistLocations(User u) throws SQLException {
 		HashSet<Location> wishlistLocations = new HashSet<Location>();
 		for (Long wishlistLocationId : UserDao.getInstance().getWishlistLocationsIds(u)) {
 			wishlistLocations.add(LocationDao.getInstance().getLocationById(wishlistLocationId));
@@ -255,7 +233,7 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// get posts
-	public TreeSet<Post> getPosts(User u) throws SQLException, PostException {
+	public TreeSet<Post> getPosts(User u) throws SQLException {
 		TreeSet<Post> posts = new TreeSet<Post>((p1, p2) -> p1.getDateTime().compareTo(p2.getDateTime()));
 		for (Long postId : UserDao.getInstance().getPostsIds(u)) {
 			posts.add(PostDao.getInstance().getPostById(postId));
@@ -275,185 +253,146 @@ public class UserDao { // operates with the following tables: 'users', 'users_fo
 	}
 
 	// set visited locations
-	public void setVisitedLocations(User u) throws SQLException, UserException, LocationException {
+	public void setVisitedLocations(User u) throws SQLException, UserException {
 		u.setVisitedLocations(UserDao.getInstance().getVisitedLocations(u));
 	}
 
 	// set wishlit
-	public void setWishlistLocations(User u) throws SQLException, UserException, LocationException {
+	public void setWishlistLocations(User u) throws SQLException, UserException {
 		u.setWishlist(UserDao.getInstance().getWishlistLocations(u));
 	}
 
 	// set posts
-	public void setPosts(User u) throws SQLException, UserException, PostException {
+	public void setPosts(User u) throws SQLException, UserException {
 		u.setPosts(UserDao.getInstance().getPosts(u));
 	}
 
 	// ::::::::: methods for updating user data :::::::::
+	// * TESTED *
 	public void changePassword(User u, String newPassword) throws SQLException, UserException {
-		Connection con = null;
-		PreparedStatement ps = null;
 		if (u.setPassword(newPassword)) {
-			con = DBManager.getInstance().getConnection();
-			ps = con.prepareStatement("update users set password = ? where user_id = ?;");
-			ps.setString(1, u.getPassword());
-			ps.setLong(2, u.getUserId());
-			ps.executeUpdate();
+			Connection con = DBManager.getInstance().getConnection();
+			try (PreparedStatement ps = con.prepareStatement("update users set password = ? where user_id = ?;");) {
+				ps.setString(1, u.getPassword());
+				ps.setLong(2, u.getUserId());
+				ps.executeUpdate();
+			}
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
 	}
-
+	
+	// * TESTED *
 	public void changeEmail(User u, String newEmail) throws SQLException, UserException {
-		Connection con = null;
-		PreparedStatement ps = null;
 		if (u.setEmail(newEmail)) {
-			con = DBManager.getInstance().getConnection();
-			ps = con.prepareStatement("update users set email = ? where user_id = ?;");
-			ps.setString(1, u.getEmail());
-			ps.setLong(2, u.getUserId());
-			ps.executeUpdate();
+			Connection con = DBManager.getInstance().getConnection();
+			try (PreparedStatement ps = con.prepareStatement("update users set email = ? where user_id = ?;");) {
+				ps.setString(1, u.getEmail());
+				ps.setLong(2, u.getUserId());
+				ps.executeUpdate();
+			}
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
 	}
 
-	public void changeProfilePic(User u, Multimedia profilePic) throws SQLException, UserException {
-		Connection con = null;
-		PreparedStatement ps = null;
+	// !!! TO BE DISCUSSED !!!
+	public void changeProfilePicId(User u, Multimedia profilePic) throws SQLException, UserException {
 		if (u.setProfilePicId(profilePic.getId())) {
-			con = DBManager.getInstance().getConnection();
-			ps = con.prepareStatement("update users set profile_pic_id = ? where user_id = ?;");
-			ps.setLong(1, u.getProfilePicId());
-			ps.setLong(2, u.getUserId());
-			ps.executeUpdate();
+			Connection con = DBManager.getInstance().getConnection();
+			try (PreparedStatement ps = con
+					.prepareStatement("update users set profile_pic_id = ? where user_id = ?;");) {
+				ps.setLong(1, u.getProfilePicId());
+				ps.setLong(2, u.getUserId());
+				ps.executeUpdate();
+			}
 		}
-		if (ps != null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
 	}
 
+	// * TESTED *
 	public void changeDescription(User u, String description) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("update users set description = ? where user_id = ?;");
-		u.setDescription(description);
-		ps.setString(1, u.getDescription());
-		ps.setLong(2, u.getUserId());
-		ps.executeUpdate();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con.prepareStatement("update users set description = ? where user_id = ?;");) {
+			u.setDescription(description);
+			ps.setString(1, u.getDescription());
+			ps.setLong(2, u.getUserId());
+			ps.executeUpdate();
 		}
-		DBManager.getInstance().closeConnection();
 	}
 
 	// ::::::::: methods for follow/unfollow operations :::::::::
 	public void follow(User follower, User followed) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
-				.prepareStatement("insert into users_followers (follower_id, followed_id) value (?, ?);");
-		ps.setLong(1, follower.getUserId());
-		ps.setLong(2, followed.getUserId());
-		ps.executeUpdate();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con
+				.prepareStatement("insert into users_followers (follower_id, followed_id) value (?, ?);");) {
+			ps.setLong(1, follower.getUserId());
+			ps.setLong(2, followed.getUserId());
+			ps.executeUpdate();
+			follower.follow(followed);
 		}
-		DBManager.getInstance().closeConnection();
-
-		HashSet<User> updatedFollowing = null;
-		if (follower.getFollowing() != null) {
-			updatedFollowing = follower.getFollowing();
-		} else {
-			updatedFollowing = new HashSet<User>();
-		}
-		updatedFollowing.add(followed);
-		follower.setFollowing(updatedFollowing);
-
-		HashSet<User> updatedFollowers = null;
-		if (followed.getFollowers() != null) {
-			updatedFollowers = followed.getFollowers();
-		} else {
-			updatedFollowers = new HashSet<User>();
-		}
-		updatedFollowers.add(follower);
-		followed.setFollowers(updatedFollowers);
 	}
 
 	public void unfollow(User follower, User followed) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con
-				.prepareStatement("delete from users_followers where follower_id = ? and followed_id = ?;");
-		ps.setLong(1, follower.getUserId());
-		ps.setLong(2, followed.getUserId());
-		ps.executeUpdate();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con
+				.prepareStatement("delete from users_followers where follower_id = ? and followed_id = ?;");) {
+			ps.setLong(1, follower.getUserId());
+			ps.setLong(2, followed.getUserId());
+			ps.executeUpdate();
+			follower.unfollow(followed);
 		}
-		DBManager.getInstance().closeConnection();
+	}
 
-		HashSet<User> updatedFollowing = null;
-
-		if (follower.getFollowing() != null) {
-			updatedFollowing = follower.getFollowing();
-		} else {
-			updatedFollowing = new HashSet<User>();
+	// ::::::::: add/remove from visited locations :::::::::
+	// both metods to be used by 'PostDao'
+	public void addToVisitedLocations(User u, Location l, Timestamp t) throws SQLException {
+		u.addVisitedLocation(t, l);
+		Connection con = DBManager.getInstance().getConnection();
+		try (PreparedStatement ps = con.prepareStatement(
+				"insert into visited_locations (user_id, location_id, date_time) value (?, ?, ?);");) {
+			ps.setLong(1, u.getUserId());
+			ps.setLong(2, l.getLocationId());
+			ps.setTimestamp(3, t);
 		}
-		updatedFollowing.remove(followed);
-		follower.setFollowing(updatedFollowing);
+	}
 
-		HashSet<User> updatedFollowers = null;
-		if (followed.getFollowers() != null) {
-			updatedFollowers = followed.getFollowers();
-		} else {
-			updatedFollowers = new HashSet<User>();
+	public void removeFromVisitedLocations(User u, Location l, Timestamp t) throws SQLException {
+		u.removeVisitedLocation(t, l);
+		Connection con = DBManager.getInstance().getConnection();
+		try (PreparedStatement ps = con.prepareStatement(
+				"delete from visited_locations where user_id = ? and location_id = ? and date_time = ?;");) {
+			ps.setLong(1, u.getUserId());
+			ps.setLong(2, l.getLocationId());
+			ps.setTimestamp(3, t);
 		}
-		updatedFollowers.remove(follower);
-		followed.setFollowers(updatedFollowers);
 	}
 
 	// ::::::::: add/remove from wishlist :::::::::
 	public void addToWishlist(User u, Location l) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");
-		ps.setLong(1, u.getUserId());
-		ps.setLong(2, l.getId());
-		ps.executeUpdate();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con
+				.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");) {
+			ps.setLong(1, u.getUserId());
+			ps.setLong(2, l.getLocationId());
+			ps.executeUpdate();
+			u.addToWishlist(l);
 		}
-		DBManager.getInstance().closeConnection();
-		HashSet<Location> updatedWishlist = null;
-		if (u.getWishlist() != null) {
-			updatedWishlist = u.getWishlist();
-		} else {
-			updatedWishlist = new HashSet<Location>();
-		}
-		updatedWishlist.add(l);
-		u.setWishlist(updatedWishlist);
 	}
 
 	public void removeFromWishlist(User u, Location l) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");
-		ps.setLong(1, u.getUserId());
-		ps.setLong(2, l.getId());
-		ps.executeUpdate();
-		if (ps != null) {
-			ps.close();
+		try (PreparedStatement ps = con
+				.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");) {
+			ps.setLong(1, u.getUserId());
+			ps.setLong(2, l.getLocationId());
+			ps.executeUpdate();
+			u.removeFromWihslist(l);
 		}
-		DBManager.getInstance().closeConnection();
-		HashSet<Location> updatedWishlist = null;
-		if (u.getWishlist() != null) {
-			updatedWishlist = u.getWishlist();
-		} else {
-			updatedWishlist = new HashSet<Location>();
-		}
-		updatedWishlist.remove(l);
-		u.setWishlist(updatedWishlist);
 	}
 
+	// ::::::::: add/remove from posts :::::::::
+	public void addPost(User u, Post p) {
+		u.addPost(p);
+	}
+	
+	public void removePost(User u, Post p) {
+		u.removePost(p);
+	}
+	
 }

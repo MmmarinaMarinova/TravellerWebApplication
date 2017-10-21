@@ -1,11 +1,15 @@
 package model;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import model.exceptions.UserException;
-
-// !!! SYNCHRONIZATION TO BE DISCUSSED !!!
 
 public final class User {
 	// ::::::::: main object characteristics :::::::::
@@ -15,20 +19,22 @@ public final class User {
 	private String email = null;
 	private long profilePicId = 0; // default profile pic id must be 0
 	private String description = "";
+	// private Multimedia profilePic = null;
 	private HashSet<User> followers = null;
 	private HashSet<User> following = null;
 	private TreeMap<Timestamp, Location> visitedLocations = null; // order by date and time of visit required
 	private HashSet<Location> wishlist = null;
 	private TreeSet<Post> posts = null; // order by date and time of post submition required
+	// !!! overriding of compareTo() in 'Post' required !!!
 
 	// ::::::::: additional object characteristics :::::::::
 	private static final int MIN_USERNAME_LENGTH = 5;
 	private static final int MAX_USERNAME_LENGTH = 45;
 	private static final int MIN_PASSWORD_LENGTH = 6;
 	private static final int MAX_PASSWORD_LENGTH = 255;
-	private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])$";
-	private static final String EMAIL_VALIDATION_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-	private static final String USERNAME_VALIDATION_REGEX = "^(?=\\S+$)$";
+	private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*([0-9]|[\\W])).+$";
+	private static final String EMAIL_VALIDATION_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+	private static final String USERNAME_VALIDATION_REGEX = "([A-Za-z0-9-_]+)";
 
 	// ::::::::: constructor to be used for user registration :::::::::
 	// public modifier required - constructor will be used in 'controller' package
@@ -40,61 +46,66 @@ public final class User {
 
 	// ::::::::: constructor to be used when loading an existing user from db
 	// :::::::::
-	 User(long userId, String username, String password, String email, long profilePicId, String description)
-			throws UserException {
+	User(long userId, String username, String password, String email, long profilePicId, String description
+	/* ,Multimedia profilePic */) throws UserException {
 		this(username, password, email);
 		this.setUserId(userId);
 		this.setProfilePicId(profilePicId);
 		this.setDescription(description);
+		// this.setProfilePic(profilePic);
 	}
 
 	// ::::::::: accessors :::::::::
-	 long getUserId() {
+	public long getUserId() {
 		return this.userId;
 	}
 
-	 String getUsername() {
+	public String getUsername() {
 		return this.username;
 	}
 
-	 String getPassword() {
+	public String getPassword() {
 		return this.password;
 	}
 
-	 long getProfilePicId() {
+	public long getProfilePicId() {
 		return this.profilePicId;
 	}
 
-	 String getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	 String getEmail() {
+	public String getEmail() {
 		return this.email;
 	}
 
-	 HashSet<User> getFollowers() {
-		 return (HashSet<User>) Collections.unmodifiableSet(this.followers);
+	/*
+	 * public Multimedia getProfilePic() { return this.profilePic; }
+	 */
+
+	public Set<User> getFollowers() {
+		return Collections.unmodifiableSet(this.followers);
 	}
 
-	 HashSet<User> getFollowing() {
-		 return (HashSet<User>) Collections.unmodifiableSet(this.following);
+	public Set<User> getFollowing() {
+		return Collections.unmodifiableSet(this.following);
 	}
 
-	 TreeMap<Timestamp, Location> getVisitedLocations() {
-		 return (TreeMap<Timestamp, Location>) Collections.unmodifiableMap(this.visitedLocations);
+	public SortedMap<Timestamp, Location> getVisitedLocations() {
+		return Collections.unmodifiableSortedMap(this.visitedLocations);
 	}
 
-	 HashSet<Location> getWishlist() {
-		 return (HashSet<Location>) Collections.unmodifiableSet(this.wishlist);
+	public Set<Location> getWishlist() {
+		return Collections.unmodifiableSet(this.wishlist);
 	}
 
-	 TreeSet<Post> getPosts() {
-		 return (TreeSet<Post>) Collections.unmodifiableSet(this.posts);
+	public SortedSet<Post> getPosts() {
+		return Collections.unmodifiableSortedSet(this.posts);
 	}
 
 	// ::::::::: mutators :::::::::
-	 void setUserId(long userId) throws UserException {
+	void setUserId(long userId) throws UserException {
 		if (userId > 0) {
 			this.userId = userId;
 		} else {
@@ -102,16 +113,16 @@ public final class User {
 		}
 	}
 
-	 void setUsername(String username) throws UserException {
+	private void setUsername(String username) throws UserException {
 		if (username.length() >= MIN_USERNAME_LENGTH && username.matches(USERNAME_VALIDATION_REGEX)) {
-			if (this.username.length() <= MAX_USERNAME_LENGTH) {
+			if (username.length() <= MAX_USERNAME_LENGTH) {
 				this.username = username;
 			} else {
 				throw new UserException("Username too long!");
 			}
 		} else {
-			throw new UserException(
-					"Username must be at least " + " characters long and must not contain any whitespace characters!");
+			throw new UserException("Username must be at least " + MIN_USERNAME_LENGTH
+					+ " characters long and must contain only letters, digits, hyphens and underscores! ");
 		}
 	}
 
@@ -128,7 +139,7 @@ public final class User {
 	 * MIN_PASWORD_LENGTH + " characters long!"); } }
 	 */
 
-	 boolean setPassword(String password) throws UserException {
+	boolean setPassword(String password) throws UserException {
 		if (password != null && password.length() >= MIN_PASSWORD_LENGTH
 				&& (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$")
 						|| password.matches(PASSWORD_VALIDATION_REGEX))) {
@@ -144,7 +155,7 @@ public final class User {
 		}
 	}
 
-	 boolean setEmail(String email) throws UserException {
+	boolean setEmail(String email) throws UserException {
 		if (email != null && email.matches(EMAIL_VALIDATION_REGEX)) {
 			this.email = email;
 			return true;
@@ -153,7 +164,7 @@ public final class User {
 		}
 	}
 
-	 boolean setProfilePicId(long profilePicId) throws UserException {
+	boolean setProfilePicId(long profilePicId) throws UserException {
 		if (profilePicId >= 0) {
 			this.profilePicId = profilePicId;
 			return true;
@@ -162,28 +173,87 @@ public final class User {
 		}
 	}
 
-	 void setDescription(String description) {
+	void setDescription(String description) {
 		this.description = description != null ? description : "";
 	}
 
-	 void setFollowers(HashSet<User> followers) {
+	/*
+	 * void setProfilePic(Multimedia profilePic) throws UserException { if
+	 * (profilePic != null) { this.profilePic = profilePic; } else { throw new
+	 * UserException("Invalid profile picture!"); } }
+	 */
+
+	void setFollowers(HashSet<User> followers) {
 		this.followers = followers;
 	}
 
-	 void setFollowing(HashSet<User> following) {
+	void setFollowing(HashSet<User> following) {
 		this.following = following;
 	}
 
-	 void setVisitedLocations(TreeMap<Timestamp, Location> visitedLocations) {
+	void setVisitedLocations(TreeMap<Timestamp, Location> visitedLocations) {
 		this.visitedLocations = visitedLocations;
 	}
 
-	 void setWishlist(HashSet<Location> wishlist) {
+	void setWishlist(HashSet<Location> wishlist) {
 		this.wishlist = wishlist;
 	}
 
-	 void setPosts(TreeSet<Post> posts) {
+	void setPosts(TreeSet<Post> posts) {
 		this.posts = posts;
+	}
+
+	// ::::::::: follow/unfollow :::::::::
+	void follow(User followed) {
+		if (this.following == null) {
+			this.following = new HashSet<User>();
+		}
+		this.following.add(followed);
+		if (followed.followers == null) {
+			followed.followers = new HashSet<User>();
+		}
+		followed.followers.add(this);
+	}
+
+	void unfollow(User followed) {
+		this.following.remove(followed);
+		followed.followers.remove(this);
+	}
+
+	// ::::::::: add/remove from visited_locations :::::::::
+	void addVisitedLocation(Timestamp datetime, Location location) {
+		if (this.visitedLocations == null) {
+			this.visitedLocations = new TreeMap<Timestamp, Location>();
+		}
+		this.visitedLocations.put(datetime, location);
+	}
+
+	void removeVisitedLocation(Timestamp datetime, Location location) {
+		this.visitedLocations.remove(datetime, location);
+	}
+
+	// ::::::::: add/remove from wishlit :::::::::
+	void addToWishlist(Location l) {
+		if (this.wishlist == null) {
+			this.wishlist = new HashSet<Location>();
+		}
+		this.wishlist.add(l);
+	}
+
+	void removeFromWihslist(Location l) {
+		this.wishlist.remove(l);
+	}
+
+	// ::::::::: add/remove from posts :::::::::
+	void addPost(Post p) {
+		if (this.posts == null) {
+			this.posts = new TreeSet<Post>();
+		}
+		this.posts.add(p);
+	}
+
+	void removePost(Post p) {
+		this.posts.remove(p);
 	}
 
 	// ::::::::: overriding of 'hashCode()' and 'equals()' methods :::::::::
