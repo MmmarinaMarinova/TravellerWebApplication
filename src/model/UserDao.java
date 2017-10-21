@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -18,6 +17,7 @@ import model.exceptions.UserException;
 
 public class UserDao { // operates with the following tables: 'users', 'users_followers',
 						// 'visited_locations', 'wishlists', 'posts'
+	
 
 	private static UserDao instance;
 
