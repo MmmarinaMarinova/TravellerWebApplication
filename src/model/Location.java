@@ -26,17 +26,17 @@ location_name VARCHAR(45)*/
     private ConcurrentSkipListSet<User> peopleVisited;
 
     //constructor to be used when putting object in database
-    public Location(String latitude, String longtitute, String description, String locationName) throws LocationException {
+    public Location(String latitude, String longtitude, String description, String locationName) throws LocationException {
         this.setLatitude(latitude);
-        this.setLongtitude(longtitute);
+        this.setLongtitude(longtitude);
         this.setDescription(description);
         this.setLocationName(locationName);
         this.peopleVisited = new ConcurrentSkipListSet<>();
     }
 
     //constructor to be used when fetching from database
-    public Location(long id, String latitude, String longtitute, String description, String locationName) throws LocationException {
-        this(latitude, longtitute, description, locationName);
+    public Location(long id, String latitude, String longtitude, String description, String locationName) throws LocationException {
+        this(latitude, longtitude, description, locationName);
         this.id = id;
     }
 

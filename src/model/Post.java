@@ -3,8 +3,10 @@ package model;
 import model.exceptions.PostException;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 
 /**
@@ -131,24 +133,24 @@ public class Post {
         this.location = location;
     }
 
-    public HashSet<Category> getCategories() {
-        return this.categories;
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(this.categories);
     }
 
     public void setCategories(HashSet<Category> categories) {
         this.categories = categories;
     }
 
-    public HashSet<Multimedia> getMultimedia() {
-        return this.multimedia;
+    public Set<Multimedia> getMultimedia() {
+        return Collections.unmodifiableSet(this.multimedia);
     }
 
     public void setMultimedia(HashSet<Multimedia> multimedia) {
         this.multimedia = multimedia;
     }
 
-    public HashSet<User> getTaggedPeople() {
-        return this.taggedPeople;
+    public Set<User> getTaggedPeople() {
+        return Collections.unmodifiableSet(this.taggedPeople);
     }
 
     public void setTaggedPeople(HashSet<User> taggedPeople) {

@@ -34,9 +34,9 @@ public class PostDao extends AbstractDao{
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             post.setId(rs.getLong(1));
-            CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories());
+            CategoryDao.getInstance().addAllCategoriesToPost(post, (HashSet<Category>) post.getCategories()); //not sure if it is correct this way
             //MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
-            this.tagAllUsers(post, post.getTaggedPeople());
+            this.tagAllUsers(post, (HashSet<User>) post.getTaggedPeople());
             this.getCon().commit();
         } catch (SQLException e) {
             this.getCon().rollback();
