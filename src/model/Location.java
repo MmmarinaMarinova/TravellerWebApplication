@@ -1,4 +1,4 @@
-﻿package model;
+package model;
 
 import model.exceptions.LocationException;
 
@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 ?..
  */
 public class Location {
     /*location_id INT(11)

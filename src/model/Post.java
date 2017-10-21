@@ -1,4 +1,4 @@
-﻿package model;
+package model;
 
 import model.exceptions.PostException;
 
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 ?..
  */
 public class Post {
     private static final int MIN_LENGTH = 5;

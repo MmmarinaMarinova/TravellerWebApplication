@@ -1,7 +1,7 @@
-﻿package model;
+package model;
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 ?..
  */
 public class Multimedia {
 

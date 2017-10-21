@@ -1,14 +1,12 @@
-﻿package model;
+package model;
 
-import model.Category;
-import model.Post;
 import model.exceptions.CategoryException;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 ?..
  */
 public class CategoryDao extends AbstractDao{
     private static CategoryDao instance;

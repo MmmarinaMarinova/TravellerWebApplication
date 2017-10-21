@@ -1,9 +1,9 @@
-﻿package model;
+package model;
 
 import java.sql.Connection;
 
 /**
- * Created by Marina on 19.10.2017 г..
+ * Created by Marina on 19.10.2017 ?..
  */
 public abstract class AbstractDao {
     private Connection con = DBManager.getInstance().getConnection();

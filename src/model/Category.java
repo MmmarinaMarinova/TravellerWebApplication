@@ -1,9 +1,9 @@
-﻿package model;
+package model;
 
 import model.exceptions.CategoryException;
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 ?..
  */
 public class Category {
     private final static int MAX_LENGTH=255;

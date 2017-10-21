@@ -20,7 +20,7 @@ public class PostDao extends AbstractDao{
     }
 
     //tested
-    public void insertNewPost(Post post) throws SQLException {
+    public void insertNewPost(Post post) throws SQLException, CategoryException {
         this.getCon().setAutoCommit(false);
         PreparedStatement ps = null;
         try {

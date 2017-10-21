@@ -1,7 +1,7 @@
 package controller;
 
 import model.User;
-import model.db.UserDao;
+import model.UserDao;
 import model.exceptions.UserException;
 
 import javax.servlet.ServletException;
@@ -42,6 +42,7 @@ public class RegisterServlet extends HttpServlet {
         } catch (SQLException e) {
             request.setAttribute("error", "database problem : " + e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
+            e.printStackTrace();
         } catch (UserException e) {
             e.printStackTrace();
         }

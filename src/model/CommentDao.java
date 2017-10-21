@@ -25,34 +25,29 @@ public final class CommentDao extends AbstractDao { //used to operate with table
 	}
 
 	// ::::::::: insert/remove from db :::::::::
-	public void insertComment(Comment c, User u) throws SQLException, PostException {
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
+	public void insertComment(Comment c, User u) throws SQLException, PostException, CommentException {
+		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"insert into comments (content, post_id, user_id, date_time) values (?, ?, ?, ?);",
-				Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, c.getContent());
-		ps.setLong(2, c.getPostId());
-		ps.setLong(3, u.getUserId());
-		ps.setTimestamp(4, c.getDatetime());
-		ps.executeUpdate();
-		ResultSet rs = ps.getGeneratedKeys();
-		rs.next();
-		c.setId(rs.getLong(1));
-		// !!! insert in post POJO comments collection required: 
-		PostDao.getInstance().addComment(PostDao.getInstance().getPostById(c.getPostId()), c);
-			if(ps!=null) {
-			ps.close();
+				Statement.RETURN_GENERATED_KEYS)){
+			ps.setString(1, c.getContent());
+			ps.setLong(2, c.getPostId());
+			ps.setLong(3, u.getUserId());
+			ps.setTimestamp(4, c.getDatetime());
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			c.setId(rs.getLong(1));
+			// !!! insert in post POJO comments collection required:
+			PostDao.getInstance().addComment(PostDao.getInstance().getPostById(c.getPostId()), c);
+		}catch (SQLException e ){
+			throw new CommentException("Could not insert comment to post. Reason: "+e.getMessage());
 		}
-		DBManager.getInstance().closeConnection();
 	}
 	
-	public void deleteComment(Comment c) throws PostException {
-
-		PreparedStatement ps = null;
-		try {
-			ps = this.getCon().prepareStatement(
-					"delete from comments where id = ? and content = ? and post_id = ? and user_id = ? and date_time = ?;",
-					Statement.RETURN_GENERATED_KEYS);
+	public void deleteComment(Comment c) throws PostException, CommentException {
+		try (PreparedStatement ps= this.getCon().prepareStatement(
+				"delete from comments where id = ? and content = ? and post_id = ? and user_id = ? and date_time = ?;",
+				Statement.RETURN_GENERATED_KEYS)){
 			ps.setLong(1, c.getId());
 			ps.setString(2, c.getContent());
 			ps.setLong(3, c.getPostId());
@@ -65,7 +60,7 @@ public final class CommentDao extends AbstractDao { //used to operate with table
 			// !!! delete from post POJO comments collection required:
 			PostDao.getInstance().deleteComment(PostDao.getInstance().getPostById(c.getPostId()), c);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CommentException("Could not delete comment. Reason: "+e.getMessage());
 		}
 	}
 
@@ -73,19 +68,16 @@ public final class CommentDao extends AbstractDao { //used to operate with table
 	// ::::::::: loading comments for post :::::::::
 	public TreeSet<Comment> getCommentsForPost(long postId) throws SQLException, CommentException, UserException {
 		TreeSet<Comment> comments = new TreeSet<>((c1, c2) -> c1.getDatetime().compareTo(c2.getDatetime()));
-		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
-				"select id, content, likes_counter, dislikes_counter, post_id, user_id, date_time from comments where post_id = ?;");
-		ps.setLong(1, postId);
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			comments.add(new Comment(rs.getLong("id"), rs.getString("content"), rs.getInt("likes_counter"),
-					rs.getInt("dislikes_counter"), postId, rs.getLong("user_id"), rs.getTimestamp("date_time"), UserDao.getInstance().getUserById(rs.getLong("user_id"))));
+		try(PreparedStatement ps = this.getCon().prepareStatement(
+				"select id, content, likes_counter, dislikes_counter, post_id, " +
+						"user_id, date_time from comments where post_id = ?;")){
+			ps.setLong(1, postId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				comments.add(new Comment(rs.getLong("id"), rs.getString("content"), rs.getInt("likes_counter"),
+						rs.getInt("dislikes_counter"), postId, rs.getLong("user_id"), rs.getTimestamp("date_time"), UserDao.getInstance().getUserById(rs.getLong("user_id"))));
+			}
 		}
-		if(ps!=null) {
-			ps.close();
-		}
-		DBManager.getInstance().closeConnection();
 		return comments;
 	}
 	
@@ -93,28 +85,22 @@ public final class CommentDao extends AbstractDao { //used to operate with table
 	// currently comments are not keeping data for the users who liked/disliked them
 	public void incrementLikes(Comment c) throws SQLException, CommentException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
-				"update comments set likes_counter = ? where id = ?;");
-		c.setLikesCount(c.getLikesCount()+1);
-		ps.setInt(1, c.getLikesCount());
-		ps.setLong(2, c.getId());
-		if(ps!=null) {
-			ps.close();
+		try(PreparedStatement ps = con.prepareStatement(
+				"update comments set likes_counter = ? where id = ?;")){
+			c.setLikesCount(c.getLikesCount()+1);
+			ps.setInt(1, c.getLikesCount());
+			ps.setLong(2, c.getId());
 		}
-		DBManager.getInstance().closeConnection();
 	}
 
 	public void incrementDislikes(Comment c) throws SQLException, CommentException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(
-				"update comments set dislikes_counter = ? where id = ?;");
-		c.setLikesCount(c.getDislikesCount()+1);
-		ps.setInt(1, c.getDislikesCount());
-		ps.setLong(2, c.getId());
-		if(ps!=null) {
-			ps.close();
+		try(PreparedStatement ps = con.prepareStatement(
+				"update comments set dislikes_counter = ? where id = ?;")){
+			c.setLikesCount(c.getDislikesCount()+1);
+			ps.setInt(1, c.getDislikesCount());
+			ps.setLong(2, c.getId());
 		}
-		DBManager.getInstance().closeConnection();
 	}
 
 }
