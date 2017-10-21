@@ -33,7 +33,8 @@ public final class User {
 	private static final String USERNAME_VALIDATION_REGEX = "^(?=\\S+$)$";
 
 	// ::::::::: constructor to be used for user registration :::::::::
-	 User(String username, String password, String email) throws UserException {
+	// public modifier required - constructor will be used in 'controller' package
+	public User(String username, String password, String email) throws UserException {
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setEmail(email);
