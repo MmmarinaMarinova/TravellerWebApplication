@@ -14,12 +14,12 @@ public class TestClass {
         //    System.out.println("User does not exist");
         //}
         //UserDao.getInstance().insertUser(user);
-        User user1=UserDao.getInstance().getUserById(1);
+        //User user1=UserDao.getInstance().getUserById(1);
         //System.out.println(user1.getUsername());
         //System.out.println(user1.getEmail());
         //System.out.println(user1.getPassword());
         //Category category=new Category("trial category");
-        Category category1=CategoryDao.getInstance().getCategoryById(3);
+        //Category category1=CategoryDao.getInstance().getCategoryById(3);
         //int aff=CategoryDao.getInstance().deleteCategory(category);
         //System.out.println(aff);
         //System.out.println(category.getId());
@@ -27,7 +27,7 @@ public class TestClass {
         //System.out.println(location.getId());
         //Location updated=LocationDao.getInstance().insertLocation(location);
        // System.out.println(updated.getId());
-        Location loc=LocationDao.getInstance().getLocationById(2);
+       // Location loc=LocationDao.getInstance().getLocationById(2);
         //System.out.println(loc.getLocationName());
         //System.out.println(loc.getDescription());
        //Multimedia multimedia=new Multimedia("dfgsdf", false);
@@ -40,7 +40,7 @@ public class TestClass {
        // PostDao.getInstance().insertNewPost(post);
         //User user=UserDao.getInstance().getUserById(2);
         //TODO if the id does not exist in database, line 51 throws exception: empty resultset
-        Post post2=PostDao.getInstance().getPostById(8);
+        //Post post2=PostDao.getInstance().getPostById(8);
         //PostDao.getInstance().tagUser(post2,user);
         //PostDao.getInstance().addCategoryToPost(post2, category1);
         //PostDao.getInstance().deletePost(post2);
@@ -61,8 +61,13 @@ public class TestClass {
         //System.out.println(location.getId());
         //System.out.println(location.getLocationName());
         //System.out.println(location.getDescription());
-        Multimedia multimedia=MultimediaDao.getInstance().insertMultimedia(post2,new Multimedia("fake_url",false));
-        MultimediaDao.getInstance().deleteMultimedia(multimedia);
+        //Multimedia multimedia=MultimediaDao.getInstance().insertMultimedia(post2,new Multimedia("fake_url",false));
+        //MultimediaDao.getInstance().deleteMultimedia(multimedia);
+        User user=new User("petkancho","trialPassword","email@emai.com");
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(user.getEmail());
+
 
 
     }

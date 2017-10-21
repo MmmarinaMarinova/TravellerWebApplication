@@ -5,14 +5,12 @@ import model.exceptions.PostException;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 
 /**
  * Created by Marina on 15.10.2017 ?..
  */
-public class Post {
+public class Post implements Comparable {
     private static final int MIN_LENGTH = 5;
     private static final int MAX_LENGTH = 255;
    /* post_id INT(11)
@@ -34,6 +32,7 @@ public class Post {
     private HashSet<Multimedia> multimedia;
     private HashSet<User> taggedPeople;
     private HashSet<Comment> comments;
+
 
     //constructor to be used when putting object in database
     Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {
@@ -165,6 +164,33 @@ public class Post {
 
     void setComments(HashSet<Comment> comments) {
         this.comments = comments;
+    }
+
+
+    /**
+     *
+     * @param o
+     * @return 0 if equal, -1 if current date is before the argument date, 1 if current date is after the argument date
+     */
+    @Override
+    public int compareTo(Object o) {
+        return this.dateTime.compareTo((Timestamp) o);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return id == post.id;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
     }
 }
 

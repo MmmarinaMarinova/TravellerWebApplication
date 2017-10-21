@@ -99,4 +99,19 @@ location_name VARCHAR(45)*/
     void setPeopleVisited(ConcurrentSkipListSet<User> peopleVisited) {
         this.peopleVisited = peopleVisited;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Location location = (Location) o;
+
+        return id == location.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

@@ -67,4 +67,6 @@ post_id INT(11)*/
     void setPost(Post post) {
         this.post = post;
     }
+
+
 }
