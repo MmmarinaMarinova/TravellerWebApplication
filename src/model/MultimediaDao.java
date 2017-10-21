@@ -1,5 +1,8 @@
 package model;
 
+import model.exceptions.MultimediaException;
+import model.exceptions.PostException;
+
 import java.sql.*;
 import java.util.HashSet;
 
@@ -19,15 +22,9 @@ public class MultimediaDao extends AbstractDao {
     }
 
     //tested
-    public Multimedia insertMultimedia(Post post, Multimedia multimedia) throws SQLException {
+    public void insertMultimedia(Post post, Multimedia multimedia) throws SQLException, MultimediaException {
         try {
-            this.getCon().setAutoCommit(false);
-        } catch (SQLException e) {
-            System.out.println("oops");
-        }
-        PreparedStatement ps = null;
-        try {
-            ps = this.getCon().prepareStatement(
+            PreparedStatement ps = this.getCon().prepareStatement(
                     "insert into multimedia(file_url,is_video, post_id) value (?,?,?);",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, multimedia.getUrl());
@@ -37,35 +34,33 @@ public class MultimediaDao extends AbstractDao {
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             multimedia.setId(rs.getLong(1));
-            this.getCon().commit();
         } catch (SQLException e) {
-            this.getCon().rollback();
-            this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
+            throw new MultimediaException("Multimedia could not be inserted. Reason: "+e.getMessage());
         }
-
-        return multimedia;
     }
 
 
     //TODO not working
-    public void deleteMultimedia(Multimedia multimedia) throws SQLException {
-        this.getCon().setAutoCommit(false);
-        PreparedStatement ps = null;
+    public void deleteMultimedia(Multimedia multimedia) throws SQLException, PostException {
         try {
-            ps = this.getCon().prepareStatement(
+            Connection connection=this.getCon();
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(
                     "delete from multimedia where multimedia_id= ? ;");
             ps.setLong(1, multimedia.getId());
+            ps.executeUpdate();
+            this.deleteMultimediaFromPost(multimedia);
             this.getCon().commit();
         } catch (SQLException e) {
+            throw new PostException("Error deleting multimedia. Reason: "+e.getMessage());
+        }finally {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
         }
+    }
 
-
+    public void deleteMultimediaFromPost(Multimedia multimedia) throws SQLException, PostException {
+        PostDao.getInstance().getPostById(multimedia.getPost().getId()).deleteMultimedia(multimedia);
     }
 
     public HashSet<Multimedia> getAllMultimediaForPost(Post post) throws SQLException {
@@ -95,24 +90,28 @@ public class MultimediaDao extends AbstractDao {
 
 
 
-    public void addMultimediaToPost(Post post, Multimedia multimedia) throws SQLException {
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "insert into multimedia(file_dir, is_video, post_id) values(?,?,?);",
-                Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1,multimedia.getUrl());
-        ps.setBoolean(2,multimedia.isVideo());
-        ps.setLong(3,post.getId());
-        ps.executeUpdate();
-        ResultSet rs=ps.getGeneratedKeys();
-        multimedia.setId(rs.getLong(1));
+    public void addMultimediaToPost(Post post, Multimedia multimedia) throws SQLException, MultimediaException {
+        try{
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "insert into multimedia(file_dir, is_video, post_id) values(?,?,?);",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1,multimedia.getUrl());
+            ps.setBoolean(2,multimedia.isVideo());
+            ps.setLong(3,post.getId());
+            ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            multimedia.setId(rs.getLong(1));
+        }catch (SQLException e){
+            throw new MultimediaException("multimedia could not be put to post. Reason: "+e.getMessage());
+        }
+
     }
 
-    public void addAllMultimediaToPost(Post post, HashSet<Multimedia> multimedia) throws SQLException {
-        this.getCon().setAutoCommit(false);
+    public void addAllMultimediaToPost(Post post, HashSet<Multimedia> multimedia) throws SQLException, MultimediaException {
         PreparedStatement ps = null;
         try {
             for (Multimedia m : multimedia) {
-                //TODO SET IDS OF ALL  MULTIMEDIA
+                this.getCon().setAutoCommit(false);
                 ps = this.getCon().prepareStatement(
                         "insert into multimedia(file_dir,is_video, post_id) values (?,?,?);", Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1,m.getUrl());
@@ -124,12 +123,10 @@ public class MultimediaDao extends AbstractDao {
                 this.getCon().commit();
             }
         } catch (SQLException e) {
+            throw new MultimediaException("Multimedia could not be inserted. Reason: "+e.getMessage());
+        }finally {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
         }
-
-
     }
 }

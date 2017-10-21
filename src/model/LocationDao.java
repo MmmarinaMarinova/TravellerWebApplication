@@ -23,10 +23,11 @@ public class LocationDao extends AbstractDao {
     }
 
     //tested
-    public Location insertLocation(Location location) throws SQLException, LocationException {
-        try (PreparedStatement ps= this.getCon().prepareStatement(
-                "insert into locations( latitude,longtitude, description, location_name) values (?,?,?,?);",
-                Statement.RETURN_GENERATED_KEYS)){
+    public void insertLocation(Location location) throws SQLException, LocationException {
+        try{
+            PreparedStatement ps= this.getCon().prepareStatement(
+                    "insert into locations( latitude,longtitude, description, location_name) values (?,?,?,?);",
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, location.getLatitude());
             ps.setString(2,location.getLongtitude());
             ps.setString(3,location.getDescription());
@@ -34,17 +35,17 @@ public class LocationDao extends AbstractDao {
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             location.setId(rs.getLong(1));
-        } catch (SQLException e) {
-            throw new LocationException("Location could not be inserted.Reason: "+e.getMessage());
+        }catch (SQLException e){
+            throw new LocationException("Location could not be added. Reason: "+e.getMessage());
         }
-        return location;
     }
 
     //tested
     public Location getLocationById(long id) throws SQLException, LocationException {
         Location location;
-        try(PreparedStatement ps = this.getCon().prepareStatement(
-                "SELECT latitude, longtitude, description, location_name FROM locations where location_id=?;")){
+        try {
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "SELECT latitude, longtitude, description, location_name FROM locations where location_id=?;");
             ps.setLong(1, id);
             ResultSet rs=ps.executeQuery();
             rs.next();

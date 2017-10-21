@@ -192,5 +192,11 @@ public class Post implements Comparable {
         result = prime * result + (int) (id ^ (id >>> 32));
         return result;
     }
+
+     void deleteMultimedia(Multimedia multimedia) {
+        if(multimedia!=null){
+            this.multimedia.remove(multimedia);
+        }
+    }
 }
 

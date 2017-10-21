@@ -4,14 +4,21 @@ import model.exceptions.CategoryException;
 
 import java.sql.*;
 import java.util.HashSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Created by Marina on 15.10.2017 ?..
  */
 public class CategoryDao extends AbstractDao{
     private static CategoryDao instance;
+    public static ConcurrentSkipListSet<Category> cachedCategories;
+
 
     private CategoryDao(){}
+
+    public static ConcurrentSkipListSet<Category> getCachedCategories() {
+        return cachedCategories;
+    }
 
     public static synchronized CategoryDao getInstance() {
         if(instance==null){
@@ -49,15 +56,28 @@ public class CategoryDao extends AbstractDao{
 
     //tested
     public void deleteCategory(Category category) throws SQLException, CategoryException {
-        try (PreparedStatement ps= this.getCon().prepareStatement(
-                "delete from categories where category_id=?;")){
-            ps.setLong(1, category.getId());
-            ps.executeUpdate();
+        Connection connection=this.getCon();
+        PreparedStatement deleteCategory=null;
+        PreparedStatement deleteFromPostsCategories=null;
+        try {
+            connection.setAutoCommit(false);
+            deleteCategory= connection.prepareStatement(
+                    "delete from categories where category_id=?;");
+            deleteCategory.setLong(1, category.getId());
+            deleteCategory.executeUpdate();
+            deleteFromPostsCategories=connection.prepareStatement("delete from posts_categories where category_id=?;");
+            deleteFromPostsCategories.setLong(1,category.getId());
+            deleteFromPostsCategories.executeUpdate();
+            connection.commit();
+            //TODO REMOVE CATEGORY FROM ALL POSTS' COLLECTIONS
+            cachedCategories.remove(category);
         } catch (SQLException e) {
             throw new CategoryException("Category could not be deleted. Reason: "+e.getMessage());
+        }finally {
+            connection.rollback();
+            connection.setAutoCommit(true);
         }
     }
-
 
     //tested
     public HashSet<Category> getCategoriesForPost(Post post) throws SQLException, CategoryException {

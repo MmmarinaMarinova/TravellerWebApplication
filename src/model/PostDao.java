@@ -20,11 +20,10 @@ public class PostDao extends AbstractDao{
     }
 
     //tested
-    public void insertNewPost(Post post) throws SQLException, CategoryException {
-        this.getCon().setAutoCommit(false);
-        PreparedStatement ps = null;
+    public void insertNewPost(Post post) throws SQLException, CategoryException, PostException, MultimediaException {
         try {
-            ps = this.getCon().prepareStatement(
+            this.getCon().setAutoCommit(false);
+            PreparedStatement ps = this.getCon().prepareStatement(
                     "insert into posts(user_id, description, date_time) value (?,?,now());",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, post.getUser().getUserId());
@@ -34,44 +33,53 @@ public class PostDao extends AbstractDao{
             rs.next();
             post.setId(rs.getLong(1));
             CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories()); //not sure if it is correct this way
-            //MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
+            MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
             this.tagAllUsers(post, post.getTaggedPeople());
             this.getCon().commit();
         } catch (SQLException e) {
+            throw new PostException("Post could not be added. Reason: "+e.getMessage());
+        }finally {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
+        }
+    }
+
+    //tested
+    private void tagAllUsers(Post post, HashSet<User> taggedPeople) throws SQLException, PostException {
+        try{
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "insert into tagged_users(post_id, user_id) values(?,?);");
+            for (User user : taggedPeople) {
+                ps.setLong(1,post.getId());
+                ps.setLong(2,user.getUserId());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        }catch (SQLException e){
+            throw new PostException("Error tagging users. Reason: "+e.getMessage());
         }
 
     }
 
     //tested
-    private void tagAllUsers(Post post, HashSet<User> taggedPeople) throws SQLException {
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "insert into tagged_users(post_id, user_id) values(?,?);");
-        for (User user : taggedPeople) {
+    public void tagUser(Post post, User user) throws SQLException, PostException {
+        try{
+            //TODO AM I FORGETTING TO PUT THE TAG IN SOME COLLECTION?
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "insert into tagged_users(post_id, user_id) values(?,?);");
             ps.setLong(1,post.getId());
             ps.setLong(2,user.getUserId());
-            ps.addBatch();
+            ps.executeUpdate();
+        }catch (SQLException e){
+            throw new PostException("user could not be tagged. Reason: "+e.getMessage());
         }
-        ps.executeBatch();
     }
 
     //tested
-    public void tagUser(Post post, User user) throws SQLException {
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "insert into tagged_users(post_id, user_id) values(?,?);");
-        ps.setLong(1,post.getId());
-        ps.setLong(2,user.getUserId());
-        ps.executeUpdate();
-    }
-
-    //tested
-    public void addCategoryToPost(Post post, Category category) throws SQLException {
-        this.getCon().setAutoCommit(false);
+    public void addCategoryToPost(Post post, Category category) throws SQLException, PostException {
         PreparedStatement ps = null;
         try {
+            this.getCon().setAutoCommit(false);
             ps = this.getCon().prepareStatement(
                     "insert into posts_categories(post_id, category_id) values(?,?);");
             ps.setLong(1, post.getId());
@@ -79,27 +87,27 @@ public class PostDao extends AbstractDao{
             ps.executeUpdate();
             this.getCon().commit();
         } catch (SQLException e) {
+            throw new PostException("Category could not be added to post. Reason: "+e.getMessage());
+        }finally {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
         }
     }
 
     //tested
-    public void deletePost(Post post) throws SQLException {
-        this.getCon().setAutoCommit(false);
+    public void deletePost(Post post) throws SQLException, PostException {
         PreparedStatement ps = null;
         try {
+            this.getCon().setAutoCommit(false);
             ps = this.getCon().prepareStatement(
                     "delete from posts where post_id=?;");
             ps.setLong(1, post.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
+            throw new PostException("Post could not be deleted. Reason: "+e.getMessage());
+        }finally {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
-            this.getCon().close();
-            throw e;
         }
     }
 

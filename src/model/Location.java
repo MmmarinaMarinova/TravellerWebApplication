@@ -10,11 +10,6 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * Created by Marina on 15.10.2017 ?..
  */
 public class Location {
-    /*location_id INT(11)
-latitude VARCHAR(45)
-longtitude VARCHAR(45)
-description VARCHAR(1000)
-location_name VARCHAR(45)*/
     private final static int MAX_LENGTH=255;
     private final static int MIN_LENGTH=5;
 
