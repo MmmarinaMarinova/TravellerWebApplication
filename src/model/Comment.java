@@ -8,8 +8,8 @@ public final class Comment implements Comparable<Comment>{
 	// ::::::::: main object characteristics :::::::::
 	private long id = 0;
 	private String content = null;
-	private long likesCount = 0;
-	private long dislikesCount = 0;
+	private int likesCount = 0;
+	private int dislikesCount = 0;
 	private long postId = 0;
 	private long userId = 0;
 	private Timestamp datetime = null;
@@ -45,11 +45,11 @@ public final class Comment implements Comparable<Comment>{
 		return this.content;
 	}
 
-	public long getLikesCount() {
+	public int getLikesCount() {
 		return this.likesCount;
 	}
 
-	public long getDislikesCount() {
+	public int getDislikesCount() {
 		return this.dislikesCount;
 	}
 
@@ -86,7 +86,7 @@ public final class Comment implements Comparable<Comment>{
 		}
 	}
 
-	private void setLikesCount(long likesCount) throws CommentException {
+	private void setLikesCount(int likesCount) throws CommentException {
 		if (likesCount >= 0) {
 			this.likesCount = likesCount;
 		} else {
@@ -94,7 +94,7 @@ public final class Comment implements Comparable<Comment>{
 		}
 	}
 
-	private void setDislikesCount(long dislikesCount) throws CommentException {
+	private void setDislikesCount(int dislikesCount) throws CommentException {
 		if (dislikesCount >= 0) {
 			this.dislikesCount = dislikesCount;
 		} else {

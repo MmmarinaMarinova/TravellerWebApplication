@@ -175,17 +175,14 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// get posts
-	public TreeSet<Post> getPosts(User u) throws SQLException, PostException, UserException {
+	public TreeSet<Post> getPosts(User u) throws SQLException, PostException {
 		TreeSet<Post> posts = new TreeSet<Post>(); // posts should be compared by datetime by default
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select post_id, user_id, description, likes_count, dislikes_count, date_time, location_id from posts where user_id = ?;");) {
 			ps.setLong(1, u.getUserId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				User user=UserDao.getInstance().getUserById(rs.getLong("post_id"));
-				posts.add(new Post(user, rs.getLong("user_id"), rs.getString("description"),
-						rs.getLong("likes_count"), rs.getLong("dislikes_count"), rs.getTimestamp("date_time"),
-						rs.getLong("location_id")));
+				posts.add(new Post(rs.getLong("post_id"), rs.getString("description"), rs.getInt("likes_count"), rs.getInt("dislikes_count"), rs.getTimestamp("date_time")));
 			}
 		}
 		return posts;

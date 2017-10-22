@@ -79,7 +79,7 @@ public final class CommentDao extends AbstractDao { // used to operate with tabl
 	public void incrementLikes(Comment c) throws SQLException, CommentException {
 		try (PreparedStatement ps = this.getCon()
 				.prepareStatement("update comments set likes_counter = ? where id = ?;");) {
-			ps.setLong(1, c.getLikesCount());
+			ps.setInt(1, c.getLikesCount());
 			ps.setLong(2, c.getId());
 			c.incrementLikes();
 		}
@@ -88,7 +88,7 @@ public final class CommentDao extends AbstractDao { // used to operate with tabl
 	public void incrementDislikes(Comment c) throws SQLException, CommentException {
 		try (PreparedStatement ps = this.getCon()
 				.prepareStatement("update comments set dislikes_counter = ? where id = ?;");) {
-			ps.setLong(1, c.getDislikesCount());
+			ps.setInt(1, c.getDislikesCount());
 			ps.setLong(2, c.getId());
 			c.incrementDislikes();
 		}
