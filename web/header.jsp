@@ -1,32 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Wanderlust</title>
 </head>
 <body>
-<div class="header">
-    <form class="navi" action="wanderlust.jsp">
-        <input type="submit" value="Wanderlust world">
-    </form>
-    <form class="navi" action="login.jsp">
-        <input type="submit" value="Login">
-    </form>
-    <form class="navi" action="register.jsp">
-        <input type="submit" value="Register">
-    </form>
-    <form class="navi" action="logout" method="post">
-        <input type="submit" value="Logout">
-    </form>
-
-
-
-    <img id="avatar" src="avatar">
-    <h3 class="welcome">Welcome, ${ sessionScope.user.username }</h3>
-
+<div class="w3-container">
+    <div class="w3-bar w3-border w3-light-grey">
+        <a href="#" class="w3-bar-item w3-button w3-hover-teal w3-right-align">World of Wanderlust</a>
+        <a href="myPassport.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right-align">My Passport</a>
+        <a href="newsfeed.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right-align">NewsFeed</a>
+        <a href="explore.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right-align">Explore</a>
+    </div>
 </div>
 </body>
 </html>

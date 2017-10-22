@@ -6,8 +6,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-hi
+hi, ${sessionScope.user.username}
 <jsp:include page="footer.jsp"></jsp:include>
-
 </body>
 </html>

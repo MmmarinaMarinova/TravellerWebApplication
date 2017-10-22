@@ -2,8 +2,6 @@ package controller;
 
 import model.UserDao;
 import model.exceptions.UserException;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
