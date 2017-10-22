@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 public class Location {
     private final static int MAX_LENGTH=255;
     private final static int MIN_LENGTH=5;
+    private final static String COORDINATES_PATTERN="^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$\n";
 
     private long id;
     private String latitude;

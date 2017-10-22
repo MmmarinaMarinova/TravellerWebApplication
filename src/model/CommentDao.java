@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeSet;
 import model.exceptions.CommentException;
+import model.exceptions.PostException;
 import model.exceptions.UserException;
 
 public final class CommentDao extends AbstractDao { // used to operate with table 'comments' from db
@@ -22,7 +23,7 @@ public final class CommentDao extends AbstractDao { // used to operate with tabl
 	}
 
 	// ::::::::: insert/remove from db :::::::::
-	public void insertComment(Comment c, User u) throws SQLException {
+	public void insertComment(Comment c, User u) throws SQLException, PostException {
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"insert into comments (content, post_id, user_id, date_time) values (?, ?, ?, ?);",
 				Statement.RETURN_GENERATED_KEYS);) {
@@ -39,7 +40,7 @@ public final class CommentDao extends AbstractDao { // used to operate with tabl
 		}
 	}
 
-	public void deleteComment(Comment c) throws SQLException {
+	public void deleteComment(Comment c) throws SQLException, PostException {
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"delete from comments where id = ? and content = ? and post_id = ? and user_id = ? and date_time = ?;",
 				Statement.RETURN_GENERATED_KEYS);) {
@@ -62,11 +63,11 @@ public final class CommentDao extends AbstractDao { // used to operate with tabl
 		TreeSet<Comment> comments = new TreeSet<Comment>();
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select id, content, likes_counter, dislikes_counter, post_id, user_id, date_time from comments where post_id = ?;");) {
-			ps.setLong(1, p.getPostId());
+			ps.setLong(1, p.getId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				comments.add(new Comment(rs.getLong("id"), rs.getString("content"), rs.getInt("likes_counter"),
-						rs.getInt("dislikes_counter"), p.getPostId(), rs.getLong("user_id"),
+						rs.getInt("dislikes_counter"), p.getId(), rs.getLong("user_id"),
 						rs.getTimestamp("date_time"), UserDao.getInstance().getUserById(rs.getLong("user_id"))));
 			}
 			return comments;
