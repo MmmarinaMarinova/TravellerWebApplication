@@ -10,12 +10,12 @@
     <title>Wanderlust</title>
 </head>
 <body>
-<div class="w3-container">
+<div class="w3-container w3-right-align">
     <div class="w3-bar w3-border w3-light-grey">
-        <a href="#" class="w3-bar-item w3-button w3-hover-teal w3-right-align">World of Wanderlust</a>
-        <a href="myPassport.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right-align">My Passport</a>
-        <a href="newsfeed.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right-align">NewsFeed</a>
-        <a href="explore.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right-align">Explore</a>
+        <a href="explore.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">Explore</a>
+        <a href="newsfeed.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">NewsFeed</a>
+        <a href="myPassport.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">My Passport</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-teal w3-right">World of Wanderlust</a>
     </div>
 </div>
 </body>

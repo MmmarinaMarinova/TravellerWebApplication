@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="w3-container">
-        <div class="w3-panel w3-teal">
+        <div class="w3-panel w3-teal w3-center">
             <h6 class="w3-opacity">We are glad to have you here, in Wanderlust!</h6>
         </div>
 </div>
