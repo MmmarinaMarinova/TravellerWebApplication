@@ -12,6 +12,13 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 
+<div class="w3-container w3-red w3-cell">
+    <img src="user.png" class="w3-round-xlarge" alt="Norway" style="width:30%">
+</div>
+
+<div class="w3-container w3-teal w3-cell">
+    <p>${sessionScope.user.description}</p>
+</div>
 
 
 
