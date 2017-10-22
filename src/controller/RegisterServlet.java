@@ -37,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
                 User user=new User(username, password, email);
                 UserDao.getInstance().insertUser(user);
                 request.getSession().setAttribute("user",user);
-                request.getRequestDispatcher("main.jsp").forward(request,response);
+                request.getRequestDispatcher("login.jsp").forward(request,response);
             }
         } catch (SQLException e) {
             request.setAttribute("error", "database problem : " + e.getMessage());
