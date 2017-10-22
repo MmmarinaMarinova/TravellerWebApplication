@@ -21,10 +21,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("pass");
 
         try {
+            if(request.getSession().getAttribute("logged"))
             if (UserDao.getInstance().existsUser(username, password)) {
                 request.getSession().setAttribute("logged", true);
                 request.getSession().setAttribute("user", UserDao.getInstance().getUserByUsername(username));
-                request.getRequestDispatcher("wanderlust.jsp").forward(request, response);
+                request.getRequestDispatcher("myPassport.jsp").forward(request, response);
                 return;
             } else {
                 request.getRequestDispatcher("login.jsp").forward(request, response);

@@ -23,7 +23,7 @@
         <p>Password</p>
         <input type = "password"  placeholder="••••••••••••••" name="pass">
         <input type = "submit"  value="Sign in" >
-        <a href="register">New to the travelling world? Join now!</a>
+        <a href="register.jsp">New to the travelling world? Join now!</a>
     </form>
 </div>
 </body>
