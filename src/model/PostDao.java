@@ -65,13 +65,19 @@ public class PostDao extends AbstractDao{
     public void tagUser(Post post, User user) throws SQLException, PostException {
         try{
             //TODO AM I FORGETTING TO PUT THE TAG IN SOME COLLECTION?
+            this.getCon().setAutoCommit(false);
             PreparedStatement ps = this.getCon().prepareStatement(
                     "insert into tagged_users(post_id, user_id) values(?,?);");
             ps.setLong(1,post.getId());
             ps.setLong(2,user.getUserId());
             ps.executeUpdate();
+            post.tagUser(user);
+            this.getCon().commit();
         }catch (SQLException e){
             throw new PostException("user could not be tagged. Reason: "+e.getMessage());
+        }finally {
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
         }
     }
 
@@ -85,6 +91,7 @@ public class PostDao extends AbstractDao{
             ps.setLong(1, post.getId());
             ps.setLong(2,category.getId());
             ps.executeUpdate();
+            post.addCategory(category);
             this.getCon().commit();
         } catch (SQLException e) {
             throw new PostException("Category could not be added to post. Reason: "+e.getMessage());
@@ -94,7 +101,7 @@ public class PostDao extends AbstractDao{
         }
     }
 
-    //tested
+    /*//tested
     public void deletePost(Post post) throws SQLException, PostException {
         PreparedStatement ps = null;
         try {
@@ -103,8 +110,49 @@ public class PostDao extends AbstractDao{
                     "delete from posts where post_id=?;");
             ps.setLong(1, post.getId());
             ps.executeUpdate();
+            this.getCon().commit();
         } catch (SQLException e) {
             throw new PostException("Post could not be deleted. Reason: "+e.getMessage());
+        }finally {
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+        }
+    }*/
+
+    //tested
+    public void updateLocation(Post post, Location newLocation) throws SQLException, PostException {
+        try{
+            this.getCon().setAutoCommit(false);
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "update posts set location_id= ?  where post_id= ?;");
+            ps.setLong(1, newLocation.getId());
+            ps.setLong(2,post.getId());
+            ps.executeUpdate();
+            post.setLocation(newLocation);
+            this.getCon().commit();
+        }catch (SQLException e){
+            throw new PostException("location could not be updated");
+        }finally {
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+        }
+
+    }
+
+    //tested
+    public void incrementLikes(Post post) throws SQLException, PostException {
+        try{
+            this.getCon().setAutoCommit(false);
+            Connection con = DBManager.getInstance().getConnection();
+            PreparedStatement ps = con.prepareStatement(
+                    "update posts set likes_count= ?  where post_id= ?;");
+            ps.setInt(1, post.getLikesCount()+1);
+            ps.setLong(2,post.getId());
+            ps.executeUpdate();
+            post.setLikesCount(post.getLikesCount()+1);
+            this.getCon().commit();
+        }catch (SQLException e){
+            throw new PostException("could not increment likes. Reason: "+e.getMessage());
         }finally {
             this.getCon().rollback();
             this.getCon().setAutoCommit(true);
@@ -112,56 +160,61 @@ public class PostDao extends AbstractDao{
     }
 
     //tested
-    public void updateLocation(Post post, Location newLocation) throws SQLException {
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "update posts set location_id= ?  where post_id= ?;");
-        ps.setLong(1, newLocation.getId());
-        ps.setLong(2,post.getId());
-        ps.executeUpdate();
-    }
-
-    //tested
-    public void incrementLikes(Post post) throws SQLException {
-        Connection con = DBManager.getInstance().getConnection();
-        PreparedStatement ps = con.prepareStatement(
-                "update posts set likes_count= ?  where post_id= ?;");
-        ps.setInt(1, post.getLikesCount()+1);
-        ps.setLong(2,post.getId());
-        ps.executeUpdate();
-    }
-
-    //tested
-    public void decrementLikes(Post post) throws SQLException {
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "update posts set likes_count= ?  where post_id= ?;");
-        ps.setInt(1, post.getLikesCount()-1);
-        ps.setLong(2,post.getId());
-        ps.executeUpdate();
+    public void decrementLikes(Post post) throws SQLException, PostException {
+        try{
+            this.getCon().setAutoCommit(false);
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "update posts set likes_count= ?  where post_id= ?;");
+            ps.setInt(1, post.getLikesCount()-1);
+            ps.setLong(2,post.getId());
+            ps.executeUpdate();
+            post.setLikesCount(post.getLikesCount()-1);
+            this.getCon().commit();
+        }catch (SQLException e){
+            throw new PostException("couldn't unlike this post. Reason: "+e.getMessage());
+        }finally {
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
+        }
     }
 
 
     //tested
-    public void incrementDislikes(Post post) throws SQLException {
+    public void incrementDislikes(Post post) throws SQLException, PostException {
         //TODO dislikes should never become less than 0
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "update posts set dislikes_count= ?  where posts.post_id= ?;");
-        ps.setInt(1, post.getDislikesCount()+1);
-        ps.setLong(2,post.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO PUT SOME POPUP WITH INFO
+        try{
+            this.getCon().setAutoCommit(false);
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "update posts set dislikes_count= ?  where posts.post_id= ?;");
+            ps.setInt(1, post.getDislikesCount()+1);
+            ps.setLong(2,post.getId());
+            ps.executeUpdate();
+            post.setDislikesCount(post.getLikesCount()+1);
+            this.getCon().commit();
+        }catch (SQLException e){
+            throw new PostException("could not dislike this post. Reason: "+e.getMessage());
+        }finally {
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
         }
     }
 
     //tested
-    public void decrementDislikes(Post post) throws SQLException {
-        PreparedStatement ps = this.getCon().prepareStatement(
-                "update posts set dislikes_count= ?  where posts.post_id= ?;");
-        ps.setInt(1, post.getDislikesCount()-1);
-        ps.setLong(2,post.getId());
-        int affectedRows=ps.executeUpdate();
-        if(affectedRows>0){
-            //TODO PUT SOME POPUP WITH INFO
+    public void decrementDislikes(Post post) throws SQLException, PostException {
+        try{
+            this.getCon().setAutoCommit(false);
+            PreparedStatement ps = this.getCon().prepareStatement(
+                    "update posts set dislikes_count= ?  where posts.post_id= ?;");
+            ps.setInt(1, post.getDislikesCount()-1);
+            ps.setLong(2,post.getId());
+            ps.executeUpdate();
+            post.setDislikesCount(post.getLikesCount()-1);
+            this.getCon().commit();
+        }catch (SQLException e){
+            throw new PostException("could not remove dislike from this post. Reason: "+e.getMessage());
+        }finally {
+            this.getCon().rollback();
+            this.getCon().setAutoCommit(true);
         }
     }
 
@@ -211,12 +264,11 @@ public class PostDao extends AbstractDao{
     }
 
     public void addComment(Post postById, Comment c) throws SQLException {
-        //TODO INSERT IN COLLECTION
+        postById.addComment(c);
     }
 
     public void deleteComment(Post postById, Comment c) throws SQLException {
-        //TODO DELETE FROM COLLECTION
-
+        postById.deleteComment(c);
     }
     
 }

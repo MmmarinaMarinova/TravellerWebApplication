@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import model.exceptions.LocationException;
+import model.exceptions.PostException;
 import model.exceptions.UserException;
 
 public class UserDao extends AbstractDao { // operates with the following tables: 'users', 'users_followers',
@@ -142,7 +144,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// get visited locations
-	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException {
+	public TreeMap<Timestamp, Location> getVisitedLocations(User u) throws SQLException, LocationException {
 		TreeMap<Timestamp, Location> visitedLocations = new TreeMap<Timestamp, Location>();
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select vl.date_time, l.location_id, l.latitude, l.longtitude, l.description, l.location_name from locations as l join visited_locations as vl on(l.location_id = vl.location_id) where user_id = ?;");) {
@@ -158,7 +160,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// get wishlist locations
-	public HashSet<Location> getWishlistLocations(User u) throws SQLException {
+	public HashSet<Location> getWishlistLocations(User u) throws SQLException, LocationException {
 		HashSet<Location> wishlistLocations = new HashSet<Location>();
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select l.location_id, l.latitude, l.longtitude, l.description, l.location_name from locations as l join wishlists w on(l.location_id = w.location_id) where w.user_id = ?;");) {
@@ -173,14 +175,15 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// get posts
-	public TreeSet<Post> getPosts(User u) throws SQLException {
+	public TreeSet<Post> getPosts(User u) throws SQLException, PostException, UserException {
 		TreeSet<Post> posts = new TreeSet<Post>(); // posts should be compared by datetime by default
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select post_id, user_id, description, likes_count, dislikes_count, date_time, location_id from posts where user_id = ?;");) {
 			ps.setLong(1, u.getUserId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				posts.add(new Post(rs.getLong("post_id"), rs.getLong("user_id"), rs.getString("description"),
+				User user=UserDao.getInstance().getUserById(rs.getLong("post_id"));
+				posts.add(new Post(user, rs.getLong("user_id"), rs.getString("description"),
 						rs.getLong("likes_count"), rs.getLong("dislikes_count"), rs.getTimestamp("date_time"),
 						rs.getLong("location_id")));
 			}
@@ -200,17 +203,17 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// set visited locations
-	public void setVisitedLocations(User u) throws SQLException, UserException {
+	public void setVisitedLocations(User u) throws SQLException, UserException, LocationException {
 		u.setVisitedLocations(UserDao.getInstance().getVisitedLocations(u));
 	}
 
 	// set wishlit
-	public void setWishlistLocations(User u) throws SQLException, UserException {
+	public void setWishlistLocations(User u) throws SQLException, UserException, LocationException {
 		u.setWishlist(UserDao.getInstance().getWishlistLocations(u));
 	}
 
 	// set posts
-	public void setPosts(User u) throws SQLException, UserException {
+	public void setPosts(User u) throws SQLException, UserException, PostException {
 		u.setPosts(UserDao.getInstance().getPosts(u));
 	}
 
@@ -290,7 +293,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"insert into visited_locations (user_id, location_id, date_time) value (?, ?, ?);");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.setTimestamp(3, t);
 		}
 	}
@@ -300,7 +303,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"delete from visited_locations where user_id = ? and location_id = ? and date_time = ?;");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.setTimestamp(3, t);
 		}
 	}
@@ -310,7 +313,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 		try (PreparedStatement ps = this.getCon()
 				.prepareStatement("insert into wishlists (user_id, location_id) value (?, ?);");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.executeUpdate();
 			u.addToWishlist(l);
 		}
@@ -320,7 +323,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 		try (PreparedStatement ps = this.getCon()
 				.prepareStatement("delete from wishlists (user_id, location_id) value (?, ?);");) {
 			ps.setLong(1, u.getUserId());
-			ps.setLong(2, l.getLocationId());
+			ps.setLong(2, l.getId());
 			ps.executeUpdate();
 			u.removeFromWihslist(l);
 		}

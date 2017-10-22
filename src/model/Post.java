@@ -68,6 +68,9 @@ public class Post implements Comparable {
         //HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople
     }
 
+    public Post(User user, long user_id, String description, long likes_count, long dislikes_count, Timestamp date_time, long location_id) {
+    }
+
 
     long getId() {
         return this.id;
@@ -196,6 +199,30 @@ public class Post implements Comparable {
      void deleteMultimedia(Multimedia multimedia) {
         if(multimedia!=null){
             this.multimedia.remove(multimedia);
+        }
+    }
+
+     void tagUser(User user) {
+        if(user!=null && !this.taggedPeople.contains(user)){
+            this.taggedPeople.add(user);
+        }
+    }
+
+     void addCategory(Category category) {
+        if(category!=null && !this.categories.contains(category)){
+            this.categories.add(category);
+        }
+    }
+
+     void addComment(Comment c) {
+        if(c!=null){
+            this.comments.add(c);
+        }
+    }
+
+     void deleteComment(Comment c) {
+        if(c!=null && this.comments.contains(c)){
+            this.comments.remove(c);
         }
     }
 }
