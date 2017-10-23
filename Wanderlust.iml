@@ -58,6 +58,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jstl-1.2" level="project" />
   </component>
   <component name="sonarModuleSettings">
     <option name="alternativeWorkingDirPath" value="" />

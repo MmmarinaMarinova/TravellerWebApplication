@@ -16,7 +16,7 @@
         <a href="uploadPost.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">Share experience</a>
         <a href="newsfeed.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">Get inspiration</a>
         <a href="myPassport.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">My Passport</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-teal w3-right">World of Wanderlust</a>
+        <a href="index.jsp" class="w3-bar-item w3-button w3-hover-teal w3-right">World of Wanderlust</a>
     </div>
 </div>
 </body>

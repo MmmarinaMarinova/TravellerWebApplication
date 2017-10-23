@@ -1,9 +1,7 @@
-﻿package controller;
+package controller;
 
 import model.UserDao;
 import model.exceptions.UserException;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * Created by Marina on 21.10.2017 Рі..
+ * Created by Marina on 21.10.2017 ??..
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -27,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 			if (UserDao.getInstance().existsUser(username, password)) {
 				request.getSession().setAttribute("logged", true);
 				request.getSession().setAttribute("user", UserDao.getInstance().getUserByUsername(username));
-				request.getRequestDispatcher("wanderlust.jsp").forward(request, response);
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 				return;
 			} else {
 				request.setAttribute("isValidData", "false");
