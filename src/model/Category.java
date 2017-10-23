@@ -24,11 +24,11 @@ public class Category {
         this.id = id;
     }
 
-    String getName() {
+   public  String getName() {
         return this.name;
     }
 
-    long getId() {
+   public   long getId() {
         return this.id;
     }
 

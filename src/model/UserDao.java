@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import model.exceptions.CategoryException;
+import model.exceptions.CommentException;
 import model.exceptions.LocationException;
 import model.exceptions.PostException;
 import model.exceptions.UserException;
@@ -83,7 +85,8 @@ public class UserDao extends AbstractDao { // operates with the following tables
 
 	// ::::::::: loading user from db :::::::::
 	// * TESTED *
-	public User getUserByUsername(String username) throws SQLException, UserException, PostException {
+	public User getUserByUsername(String username)
+			throws SQLException, UserException, PostException, LocationException, CategoryException, CommentException {
 		User fetched = null;
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select user_id, username, password, email, profile_pic_id, description from users where username = ?;");) {
@@ -92,6 +95,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 			if (rs.next()) {
 				fetched = new User(rs.getLong("user_id"), username, rs.getString("password"), rs.getString("email"),
 						rs.getLong("profile_pic_id"), rs.getString("description"));
+				fetched.setProfilePic(MultimediaDao.getInstance().getMultimediaById(rs.getLong("profile_pic_id")));
 			}
 			UserDao.getInstance().setPosts(fetched);
 			return fetched;
@@ -176,18 +180,38 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// get posts
-	public TreeSet<Post> getPosts(User u) throws SQLException, PostException {
+	public TreeSet<Post> getPosts(User u) throws SQLException, PostException, LocationException, CategoryException, UserException, CommentException {
 		TreeSet<Post> posts = new TreeSet<Post>(); // posts should be compared by datetime by default
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select post_id, user_id, description, likes_count, dislikes_count, date_time, location_id from posts where user_id = ?;");) {
 			ps.setLong(1, u.getUserId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				posts.add(new Post(rs.getLong("post_id"), rs.getString("description"), rs.getInt("likes_count"), rs.getInt("dislikes_count"), rs.getTimestamp("date_time")));
+				Post post = new Post(rs.getLong("post_id"), rs.getString("description"), rs.getInt("likes_count"),
+						rs.getInt("dislikes_count"), rs.getTimestamp("date_time"));
+				post.setUser(u);
+				post.setLocation(LocationDao.getInstance().getLocationByPost(post));
+				post.setCategories(CategoryDao.getInstance().getCategoriesForPost(post));
+				post.setMultimedia(MultimediaDao.getInstance().getAllMultimediaForPost(post));
+				post.setTaggedPeople(UserDao.getInstance().getAllTaggedUsersForPost(post));
+				post.setComments(CommentDao.getInstance().getCommentsForPost(post));
+				posts.add(post);
 			}
-
 		}
 		return posts;
+	}
+
+	private HashSet<User> getAllTaggedUsersForPost(Post post) throws SQLException, UserException {
+		PreparedStatement ps = this.getCon().prepareStatement(
+				"select u.user_id, u.username, u.password, u.email, u.profile_pic_id, u.description from users as u join tagged_users as tu on(u.user_id = tu.user_id) where post_id = ?;");
+		ps.setLong(1, post.getId());
+		ResultSet rs = ps.executeQuery();
+		HashSet<User> taggedUsers = new HashSet<User>();
+		while (rs.next()) {
+			taggedUsers.add(new User(rs.getLong("user_id"), rs.getString("username"), rs.getString("password"),
+					rs.getString("email"), rs.getLong("profile_pic_id"), rs.getString("description")));
+		}
+		return taggedUsers;
 	}
 
 	// ::::::::: setting user data :::::::::
@@ -212,7 +236,8 @@ public class UserDao extends AbstractDao { // operates with the following tables
 	}
 
 	// set posts
-	public void setPosts(User u) throws SQLException, UserException, PostException {
+	public void setPosts(User u)
+			throws SQLException, UserException, PostException, LocationException, CategoryException, CommentException {
 		u.setPosts(UserDao.getInstance().getPosts(u));
 	}
 

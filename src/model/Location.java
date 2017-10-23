@@ -37,7 +37,7 @@ public class Location {
         this.id = id;
     }
 
-    long getId() {
+   public long getId() {
         return this.id;
     }
 
@@ -45,7 +45,7 @@ public class Location {
         this.id = id;
     }
 
-    String getLatitude() {
+    public  String getLatitude() {
         return this.latitude;
     }
 
@@ -54,7 +54,7 @@ public class Location {
         this.latitude = latitude;
     }
 
-    String getLongtitude() {
+    public String getLongtitude() {
         return this.longtitude;
     }
 
@@ -63,7 +63,7 @@ public class Location {
         this.longtitude = longtitude;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
@@ -71,7 +71,7 @@ public class Location {
         this.description = description;
     }
 
-    String getLocationName() {
+    public String getLocationName() {
         return this.locationName;
     }
 
@@ -88,7 +88,7 @@ public class Location {
         this.locationName = locationName;
     }
 
-    Collection<User> getPeopleVisited() {
+    public Collection<User> getPeopleVisited() {
         return Collections.unmodifiableCollection(this.peopleVisited);
     }
 

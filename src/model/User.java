@@ -21,7 +21,7 @@ public final class User {
 	private String email = null;
 	private long profilePicId = 0; // default profile pic id must be 0
 	private String description = "";
-	// private Multimedia profilePic = null;
+	private Multimedia profilePic = null;
 	private HashSet<User> followers = null;
 	private HashSet<User> following = null;
 	private TreeMap<Timestamp, Location> visitedLocations = null; // order by date and time of visit required
@@ -48,13 +48,11 @@ public final class User {
 
 	// ::::::::: constructor to be used when loading an existing user from db
 	// :::::::::
-	User(long userId, String username, String password, String email, long profilePicId, String description
-	/* ,Multimedia profilePic */) throws UserException {
+	User(long userId, String username, String password, String email, long profilePicId, String description) throws UserException {
 		this(username, password, email);
 		this.setUserId(userId);
 		this.setProfilePicId(profilePicId);
 		this.setDescription(description);
-		// this.setProfilePic(profilePic);
 	}
 
 	// ::::::::: accessors :::::::::
@@ -76,6 +74,10 @@ public final class User {
 
 	public String getDescription() {
 		return this.description;
+	}
+	
+	public Multimedia getProfilePic() {
+		return this.profilePic;
 	}
 
 	public String getEmail() {
@@ -179,6 +181,10 @@ public final class User {
 		this.description = description != null ? description : "";
 	}
 
+	 void setProfilePic(Multimedia profilePic) {
+		 this.profilePic = profilePic;	
+	}
+	
 	/*
 	 * void setProfilePic(Multimedia profilePic) throws UserException { if
 	 * (profilePic != null) { this.profilePic = profilePic; } else { throw new

@@ -35,15 +35,15 @@ post_id INT(11)*/
         this.setVideo(isVideo);
     }
 
-    long getId() {
+    public long getId() {
         return this.id;
     }
 
-    void setId(long id) {
+     void setId(long id) {
         this.id = id;
     }
 
-    String getUrl() {
+    public String getUrl() {
         return this.url;
     }
 
@@ -52,7 +52,7 @@ post_id INT(11)*/
         this.url = url;
     }
 
-    boolean isVideo() {
+    public boolean isVideo() {
         return this.isVideo;
     }
 
@@ -60,7 +60,7 @@ post_id INT(11)*/
         isVideo = video;
     }
 
-    Post getPost() {
+    public Post getPost() {
         return this.post;
     }
 

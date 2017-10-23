@@ -3,6 +3,9 @@ package controller;
 import model.PostDao;
 import model.User;
 import model.UserDao;
+import model.exceptions.CategoryException;
+import model.exceptions.CommentException;
+import model.exceptions.LocationException;
 import model.exceptions.PostException;
 import model.exceptions.UserException;
 import javax.servlet.ServletException;
@@ -40,6 +43,15 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		} catch (PostException e) {
+			e.printStackTrace();
+		} catch (LocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CategoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CommentException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

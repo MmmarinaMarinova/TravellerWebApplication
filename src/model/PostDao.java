@@ -1,11 +1,12 @@
-package model;
+﻿package model;
 import model.exceptions.*;
 
 import java.sql.*;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 Рі..
  */
 public class PostDao extends AbstractDao{
     private static PostDao instance;
@@ -48,11 +49,11 @@ public class PostDao extends AbstractDao{
     }
 
     //tested
-    private void tagAllUsers(Post post, HashSet<User> taggedPeople) throws SQLException, PostException {
+    private void tagAllUsers(Post post, Set<User> set) throws SQLException, PostException {
         try{
             PreparedStatement ps = this.getCon().prepareStatement(
                     "insert into tagged_users(post_id, user_id) values(?,?);");
-            for (User user : taggedPeople) {
+            for (User user : set) {
                 ps.setLong(1,post.getId());
                 ps.setLong(2,user.getUserId());
                 ps.addBatch();
@@ -256,13 +257,15 @@ public class PostDao extends AbstractDao{
 
     //tested
     public Post getPostById(long post_id) throws SQLException, PostException {
+    	Post post = null;
         PreparedStatement ps = this.getCon().prepareStatement("select description, likes_count, " +
                 "dislikes_count, date_time from posts where post_id = ? ;");
         ps.setLong(1, post_id);
         ResultSet rs=ps.executeQuery();
-        rs.next();
-        Post post=new Post(post_id, rs.getString("description"),rs.getInt("likes_count"),rs.getInt("dislikes_count"),
+        if(rs.next()) {
+       post =new Post(post_id, rs.getString("description"),rs.getInt("likes_count"),rs.getInt("dislikes_count"),
                 rs.getTimestamp("date_time"));
+        }
         return post;
     }
 

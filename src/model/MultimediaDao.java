@@ -1,4 +1,4 @@
-package model;
+﻿package model;
 
 import model.exceptions.MultimediaException;
 import model.exceptions.PostException;
@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.HashSet;
 
 /**
- * Created by Marina on 15.10.2017 г..
+ * Created by Marina on 15.10.2017 Рі..
  */
 public class MultimediaDao extends AbstractDao {
     private static MultimediaDao instance;
@@ -129,4 +129,18 @@ public class MultimediaDao extends AbstractDao {
             this.getCon().setAutoCommit(true);
         }
     }
+    
+    public Multimedia getMultimediaById(long id) throws SQLException, PostException {
+		Multimedia fetched = null;
+		try (PreparedStatement ps = this.getCon().prepareStatement(
+				"select file_url, is_video, post_id from multimedia where multimedia_id = ?;");) {
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				fetched = new Multimedia(id, rs.getString("file_url"), rs.getBoolean("is_video"), PostDao.getInstance().getPostById(rs.getLong("post_id")));
+			}
+			return fetched;
+		}
+	}
+    
 }

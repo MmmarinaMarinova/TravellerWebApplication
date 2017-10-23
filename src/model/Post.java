@@ -5,222 +5,221 @@ import model.exceptions.PostException;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
-
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Marina on 15.10.2017 ?..
  */
 public class Post implements Comparable<Post> {
-    private static final int MIN_LENGTH = 5;
-    private static final int MAX_LENGTH = 255;
-   /* post_id INT(11)
-    user_id INT(11)
-    description VARCHAR(1000)
-    likes_count INT(11)
-    dislikes_count INT(11)
-    date_time TIMESTAMP
-    location_id INT(11)*/
+	private static final int MIN_LENGTH = 5;
+	private static final int MAX_LENGTH = 255;
+	/*
+	 * post_id INT(11) user_id INT(11) description VARCHAR(1000) likes_count INT(11)
+	 * dislikes_count INT(11) date_time TIMESTAMP location_id INT(11)
+	 */
 
-    private long id;
-    private User user;
-    private String description;
-    private int likesCount;
-    private int dislikesCount;
-    private Timestamp dateTime;
-    private Location location;
-    private HashSet<Category> categories;
-    private HashSet<Multimedia> multimedia;
-    private HashSet<User> taggedPeople;
-    private HashSet<Comment> comments;
+	private long id;
+	private User user;
+	private String description;
+	private int likesCount;
+	private int dislikesCount;
+	private Timestamp dateTime;
+	private Location location;
+	private HashSet<Category> categories;
+	private HashSet<Multimedia> multimedia;
+	private HashSet<User> taggedPeople;
+	private TreeSet<Comment> comments;
 
+	// constructor to be used when putting object in database
+	Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories,
+			HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {
+		this.user = user;
+		this.setDescription(description);
+		this.dateTime = dateTime;
+		this.location = location;
+		this.categories = categories;
+		this.multimedia = multimedia;
+		this.taggedPeople = taggedPeople;
+		this.likesCount = 0;
+		this.dislikesCount = 0;
+	}
 
-    //constructor to be used when putting object in database
-    Post(User user, String description, Timestamp dateTime, Location location, HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople) throws PostException {
-        this.user = user;
-        this.setDescription(description);
-        this.dateTime = dateTime;
-        this.location = location;
-        this.categories = categories;
-        this.multimedia = multimedia;
-        this.taggedPeople = taggedPeople;
-        this.likesCount=0;
-        this.dislikesCount=0;
-    }
+	Post(User user, HashSet<Category> categories, HashSet<User> taggedPeople) throws PostException {
+		this.user = user;
+		this.categories = categories;
+		this.taggedPeople = taggedPeople;
+		this.likesCount = 0;
+		this.dislikesCount = 0;
+		this.description = "trial_description";
+	}
 
-    Post(User user, HashSet<Category> categories, HashSet<User> taggedPeople) throws PostException {
-        this.user = user;
-        this.categories = categories;
-        this.taggedPeople = taggedPeople;
-        this.likesCount=0;
-        this.dislikesCount=0;
-        this.description="trial_description";
-    }
+	// constructor to be used when fetching from database
+	Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
+		this.id = id;
+		this.likesCount = likesCount;
+		this.dislikesCount = dislikesCount;
+		this.setDescription(description);
+		this.dateTime = dateTime;
+		// have to make methods in post dao for:
+		// HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User>
+		// taggedPeople
+	}
 
+	public Post(User user, long user_id, String description, long likes_count, long dislikes_count, Timestamp date_time,
+			long location_id) {
+	}
 
-    //constructor to be used when fetching from database
-    Post(long id, String description, int likesCount, int dislikesCount, Timestamp dateTime) throws PostException {
-        this.id = id;
-        this.likesCount = likesCount;
-        this.dislikesCount = dislikesCount;
-        this.setDescription(description);
-        this.dateTime=dateTime;
-        //have to make methods in post dao for:
-        //HashSet<Category> categories, HashSet<Multimedia> multimedia, HashSet<User> taggedPeople
-    }
+	public long getId() {
+		return this.id;
+	}
 
-    public Post(User user, long user_id, String description, long likes_count, long dislikes_count, Timestamp date_time, long location_id) {
-    }
+	void setId(long id) {
+		this.id = id;
+	}
 
+	public User getUser() {
+		return this.user;
+	}
 
-    long getId() {
-        return this.id;
-    }
+	void setUser(User user) {
+		this.user = user;
+	}
 
-    void setId(long id) {
-        this.id = id;
-    }
+	public String getDescription() {
+		return this.description;
+	}
 
-    User getUser() {
-        return this.user;
-    }
+	void setDescription(String description) throws PostException {
+		if (description != null && !description.isEmpty()) {
+			if (description.length() < MIN_LENGTH) {
+				throw new PostException(
+						"Name of the category is too short. It should be more than " + MIN_LENGTH + " symbols.");
+			} else if (description.length() > MAX_LENGTH) {
+				throw new PostException(
+						"Name of the category is too long. It should be less than" + MAX_LENGTH + " symbols");
+			}
+		} else {
+			throw new PostException("Name of the category should not be empty!");
+		}
+		this.description = description;
+	}
 
-    void setUser(User user) {
-        this.user = user;
-    }
+	public int getLikesCount() {
+		return this.likesCount;
+	}
 
-    public String getDescription() {
-        return this.description;
-    }
+	void setLikesCount(int likesCount) {
+		this.likesCount = likesCount;
+	}
 
-    void setDescription(String description) throws PostException {
-        if (description!=null && !description.isEmpty()) {
-            if (description.length() < MIN_LENGTH) {
-                throw new PostException("Name of the category is too short. It should be more than " + MIN_LENGTH + " symbols.");
-            } else if (description.length() > MAX_LENGTH) {
-                throw new PostException("Name of the category is too long. It should be less than" + MAX_LENGTH + " symbols");
-            }
-        } else {
-            throw new PostException("Name of the category should not be empty!");
-        }
-        this.description = description;
-    }
+	public int getDislikesCount() {
+		return this.dislikesCount;
+	}
 
-    int getLikesCount() {
-        return this.likesCount;
-    }
+	void setDislikesCount(int dislikesCount) {
+		this.dislikesCount = dislikesCount;
+	}
 
-    void setLikesCount(int likesCount) {
-        this.likesCount = likesCount;
-    }
+	public Timestamp getDateTime() {
+		return this.dateTime;
+	}
 
-    int getDislikesCount() {
-        return this.dislikesCount;
-    }
+	void setDateTime(Timestamp dateTime) {
+		this.dateTime = dateTime;
+	}
 
-    void setDislikesCount(int dislikesCount) {
-        this.dislikesCount = dislikesCount;
-    }
+	public Location getLocation() {
+		return this.location;
+	}
 
-     public Timestamp getDateTime() {
-        return this.dateTime;
-    }
+	void setLocation(Location location) {
+		this.location = location;
+	}
 
-    void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime;
-    }
+	public Set<Category> getCategories() {
+		return Collections.unmodifiableSet(this.categories);
+	}
 
-    Location getLocation() {
-        return this.location;
-    }
+	void setCategories(HashSet<Category> categories) {
+		this.categories = categories;
+	}
 
-    void setLocation(Location location) {
-        this.location = location;
-    }
+	public HashSet<Multimedia> getMultimedia() {
+		return (HashSet<Multimedia>) Collections.unmodifiableSet(this.multimedia);
+	}
 
-    HashSet<Category> getCategories() {
-        return (HashSet<Category>) Collections.unmodifiableSet(this.categories);
-    }
+	void setMultimedia(HashSet<Multimedia> multimedia) {
+		this.multimedia = multimedia;
+	}
 
-    void setCategories(HashSet<Category> categories) {
-        this.categories = categories;
-    }
+	public Set<User> getTaggedPeople() {
+		return Collections.unmodifiableSet(this.taggedPeople);
+	}
 
-    HashSet<Multimedia> getMultimedia() {
-        return (HashSet<Multimedia>) Collections.unmodifiableSet(this.multimedia);
-    }
+	void setTaggedPeople(HashSet<User> taggedPeople) {
+		this.taggedPeople = taggedPeople;
+	}
 
-    void setMultimedia(HashSet<Multimedia> multimedia) {
-        this.multimedia = multimedia;
-    }
+	public Set<Comment> getComments() {
+		return Collections.unmodifiableSet(this.comments);
+	}
 
-    HashSet<User> getTaggedPeople() {
-        return (HashSet<User>) Collections.unmodifiableSet(this.taggedPeople);
-    }
+	void setComments(TreeSet<Comment> treeSet) {
+		this.comments = treeSet;
+	}
 
-    void setTaggedPeople(HashSet<User> taggedPeople) {
-        this.taggedPeople = taggedPeople;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Post post = (Post) o;
+		return id == post.id;
+	}
 
-    HashSet<Comment> getComments() {
-        return (HashSet<Comment>) Collections.unmodifiableSet(this.comments);
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
 
-    void setComments(HashSet<Comment> comments) {
-        this.comments = comments;
-    }
+	void deleteMultimedia(Multimedia multimedia) {
+		if (multimedia != null) {
+			this.multimedia.remove(multimedia);
+		}
+	}
 
+	void tagUser(User user) {
+		if (user != null && !this.taggedPeople.contains(user)) {
+			this.taggedPeople.add(user);
+		}
+	}
 
+	void addCategory(Category category) {
+		if (category != null && !this.categories.contains(category)) {
+			this.categories.add(category);
+		}
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return id == post.id;
-    }
+	void addComment(Comment c) {
+		if (c != null) {
+			this.comments.add(c);
+		}
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
-    }
+	void deleteComment(Comment c) {
+		if (c != null && this.comments.contains(c)) {
+			this.comments.remove(c);
+		}
+	}
 
-     void deleteMultimedia(Multimedia multimedia) {
-        if(multimedia!=null){
-            this.multimedia.remove(multimedia);
-        }
-    }
+	@Override
+	public int compareTo(Post o) {
+		return this.dateTime.compareTo(o.dateTime);
 
-     void tagUser(User user) {
-        if(user!=null && !this.taggedPeople.contains(user)){
-            this.taggedPeople.add(user);
-        }
-    }
-
-     void addCategory(Category category) {
-        if(category!=null && !this.categories.contains(category)){
-            this.categories.add(category);
-        }
-    }
-
-     void addComment(Comment c) {
-        if(c!=null){
-            this.comments.add(c);
-        }
-    }
-
-     void deleteComment(Comment c) {
-        if(c!=null && this.comments.contains(c)){
-            this.comments.remove(c);
-        }
-    }
-
-    @Override
-    public int compareTo(Post o) {
-        return this.dateTime.compareTo(o.dateTime);
-
-    }
+	}
 }
-

@@ -4,6 +4,7 @@ import model.exceptions.CategoryException;
 
 import java.sql.*;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
@@ -92,11 +93,11 @@ public class CategoryDao extends AbstractDao{
     }
 
     //tested
-    public void addAllCategoriesToPost(Post post,HashSet<Category> categories) throws CategoryException {
+    public void addAllCategoriesToPost(Post post,Set<Category> set) throws CategoryException {
         //TODO IF ENTRY EXISTS- THROWS EXCEPTION!!!
         try {
             PreparedStatement ps = this.getCon().prepareStatement("INSERT into posts_categories(post_id, category_id) values (?,?);");
-            for (Category category : categories) {
+            for (Category category : set) {
                 ps.setLong(1,post.getId());
                 ps.setLong(2,category.getId());
                 ps.addBatch();
