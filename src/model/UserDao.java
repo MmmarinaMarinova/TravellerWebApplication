@@ -83,7 +83,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 
 	// ::::::::: loading user from db :::::::::
 	// * TESTED *
-	public User getUserByUsername(String username) throws SQLException, UserException {
+	public User getUserByUsername(String username) throws SQLException, UserException, PostException {
 		User fetched = null;
 		try (PreparedStatement ps = this.getCon().prepareStatement(
 				"select user_id, username, password, email, profile_pic_id, description from users where username = ?;");) {
@@ -93,6 +93,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 				fetched = new User(rs.getLong("user_id"), username, rs.getString("password"), rs.getString("email"),
 						rs.getLong("profile_pic_id"), rs.getString("description"));
 			}
+			UserDao.getInstance().setPosts(fetched);
 			return fetched;
 		}
 	}
@@ -184,6 +185,7 @@ public class UserDao extends AbstractDao { // operates with the following tables
 			while (rs.next()) {
 				posts.add(new Post(rs.getLong("post_id"), rs.getString("description"), rs.getInt("likes_count"), rs.getInt("dislikes_count"), rs.getTimestamp("date_time")));
 			}
+
 		}
 		return posts;
 	}

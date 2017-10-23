@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import model.exceptions.PostException;
 import model.exceptions.UserException;
 
 public final class User {
@@ -24,7 +26,7 @@ public final class User {
 	private HashSet<User> following = null;
 	private TreeMap<Timestamp, Location> visitedLocations = null; // order by date and time of visit required
 	private HashSet<Location> wishlist = null;
-	private TreeSet<Post> posts = null; // order by date and time of post submition required
+	private TreeSet<Post> posts = new TreeSet<>(); // order by date and time of post submition required
 	// !!! overriding of compareTo() in 'Post' required !!!
 
 	// ::::::::: additional object characteristics :::::::::
@@ -100,7 +102,7 @@ public final class User {
 		return Collections.unmodifiableSet(this.wishlist);
 	}
 
-	public SortedSet<Post> getPosts() {
+	public SortedSet<Post> getPosts() throws SQLException, PostException {
 		return Collections.unmodifiableSortedSet(this.posts);
 	}
 
@@ -199,7 +201,7 @@ public final class User {
 		this.wishlist = wishlist;
 	}
 
-	void setPosts(TreeSet<Post> posts) {
+	public void setPosts(TreeSet<Post> posts) {
 		this.posts = posts;
 	}
 

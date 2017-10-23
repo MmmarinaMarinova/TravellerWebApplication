@@ -10,7 +10,7 @@ import java.util.HashSet;
 /**
  * Created by Marina on 15.10.2017 ?..
  */
-public class Post implements Comparable {
+public class Post implements Comparable<Post> {
     private static final int MIN_LENGTH = 5;
     private static final int MAX_LENGTH = 255;
    /* post_id INT(11)
@@ -88,7 +88,7 @@ public class Post implements Comparable {
         this.user = user;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
@@ -121,7 +121,7 @@ public class Post implements Comparable {
         this.dislikesCount = dislikesCount;
     }
 
-    Timestamp getDateTime() {
+     public Timestamp getDateTime() {
         return this.dateTime;
     }
 
@@ -170,15 +170,6 @@ public class Post implements Comparable {
     }
 
 
-    /**
-     *
-     * @param o
-     * @return 0 if equal, -1 if current date is before the argument date, 1 if current date is after the argument date
-     */
-    @Override
-    public int compareTo(Object o) {
-        return this.dateTime.compareTo((Timestamp) o);
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -224,6 +215,12 @@ public class Post implements Comparable {
         if(c!=null && this.comments.contains(c)){
             this.comments.remove(c);
         }
+    }
+
+    @Override
+    public int compareTo(Post o) {
+        return this.dateTime.compareTo(o.dateTime);
+
     }
 }
 

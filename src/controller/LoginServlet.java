@@ -1,6 +1,9 @@
 package controller;
 
+import model.PostDao;
+import model.User;
 import model.UserDao;
+import model.exceptions.PostException;
 import model.exceptions.UserException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +27,8 @@ public class LoginServlet extends HttpServlet {
 		try {
 			if (UserDao.getInstance().existsUser(username, password)) {
 				request.getSession().setAttribute("logged", true);
-				request.getSession().setAttribute("user", UserDao.getInstance().getUserByUsername(username));
+				User user=UserDao.getInstance().getUserByUsername(username);
+				request.getSession().setAttribute("user", user);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				return;
 			} else {
@@ -35,6 +39,8 @@ public class LoginServlet extends HttpServlet {
 		} catch (SQLException | UserException e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("error.jsp").forward(request, response);
+		} catch (PostException e) {
+			e.printStackTrace();
 		}
 	}
 	

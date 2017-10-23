@@ -20,7 +20,7 @@ public class PostDao extends AbstractDao{
     }
 
     //tested
-    public void insertNewPost(Post post) throws SQLException, CategoryException, PostException, MultimediaException {
+    public void insertNewPost(Post post) throws SQLException, CategoryException, PostException, MultimediaException, UserException {
         try {
             this.getCon().setAutoCommit(false);
             PreparedStatement ps = this.getCon().prepareStatement(
@@ -32,8 +32,11 @@ public class PostDao extends AbstractDao{
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             post.setId(rs.getLong(1));
+
             CategoryDao.getInstance().addAllCategoriesToPost(post, post.getCategories()); //not sure if it is correct this way
             MultimediaDao.getInstance().addAllMultimediaToPost(post, post.getMultimedia());
+            User user=UserDao.getInstance().getUserById(post.getUser().getUserId());
+            UserDao.getInstance().addPost(user, post);
             this.tagAllUsers(post, post.getTaggedPeople());
             this.getCon().commit();
         } catch (SQLException e) {
